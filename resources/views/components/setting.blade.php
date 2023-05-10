@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout {{$attributes->merge(['class' => ''])}}>
     <section class="px-6 py-8 mx-auto max-w-6xl">
         <x-slot name="header">
             <h2 class="font-semibold text-center text-xl text-gray-800 leading-tight">
@@ -11,7 +11,7 @@
                 {{ __('Dashboard') }}
             </h2>
         </x-slot>
-        <div class="flex">
+        <div class="flex gap-5">
             <aside
                 class="w-36 flex-shrink-0"
             >
@@ -35,7 +35,7 @@
                     </li>
                 </ul>
             </aside>
-            <main class="flex-1">
+            <main class="flex space-x-10">
                 {{ $slot }}
             </main>
         </div>
