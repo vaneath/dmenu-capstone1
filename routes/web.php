@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RestaurantController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,14 +19,11 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/restaurant', function () {
-    return view('restaurant.index');
-});
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/restaurant', [RestaurantController::class, 'index'])->name('restaurant.index');
 });
 
 require __DIR__.'/auth.php';
