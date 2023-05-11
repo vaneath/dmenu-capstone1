@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // schema facade 191
+        \Illuminate\Support\Facades\Schema::defaultStringLength(191);
     }
 }

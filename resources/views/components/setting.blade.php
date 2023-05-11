@@ -35,7 +35,7 @@
                     </li>
                 </ul>
             </aside>
-            <main class="flex space-x-10">
+            <main class="flex flex-wrap gap-10">
                 {{ $slot }}
             </main>
         </div>
