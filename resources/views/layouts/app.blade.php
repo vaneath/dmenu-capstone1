@@ -39,4 +39,5 @@
             @include('layouts.footer')
         </div>
     </body>
+    <x-flash-message />
 </html>
