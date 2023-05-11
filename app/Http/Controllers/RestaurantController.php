@@ -42,9 +42,11 @@ class RestaurantController extends Controller
         return redirect()->route('restaurant.index');
     }
 
-    public function show($id)
+    public function show(Restaurant $restaurant)
     {
-        //
+        return view('restaurant.show', [
+            'restaurant' => $restaurant,
+        ]);
     }
 
     public function update(Request $request, $id)

@@ -1,14 +1,14 @@
 <nav class="bg-blue flex justify-evenly items-center">
     <div class="flex gap-5">
-        <a href="{{ route('login') }}"
+        <a href="#"
            class="text-sm px-7 py-2 transition ease-linear duration-300 bg-yellow text-white rounded-xl border-2 border-yellow hover:bg-transparent hover:scale-110 hover:text-yellow"
         >
-            Login
+            Features
         </a>
-        <a href="{{ route('register') }}"
+        <a href="#"
            class="text-sm px-7 py-2 transition ease-linear duration-300 bg-yellow text-white rounded-xl border-2 border-yellow hover:bg-transparent hover:scale-110 hover:text-yellow"
         >
-            Register
+            Pricing
         </a>
     </div>
     <div class="w-20 h-20">

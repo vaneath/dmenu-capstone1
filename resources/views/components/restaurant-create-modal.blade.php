@@ -37,7 +37,7 @@
       <div class="relative w-auto max-w-2xl mx-auto">
         <div class="bg-white w-full p-6 text-wrap break-words flex flex-col" style="max-height: 80vh; overflow-y: auto">
           <h2 class="text-2xl font-bold mb-4 text-center">Add Restaurant</h2>
-          <form @submit.prevent="submit" action="/restaurant" method="POST" x-data="{  }">
+          <form @submit.prevent="submit" action="/restaurants" method="POST" x-data="{  }">
                 @csrf
             <div class="flex flex-col mb-4">
               <label class="text-gray-700 mb-2">Restaurant's Name:</label>
@@ -51,7 +51,7 @@
             </div>
             <div class="flex flex-col mb-4">
               <label class="text-gray-700 mb-2">Currency:</label>
-              <!-- select tag with default value Phnom Penh --> 
+              <!-- select tag with default value Phnom Penh -->
 
               <select @blur="validateCurrency" class="border border-gray-300 rounded-md px-3 py-2" name="currency" x-model="inputValues.currency" >
                 <option value="USD">USD</option>
@@ -115,5 +115,5 @@
       </div>
     </div>
     <div x-show="createRestaurantFormOpen" class="absolute z-40 inset-0 bg-black bg-opacity-50"></div>
-  
+
 </div>
