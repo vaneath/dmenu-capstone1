@@ -20,6 +20,9 @@ module.exports = {
                 yellow: '#E4A11B',
                 button: '#fe7a15',
             },
+            blur: {
+                xs: '1px',
+            }
         },
     },
 };

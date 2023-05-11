@@ -1,4 +1,4 @@
-<x-app-layout {{$attributes->merge(['class' => ''])}}>
+<x-app-layout>
     <section class="px-6 py-8 mx-auto max-w-6xl">
         <x-slot name="header">
             <h2 class="font-semibold text-center text-xl text-gray-800 leading-tight">
@@ -11,7 +11,7 @@
                 {{ __('Dashboard') }}
             </h2>
         </x-slot>
-        <div class="flex gap-5">
+        <div class="flex gap-5 mb-10">
             <aside
                 class="w-36 flex-shrink-0"
             >
@@ -26,7 +26,7 @@
                         </a>
                     </li>
                     <li class="px-3 py-2 rounded-lg {{ request()->is('restaurant') ? 'bg-blue text-white' : '' }}">
-                        <a href="/restaurant" class="flex items-center gap-3">
+                        <a href="{{ route('restaurant.index') }}" class="flex items-center gap-3">
                         <span class="material-symbols-outlined">
                             restaurant_menu
                         </span>
