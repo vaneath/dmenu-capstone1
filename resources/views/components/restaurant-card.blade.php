@@ -14,11 +14,15 @@
     </div>
     <h3 class="mb-5 font-bold text-center text-xl">{{ $restaurant->name }}</h3>
     <div class="w-36 mx-auto text-center flex-col space-y-3">
-        <div class="px-4 py-2 rounded-lg bg-orange-300">
-            <a href="#" >Payment</a>
-        </div>
-        <div class="px-4 py-2 rounded-lg bg-orange-300">
-            <a href="#">Edit Menu</a>
-        </div>
+        <a href="#" >
+            <div class="mb-3 px-4 py-2 rounded-lg bg-orange-300">
+                Payment
+            </div>
+        </a>
+        <a href="#" >
+            <div class="px-4 py-2 rounded-lg bg-orange-300">
+                Edit Menu
+            </div>
+        </a>
     </div>
 </div>
