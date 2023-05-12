@@ -1,3 +1,10 @@
+<?php
+$currencies = [
+    ['id' => 'USD', 'full_name' => 'United States Dollar', 'country' => 'America'],
+    ['id' => 'KHR', 'full_name' => 'Khmer Riels', 'country' => 'Cambodia'],
+];
+?>
+
 <div x-data="{ open: false,
     isValid: { name: true, location: true, currency: true, no_of_tables: true, no_of_available_tables: true },
     inputValues: { name: '', location: '', currency: '', no_of_tables: '', no_of_available_tables: '' },
@@ -17,6 +24,9 @@
     },
     validateName() {
       this.isValid.name = this.inputValues.name.trim() !== '';
+      // if(!this.isValid.name){
+      //  document.getElementById('name-required').textContent = 'Restaurant's Name is required';
+      // }
     },
     validateLocation() {
       this.isValid.location = this.inputValues.location.trim() !== '';
@@ -60,43 +70,11 @@
               <!-- select tag with default value Phnom Penh -->
 
               <select @blur="validateCurrency" class="border border-gray-300 rounded-md px-3 py-2" name="currency" x-model="inputValues.currency" >
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="GBP">GBP</option>
-                <option value="JPY">JPY</option>
-                <option value="CHF">CHF</option>
-                <option value="CAD">CAD</option>
-                <option value="AUD">AUD</option>
-                <option value="NZD">NZD</option>
-                <option value="CNY">CNY</option>
-                <option value="SEK">SEK</option>
-                <option value="RUB">RUB</option>
-                <option value="HKD">HKD</option>
-                <option value="SGD">SGD</option>
-                <option value="TRY">TRY</option>
-                <option value="INR">INR</option>
-                <option value="BRL">BRL</option>
-                <option value="ZAR">ZAR</option>
-                <option value="NOK">NOK</option>
-                <option value="MXN">MXN</option>
-                <option value="IDR">IDR</option>
-                <option value="MYR">MYR</option>
-                <option value="PHP">PHP</option>
-                <option value="THB">THB</option>
-                <option value="CZK">CZK</option>
-                <option value="PLN">PLN</option>
-                <option value="BGN">BGN</option>
-                <option value="DZD">DZD</option>
-                <option value="EGP">EGP</option>
-                <option value="KRW">KRW</option>
-                <option value="VND">VND</option>
-                <option value="CLP">CLP</option>
-                <option value="ILS">ILS</option>
-                <option value="ARS">ARS</option>
-                <option value="HUF">HUF</option>
-                <option value="SAR">SAR</option>
+              @foreach ($currencies as $currency)
+                <option value="{{ $currency['id'] }}">{{ $currency['full_name'] }} ({{ $currency['id'] }})</option>
+              @endforeach
               </select>
-              <div x-show="!isValid.currency" class="text-red-600 text-sm mt-1" id="currency-required" x-cloak>This field is required.</div>
+              <p x-show="!isValid.currency" class="text-red-600 text-sm mt-1" id="currency-required" x-cloak>This field is required.</p>
             </div>
             <div class="flex flex-col mb-4">
                 <x-input-label for="no_of_tables">

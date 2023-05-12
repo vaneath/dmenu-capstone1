@@ -1,15 +1,22 @@
-<x-mobile-layout
-    :restaurant="$restaurant"
-    url="https://th.bing.com/th/id/R.cf3c02a778b9988ea28922849888e530?rik=4gnDcCikhk%2b4nA&pid=ImgRaw&r=0"
-    :back="route('restaurant.index')"
+@php
+    $activeSectionPage = $sections->first()->id;
+@endphp
+<x-mobile-layout :restaurant="$restaurant" :sections="$sections" :activeSectionPage="$activeSectionPage">
+    
+<div x-data>
+    <span x-data="{ receivedData: '' }" x-on:update-active-section-page.window="receivedData = $event.detail">
+        Received Data: <span x-text="receivedData"></span>
+    </span>
+
+</div>
+
+<div 
+x-data="{ activeSectionPage = null }"
+x-on:update-active-section-page.window="activeSectionPage = $event.detail"
 >
-    <x-slot:section>
-        @for($i = 0; $i < 6; $i++)
-            <button class="px-6 py-1 border-[3px] border-yellow rounded-3xl hover:bg-yellow">
-                Main menu
-            </button>
-        @endfor
-    </x-slot:section>
+    <p x-text="activeSectionPage"></p>
+    <p x-bind:x-text="activeSectionPage"></p>
+</div>
     <ul>
         <button class="w-full mb-5 py-2 bg-yellow rounded-2xl text-white font-bold text-lg">
             +
