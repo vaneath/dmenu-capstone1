@@ -1,4 +1,4 @@
-<footer class="mt-10 flex items-center w-full h-20 text-white bg-yellow absolute bottom-0">
+<footer class="flex items-center w-full h-20 text-white bg-yellow absolute bottom-0">
     <div class="mx-auto flex justify-center gap-10">
         <a href="#!" class="text-yellow dark:text-neutral-200">
             <svg

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Restaurant;
+use App\Models\Section;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,13 +12,8 @@ class RestaurantController extends Controller
 {
     public function index()
     {
-        $restaurants = new Restaurant();
-        $tables = $restaurants->getTable();
-        $restaurant_columns = Schema::getColumnListing($tables);
-        $restaurant_columns = array_diff($restaurant_columns, ['created_at', 'updated_at']);
         return view('restaurant.index', [
             'restaurants' => Restaurant::where('user_id', Auth::id())->get(),
-            'restaurant_columns' => $restaurant_columns
         ]);
     }
 
@@ -42,9 +38,14 @@ class RestaurantController extends Controller
         return redirect()->route('restaurant.index');
     }
 
-    public function show($id)
+    public function show(Restaurant $restaurant)
     {
-        //
+        // get all section but only belongs to the restaurant
+        $sections = Section::where('restaurant_id', $restaurant->id)->get();
+        return view('restaurant.show', [
+            'restaurant' => $restaurant,
+            'sections' => $sections,
+        ]);
     }
 
     public function update(Request $request, $id)
