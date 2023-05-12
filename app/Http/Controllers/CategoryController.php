@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Restaurant $restaurant)
     {
-        //
+        return view('category.index', [
+            'restaurant' => $restaurant,
+        ]);
     }
 
     public function store(Request $request)
