@@ -1,7 +1,7 @@
-@props(['restaurant'])
+@props(['restaurant', 'url', 'back'])
 <x-head>
     <div class="mx-auto max-w-[40rem] mb-10 relative block">
-        <a href="{{ route('restaurant.index') }}">
+        <a href="{{ $back }}">
             <div class="top-5 left-5 z-50 absolute w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white">
             <span class="material-symbols-outlined absolute left-[35%] top-[25%]">
                 arrow_back_ios
@@ -9,7 +9,7 @@
             </div>
         </a>
         <img
-            src="https://th.bing.com/th/id/R.cf3c02a778b9988ea28922849888e530?rik=4gnDcCikhk%2b4nA&pid=ImgRaw&r=0"
+            src="{{ $url }}"
             alt="restaurant-img"
             class="bg-cover h-40 w-full"
         >
@@ -23,16 +23,12 @@
                 </span>
                 {{ ucwords($restaurant->location) }}
             </div>
-            <div class="mb-8">
+            <div class="mb-8" id="section">
                 <div class="flex gap-5 text-white whitespace-nowrap overflow-x-scroll">
                     <button class="px-4 py-2 bg-yellow font-bold text-xl rounded-full">
                         +
                     </button>
-                    @for($i = 0; $i < 6; $i++)
-                        <button class="px-6 py-1 border-[3px] border-yellow rounded-3xl hover:bg-yellow">
-                            Main menu
-                        </button>
-                    @endfor
+                    {{ $section }}
                 </div>
             </div>
             {{ $slot }}

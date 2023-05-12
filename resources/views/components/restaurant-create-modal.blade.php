@@ -40,17 +40,23 @@
           <form @submit.prevent="submit" action="/restaurants" method="POST" x-data="{  }">
                 @csrf
             <div class="flex flex-col mb-4">
-              <label class="text-gray-700 mb-2">Restaurant's Name:</label>
-              <input @blur="validateName" class="border border-gray-300 rounded-md px-3 py-2" type="text" placeholder="Wonderful Restaurant" name="name" x-model="inputValues.name" />
+              <x-input-label for="name">
+                  Restaurant's Name:
+              </x-input-label>
+                <x-text-input name="name" x-model="inputValues.name" @blur="validateName" placeholder="Wonderful Restaurant"/>
               <p x-show="!isValid.name" class="text-red-600 text-sm mt-1" id="name-required" x-cloak>This field is required.</p>
             </div>
             <div class="flex flex-col mb-4">
-              <label class="text-gray-700 mb-2">Google Map Location:</label>
-              <input @blur="validateLocation" class="border border-gray-300 rounded-md px-3 py-2" type="text" placeholder="https://goo.gl/maps/..." name="location" x-model="inputValues.location" />
+                <x-input-label for="location">
+                    Google Map Location:
+                </x-input-label>
+                <x-text-input name="location" x-model="inputValues.location" @blur="validateLocation" placeholder="https://goo.gl/maps/..."/>
               <div x-show="!isValid.location" class="text-red-600 text-sm mt-1" id="location-required" x-cloak>This field is required.</div>
             </div>
             <div class="flex flex-col mb-4">
-              <label class="text-gray-700 mb-2">Currency:</label>
+                <x-input-label for="currency">
+                    Currency:
+                </x-input-label>
               <!-- select tag with default value Phnom Penh -->
 
               <select @blur="validateCurrency" class="border border-gray-300 rounded-md px-3 py-2" name="currency" x-model="inputValues.currency" >
@@ -93,22 +99,26 @@
               <div x-show="!isValid.currency" class="text-red-600 text-sm mt-1" id="currency-required" x-cloak>This field is required.</div>
             </div>
             <div class="flex flex-col mb-4">
-              <label class="text-gray-700 mb-2">Number of Table:</label>
-              <input @blur="validateNoOfTables" class="border border-gray-300 rounded-md px-3 py-2" type="number" placeholder="6" name="no_of_tables" x-model="inputValues.no_of_tables"/>
+                <x-input-label for="no_of_tables">
+                    Number of Table:
+                </x-input-label>
+                <x-text-input min="1" max="10" type="number" name="no_of_tables" x-model="inputValues.no_of_tables" @blur="validateNoOfTables" placeholder="6"/>
               <div x-show="!isValid.no_of_tables" class="text-red-600 text-sm mt-1" id="no-of-tables-required" x-cloak>This field is required.</div>
             </div>
             <div class="flex flex-col mb-4">
-              <label class="text-gray-700 mb-2">Number of Available Table:</label>
-              <input @blur="validateNoOfAvailableTables" class="border border-gray-300 rounded-md px-3 py-2" type="number" placeholder="5" name="no_of_available_tables" x-model="inputValues.no_of_available_tables" />
+                <x-input-label for="no_of_available_tables">
+                    Number of Available Table:
+                </x-input-label>
+                <x-text-input min="1" max="10" type="number" name="no_of_available_tables" x-model="inputValues.no_of_available_tables" @blur="validateNoOfAvailableTables" placeholder="5"/>
               <div x-show="!isValid.no_of_available_tables" class="text-red-600 text-sm mt-1" id="no-of-available-tables-required" x-cloak>This field is required.</div>
             </div>
             <div class="flex justify-center space-x-4">
-              <button type="button" class="bg-red-500 text-white rounded-lg px-6 py-2" @click="createRestaurantFormOpen = false">
+              <button type="button" class="inline-flex items-center px-6 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" @click="createRestaurantFormOpen = false">
                 Close
               </button>
-              <button type="submit" class="bg-green-500 text-white rounded-lg px-6 py-2" >
-                Create
-              </button>
+                <x-primary-button type="submit">
+                    Create
+                </x-primary-button>
             </div>
           </form>
         </div>
