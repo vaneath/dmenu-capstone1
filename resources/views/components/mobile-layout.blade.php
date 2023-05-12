@@ -1,5 +1,23 @@
-@props(['restaurant'])
+@props(['restaurant', 'sections', 'activeSectionPage'])
 <x-head>
+    @php
+        $test = 'test';
+    @endphp
+<div x-data="{ 
+    createSectionFormOpen: false, 
+    someVariable: 'someValue',
+    activeSectionPage: {{ $activeSectionPage }},
+    setActiveSectionPage(sectionId) {
+        this.activeSectionPage = sectionId;
+        $dispatch('update-active-section-page', sectionId);
+    },
+    toggleModal() { 
+        this.createSectionFormOpen = !this.createSectionFormOpen; 
+        this.$dispatch('create-restaurant-form-open', { createSectionFormOpen: this.createSectionFormOpen }); 
+    },
+}" 
+x-init="$dispatch('update-active-section-page', activeSectionPage)"
+@toggle-modal="toggleModal">
     <div class="mx-auto max-w-[40rem] mb-10 relative block">
         <a href="{{ route('restaurant.index') }}">
             <div class="top-5 left-5 z-50 absolute w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white">
@@ -25,18 +43,25 @@
             </div>
             <div class="mb-8">
                 <div class="flex gap-5 text-white whitespace-nowrap overflow-x-scroll">
-                    <button class="px-4 py-2 bg-yellow font-bold text-xl rounded-full">
+                    <button @click="toggleModal" class="px-4 py-2 bg-yellow font-bold text-xl rounded-full">
                         +
                     </button>
-                    @for($i = 0; $i < 6; $i++)
-                        <button class="px-6 py-1 border-[3px] border-yellow rounded-3xl hover:bg-yellow">
-                            Main menu
+                    @foreach($sections as $section)
+                        <button 
+                        :class="{ 'bg-yellow': activeSectionPage == {{ $section->id }} }"
+                        class="px-6 py-1 border-[3px] border-yellow rounded-3xl hover:bg-yellow" 
+                        @click="setActiveSectionPage({{ $section->id }})"
+                        >
+                            {{ ucwords($section->name) }}
                         </button>
-                    @endfor
+                    @endforeach
                 </div>
             </div>
             {{ $slot }}
             <p class="text-center text-white">dmenu.com</p>
         </div>
     </div>
+    <x-section-create-modal :restaurant="$restaurant"/>
+</div>
+
 </x-head>

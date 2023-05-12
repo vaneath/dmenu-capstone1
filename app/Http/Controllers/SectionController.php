@@ -4,25 +4,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Section;
+use App\Models\Restaurant;
 
 class SectionController extends Controller
 {
     public function index()
     {
-        // get section but only belongs to the restaurant
-        $sections = new Section();
-        $tables = $sections->getTable();
-        $section_columns = Schema::getColumnListing($tables);
-        $section_columns = array_diff($section_columns, ['created_at', 'updated_at']);
         return view('section.index', [
             'sections' => Section::where('user_id', Auth::id())->get(),
-            'section_columns' => $section_columns
         ]);
     }
 
     public function store(Request $request)
     {
-        //
+        $request->is_visible = $request->is_visible === 'on' ? true : false;
+        $restaurant = Restaurant::find($request->restaurant_id);
+        $maxSortNumber = $restaurant->sections->max('sort_number');
+        $section = new Section();
+        $section->name = $request->name;
+        $section->is_visible = $request->is_visible;
+        $section->sort_number = $maxSortNumber + 1;
+        $section->restaurant_id = $request->restaurant_id;
+        $section->save();
+
+        return redirect()->route('restaurant.show', [
+            'restaurant' => $restaurant,
+            'sections' => $restaurant->sections,
+        ]);
     }
 
     public function show($id)
