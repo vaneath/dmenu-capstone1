@@ -1,4 +1,4 @@
-@props(['restaurant', 'sections', 'activeSectionPage'])
+@props(['restaurant', 'url', 'back', 'sections', 'activeSectionPage'])
 <x-head>
     @php
         $test = 'test';
@@ -19,7 +19,7 @@
 x-init="$dispatch('update-active-section-page', activeSectionPage)"
 @toggle-modal="toggleModal">
     <div class="mx-auto max-w-[40rem] mb-10 relative block">
-        <a href="{{ route('restaurant.index') }}">
+        <a href="{{ $back }}">
             <div class="top-5 left-5 z-50 absolute w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white">
             <span class="material-symbols-outlined absolute left-[35%] top-[25%]">
                 arrow_back_ios
@@ -27,7 +27,7 @@ x-init="$dispatch('update-active-section-page', activeSectionPage)"
             </div>
         </a>
         <img
-            src="https://th.bing.com/th/id/R.cf3c02a778b9988ea28922849888e530?rik=4gnDcCikhk%2b4nA&pid=ImgRaw&r=0"
+            src="{{ $url }}"
             alt="restaurant-img"
             class="bg-cover h-40 w-full"
         >
@@ -41,7 +41,7 @@ x-init="$dispatch('update-active-section-page', activeSectionPage)"
                 </span>
                 {{ ucwords($restaurant->location) }}
             </div>
-            <div class="mb-8">
+            <div class="mb-8" id="section">
                 <div class="flex gap-5 text-white whitespace-nowrap overflow-x-scroll">
                     <button @click="toggleModal" class="px-4 py-2 bg-yellow font-bold text-xl rounded-full">
                         +

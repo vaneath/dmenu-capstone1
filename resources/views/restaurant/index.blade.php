@@ -1,7 +1,6 @@
-<x-setting>
+<x-setting class="grid grid-cols-2 sm:grid-cols-3 justify-items-center lg:grid-cols-5 gap-3">
     <x-restaurant-create />
     @foreach($restaurants as $restaurant)
         <x-restaurant-card :restaurant="$restaurant" />
     @endforeach
-
 </x-setting>
