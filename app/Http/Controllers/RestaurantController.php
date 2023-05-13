@@ -40,12 +40,36 @@ class RestaurantController extends Controller
 
     public function show(Restaurant $restaurant)
     {
-        // get all section but only belongs to the restaurant
         $sections = Section::where('restaurant_id', $restaurant->id)->get();
-        return view('restaurant.show', [
-            'restaurant' => $restaurant,
-            'sections' => $sections,
-        ]);
+        $sections = $sections->sortBy('sort_number');
+        $activeSectionPage = request()->query('active-section-id');
+        if ($activeSectionPage != null && $sections->contains('id', $activeSectionPage)) {
+            return view('restaurant.show', [
+                'restaurant' => $restaurant,
+                'sections' => $sections,
+                'activeSectionPage' => $activeSectionPage,
+            ]);
+        } elseif ($activeSectionPage != null && !$sections->contains('id', $activeSectionPage)) {
+            return view('restaurant.show', [
+                'restaurant' => $restaurant,
+                'sections' => $sections,
+                'activeSectionPage' => $sections->first()->id,
+            ]);
+        } else{
+            if ($sections->isEmpty()) {
+                return view('restaurant.show', [
+                    'restaurant' => $restaurant,
+                    'sections' => $sections,
+                    'activeSectionPage' => null,
+                ]);
+            } else {
+                return view('restaurant.show', [
+                    'restaurant' => $restaurant,
+                    'sections' => $sections,
+                    'activeSectionPage' => $sections->first()->id,
+                ]);
+            }
+        }
     }
 
     public function update(Request $request, $id)
