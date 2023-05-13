@@ -29,7 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'show'])->name('restaurant.show');
     Route::post('/restaurants', [RestaurantController::class, 'store'])->name('restaurant.store');
     Route::get('restaurants/{restaurant}/{category:slug}', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('restaurants/{restaurant}/sections/{section}/categories', [CategoryController::class, 'index'])->name('category.index');
     Route::post('sections', [SectionController::class, 'store'])->name('section.store');
+    Route::post('categories', [CategoryController::class, 'store'])->name('category.store');
 });
 
 // test route

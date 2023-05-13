@@ -1,8 +1,11 @@
-@props(['restaurant', 'url', 'back', 'sections', 'activeSectionPage'])
+@props(['restaurant', 'sections', 'activeSectionPage'])
+<p>Mobile Layout {{ $activeSectionPage }} </p>
+@php
+    if($activeSectionPage == null) {
+        $activeSectionPage = 0;
+    }
+@endphp
 <x-head>
-    @php
-        $test = 'test';
-    @endphp
 <div x-data="{ 
     createSectionFormOpen: false, 
     someVariable: 'someValue',
