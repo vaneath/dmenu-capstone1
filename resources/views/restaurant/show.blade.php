@@ -23,7 +23,4 @@ x-on:update-active-section-page.window="activeSectionPage = $event.detail, fetch
     </div>
 
 </div>
-    
-
-
 </x-mobile-layout>
