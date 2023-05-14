@@ -1,5 +1,4 @@
 @props(['restaurant', 'sections', 'activeSectionPage', 'back', 'url'])
-<p>Mobile Layout {{ $activeSectionPage }} </p>
 @php
     if($activeSectionPage == null) {
         $activeSectionPage = 0;

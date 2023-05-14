@@ -11,7 +11,7 @@ x-data="{
     activeSectionPage: 0,
     restaurantId: {{ $restaurant->id }},
     fetchCategories: function(sectionId){
-        fetch('/restaurants/' + '1' + '/sections/' + sectionId + '/categories')
+        fetch('/restaurants/' + this.restaurantId + '/sections/' + sectionId + '/categories')
         .then(response => response.text())
         .then(html => {
         document.getElementById('categories').innerHTML = html;
