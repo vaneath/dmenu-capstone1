@@ -1,4 +1,4 @@
-@props(['restaurant', 'sections', 'activeSectionPage'])
+@props(['restaurant', 'sections', 'activeSectionPage', 'back', 'url'])
 <p>Mobile Layout {{ $activeSectionPage }} </p>
 @php
     if($activeSectionPage == null) {
@@ -6,24 +6,24 @@
     }
 @endphp
 <x-head>
-<div x-data="{ 
-    createSectionFormOpen: false, 
+<div x-data="{
+    createSectionFormOpen: false,
     someVariable: 'someValue',
     activeSectionPage: {{ $activeSectionPage }},
     setActiveSectionPage(sectionId) {
         this.activeSectionPage = sectionId;
         $dispatch('update-active-section-page', sectionId);
     },
-    toggleModal() { 
-        this.createSectionFormOpen = !this.createSectionFormOpen; 
-        this.$dispatch('create-restaurant-form-open', { createSectionFormOpen: this.createSectionFormOpen }); 
+    toggleModal() {
+        this.createSectionFormOpen = !this.createSectionFormOpen;
+        this.$dispatch('create-restaurant-form-open', { createSectionFormOpen: this.createSectionFormOpen });
     },
-}" 
+}"
 x-init="$dispatch('update-active-section-page', activeSectionPage)"
 @toggle-modal="toggleModal">
     <div class="mx-auto max-w-[40rem] mb-10 relative block">
         <a href="{{ $back }}">
-            <div class="top-5 left-5 z-50 absolute w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white">
+            <div class="top-5 left-5 z-30 absolute w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white">
             <span class="material-symbols-outlined absolute left-[35%] top-[25%]">
                 arrow_back_ios
             </span>
@@ -50,9 +50,9 @@ x-init="$dispatch('update-active-section-page', activeSectionPage)"
                         +
                     </button>
                     @foreach($sections as $section)
-                        <button 
+                        <button
                         :class="{ 'bg-yellow': activeSectionPage == {{ $section->id }} }"
-                        class="px-6 py-1 border-[3px] border-yellow rounded-3xl hover:bg-yellow" 
+                        class="px-6 py-1 border-[3px] border-yellow rounded-3xl hover:bg-yellow"
                         @click="setActiveSectionPage({{ $section->id }})"
                         >
                             {{ ucwords($section->name) }}
