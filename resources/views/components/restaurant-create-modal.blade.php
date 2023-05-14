@@ -43,7 +43,7 @@ $currencies = [
  }"
   @create-restaurant-form-open.window="open = $event.detail.createRestaurantFormOpen">
 
-  <div x-show="createRestaurantFormOpen" class="fixed inset-0 items-center justify-center mt-24 max-w-2xl mx-auto overflow-x-hidden overflow-y-auto z-50">
+  <div x-show="createRestaurantFormOpen" class=" fixed inset-0 items-center justify-center mt-24 max-w-2xl mx-auto overflow-x-hidden overflow-y-auto z-50">
       <div class="relative w-auto max-w-2xl mx-auto">
         <div class="bg-white w-full p-6 text-wrap break-words flex flex-col" style="max-height: 80vh; overflow-y: auto">
           <h2 class="text-2xl font-bold mb-4 text-center">Add Restaurant</h2>
@@ -102,6 +102,6 @@ $currencies = [
         </div>
       </div>
     </div>
-    <div x-show="createRestaurantFormOpen" class="absolute z-40 inset-0 bg-black bg-opacity-50"></div>
+    <div x-show="createRestaurantFormOpen" class="absolute z-40 inset-0 bg-black bg-opacity-80"></div>
 
 </div>

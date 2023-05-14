@@ -1,4 +1,10 @@
-<x-mobile-layout :restaurant="$restaurant" :sections="$sections" :activeSectionPage="$activeSectionPage">
+<x-mobile-layout
+    :restaurant="$restaurant"
+    :sections="$sections"
+    :activeSectionPage="$activeSectionPage"
+    :back="route('restaurant.index')"
+    url="https://th.bing.com/th/id/R.93b95738cb630f899bacf7dd835b5ad5?rik=tTYET5ChbtekCw&riu=http%3a%2f%2fyesofcorsa.com%2fwp-content%2fuploads%2f2016%2f11%2f4K-Wallpapers-7.jpg&ehk=T6iESUSfpf9rlqxhPxnOLZKKmedMu0oOGAuICEPY%2fbo%3d&risl=&pid=ImgRaw&r=0"
+>
 
 <div
 x-data="{
