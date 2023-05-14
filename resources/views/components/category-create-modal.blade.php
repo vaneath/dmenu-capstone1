@@ -21,9 +21,6 @@ $currencies = [
     },
     validateName() {
       this.isValid.name = this.inputValues.name.trim() !== '';
-      // if(!this.isValid.name){
-      //  document.getElementById('name-required').textContent = 'Restaurant's Name is required';
-      // }
     },
     validateImgUrl() {
       this.isValid.img_url = this.inputValues.img_url.trim() !== '';
@@ -45,7 +42,7 @@ $currencies = [
             <div class="flex flex-col mb-4">
               <label class="text-gray-700 mb-2">Image URL:</label>
               <input @blur="validateImgUrl" class="border border-gray-300 rounded-md px-3 py-2" type="text" placeholder="https://..." name="img_url" x-model="inputValues.img_url" />
-              <p x-show="!isValid.imgUrl" class="text-red-600 text-sm mt-1" id="img-url-required" x-cloak>This field is required.</p>
+              <p x-show="!isValid.img_url" class="text-red-600 text-sm mt-1" id="img-url-required" x-cloak>This field is required.</p>
             </div>
 
             <div class="inline-flex items-center">
