@@ -1,4 +1,4 @@
-@props(['url', 'name', 'description', 'price', ])
+@props(['url', 'name', 'description', 'price' ])
 
 <div class="mb-5">
     <img
