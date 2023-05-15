@@ -14,17 +14,28 @@ x-data="{
         fetch('/restaurants/' + this.restaurantId + '/sections/' + sectionId + '/categories')
         .then(response => response.text())
         .then(html => {
-        document.getElementById('categories').innerHTML = html;
+        document.getElementById('display-section').innerHTML = html;
         })
         .catch(error => {
         console.warn('Error fetching HTML:', error);
         });
-    }
+    },
+    fetchItems: function(categoryId){
+        fetch('/categories/' + categoryId + '/items')
+        .then(response => response.text())
+        .then(html => {
+        document.getElementById('display-section').innerHTML = html;
+        })
+        .catch(error => {
+        console.warn('Error fetching HTML:', error);
+        });
+    },
 }"
 x-on:update-active-section-page.window="activeSectionPage = $event.detail, fetchCategories($event.detail)"
+x-on:select-category.window="fetchItems($event.detail)"
 >
 
-    <div id="categories">
+    <div id="display-section">
 
     </div>
 
