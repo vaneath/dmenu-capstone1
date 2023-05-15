@@ -14,11 +14,11 @@
                 <div  @click="$dispatch('select-category', {{ $category->id }})" class="cursor-pointer">
                     <li class="relative mb-5">
                         <img
-                            src="{{ $category->img_url }}"
-                            alt=""
-                            class="bg-cover bg-center h-52 w-full rounded-2xl blur-xs transition ease-linear duration-300"
+                            src="{{ $category->img_url ?? asset('images/dmenu.png') }}"
+                            alt="{{ $category->name }}"
+                            class="bg-cover bg-center h-52 w-full rounded-2xl blur-xs transition ease-linear duration-300 hover:opacity-70"
                         >
-                        <h3 class="text-center w-full top-[40%] absolute font-semibold text-white text-3xl tracking-widest">
+                        <h3 class="uppercase text-center w-full top-[40%] absolute font-semibold text-white text-3xl tracking-widest">
                             {{ $category->name }}
                         </h3>
                     </li>
@@ -26,6 +26,6 @@
                 <!-- </a> -->
             @endforeach
         @endif
-</ul> 
+</ul>
 <x-category-create-modal :section="$section"/>
 </div>

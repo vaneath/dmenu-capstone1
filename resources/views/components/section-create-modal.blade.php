@@ -17,7 +17,7 @@
   @create-restaurant-form-open.window="open = $event.detail.createSectionFormOpen"
 >
 
-    <div x-show="createSectionFormOpen" class="absolute top-0 w-full h-full z-40 bg-black bg-opacity-80">
+    <div x-show="createSectionFormOpen" class="fixed top-0 w-full h-full z-40 bg-black bg-opacity-80">
         <div class="fixed inset-0 items-center justify-center mt-24 max-w-2xl mx-auto overflow-x-hidden overflow-y-auto z-50">
             <div class="relative w-auto max-w-2xl mx-auto">
                 <div class="bg-white w-full p-6 text-wrap break-words flex flex-col" style="max-height: 80vh; overflow-y: auto">
@@ -25,9 +25,9 @@
                     <form @submit.prevent="submit" action="/sections" method="POST" x-data="{  }">
                         @csrf
                         <div class="flex flex-col mb-4">
-                            <label class="text-gray-700 mb-2">Section's Name:</label>
-                            <input @blur="validateName" class="border border-gray-300 rounded-md px-3 py-2" type="text" placeholder="Wonderful Restaurant" name="name" x-model="inputValues.name" />
-                            <p x-show="!isValid.name" class="text-red-600 text-sm mt-1" id="name-required" x-cloak>This field is required.</p>\
+                            <x-form.input-label for="name">Section Name:</x-form.input-label>
+                            <x-form.text-input @blur="validateName" placeholder="Wonderful Section" name="name" x-model="inputValues.name" />
+                            <p x-show="!isValid.name" class="text-red-600 text-sm mt-1" id="name-required" x-cloak>This field is required.</p>
                         </div>
                         <div class="inline-flex items-center">
                             <label

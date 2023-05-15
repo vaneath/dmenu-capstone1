@@ -8,5 +8,5 @@
         </div>
     </div>
 
-    <x-restaurant-create-modal />
+    <x-restaurant.restaurant-create-modal />
 </div>
