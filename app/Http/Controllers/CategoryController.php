@@ -44,7 +44,7 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        //
+        return view('components.menu-card');
     }
 
     public function update(Request $request, $id)
