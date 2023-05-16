@@ -9,3 +9,8 @@ html {
 ::-webkit-scrollbar {
     display: none;
 }
+h1{
+    text-align: center;
+    margin: 10px;
+    font-size: 20px;
+}
