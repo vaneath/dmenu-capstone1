@@ -4,10 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class Restaurant extends Model
 {
     use HasFactory;
+
+    protected static function booted()
+    {
+        static::addGlobalScope('user_id', function (Builder $builder) {
+            $builder->where('user_id', Auth::id());
+        });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
     
     public function sections()
     {
