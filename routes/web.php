@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('restaurants/{restaurant}/sections/{section}/categories', [CategoryController::class, 'index'])->name('category.index');
     Route::post('sections', [SectionController::class, 'store'])->name('section.store');
     Route::post('categories', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('categories/{category}/items', [ItemController::class, 'index'])->name('item.index');
 });
 
 // test route
