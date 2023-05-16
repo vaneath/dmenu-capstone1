@@ -11,8 +11,17 @@ x-data="{
     activeSectionPage: 0,
     restaurantId: {{ $restaurant->id }},
     fetchCategories: function(sectionId){
+        if (sectionId == 0) {
+            document.getElementById('display-section').innerHTML = '';
+            return;
+        }
         fetch('/restaurants/' + this.restaurantId + '/sections/' + sectionId + '/categories')
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok) {
+                return '';
+            }
+            return response.text();
+        })
         .then(html => {
         document.getElementById('display-section').innerHTML = html;
         })
@@ -21,6 +30,10 @@ x-data="{
         });
     },
     fetchItems: function(categoryId){
+        if (categoryId == 0) {
+            document.getElementById('display-section').innerHTML = '';
+            return;
+        }
         fetch('/categories/' + categoryId + '/items')
         .then(response => response.text())
         .then(html => {
