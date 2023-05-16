@@ -13,4 +13,43 @@ h1{
     text-align: center;
     margin: 10px;
     font-size: 20px;
+
 }
+.home-image {
+    object-fit: fill;
+}
+.table {
+    display:grid;
+    width:200px;
+    height:200px;
+    grid-template-areas:"a1 b1" "a2 ." "a3 b3";
+    grid-gap:2px;
+  }
+  
+  .table div {
+    background-color:red;
+    display:grid;
+    align-content:center;
+    justify-content:center;
+    color:white;
+  }
+  
+  #a1 {
+    grid-area: a1;
+  }
+  
+  #b1 {
+    grid-area: b1;
+  }
+  
+  #a2 {
+    grid-area: a2;
+    width:calc(200% + 2px);
+    /*the calcluation adds the width of the gap if there are gaps. Logic: gapsize * gaps. e.g, 3 columns have 2 gaps etc. */
+  }
+  #a3 {
+    grid-area: a3;
+  }
+  #b3 {
+    grid-area: b3;
+  }
