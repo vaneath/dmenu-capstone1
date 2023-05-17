@@ -19,26 +19,22 @@ class RestaurantController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
-        // return $request->all();
-        // validate the data, if fails, it will redirect to the previous page
-        // $this->validate($request, [
-        //     'name' => 'required',
-        //     'location' => 'required',
-        //     'currency' => 'required',
-        //     'no_of_tables' => 'required',
-        //     'no_of_available_tables' => 'required',
-        // ]);
-
-        // $user_id = Auth::id();
-        // $restaurant = new Restaurant();
-        // $restaurant->name = $request->name;
-        // $restaurant->user_id = $user_id;
-        // $restaurant->location = $request->location;
-        // $restaurant->currency = $request->currency;
-        // $restaurant->no_of_tables = $request->no_of_tables;
-        // $restaurant->no_of_available_tables = $request->no_of_available_tables;
-        // $restaurant->save();
+        $this->validate($request, [
+            'name' => 'required',
+            'location' => 'required',
+            'currency' => 'required',
+            'no_of_tables' => 'required',
+            'no_of_available_tables' => 'required',
+        ]);
+        $user_id = Auth::id();
+        $restaurant = new Restaurant();
+        $restaurant->name = $request->name;
+        $restaurant->user_id = $user_id;
+        $restaurant->location = $request->location;
+        $restaurant->currency = $request->currency;
+        $restaurant->no_of_tables = $request->no_of_tables;
+        $restaurant->no_of_available_tables = $request->no_of_available_tables;
+        $restaurant->save();
         return $request->all();
     }
 
