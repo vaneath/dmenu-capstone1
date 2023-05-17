@@ -19,13 +19,13 @@ class RestaurantController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'location' => 'required',
-            'currency' => 'required',
-            'no_of_tables' => 'required',
-            'no_of_available_tables' => 'required',
-        ]);
+        $this->validate($request, array(
+            'name' => 'required|max:255',
+            'location' => 'required|max:255',
+            'currency' => 'required|max:255',
+            'no_of_tables' => 'required|max:255',
+            'no_of_available_tables' => 'required|max:255'
+        ));
         $user_id = Auth::id();
         $restaurant = new Restaurant();
         $restaurant->name = $request->name;
@@ -35,7 +35,7 @@ class RestaurantController extends Controller
         $restaurant->no_of_tables = $request->no_of_tables;
         $restaurant->no_of_available_tables = $request->no_of_available_tables;
         $restaurant->save();
-        return $request->all();
+        return redirect()->route('restaurant.index');
     }
 
     public function show(Restaurant $restaurant)
