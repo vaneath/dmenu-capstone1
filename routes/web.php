@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::get('categories/{category}/items', [ItemController::class, 'index'])->name('item.index');
 });
 
+// Route::post('/restaurants', [RestaurantController::class, 'store'])->name('restaurant.store');
+
 // test route
 Route::get('/test', function () {
     return view('tests.modal');
