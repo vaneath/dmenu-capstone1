@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurant.index');
     Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'show'])->name('restaurant.show');
-    // Route::post('/restaurants', [RestaurantController::class, 'store'])->name('restaurant.store');
+    Route::post('/restaurants', [RestaurantController::class, 'store'])->name('restaurant.store');
     Route::get('restaurants/{restaurant}/{category:slug}', [CategoryController::class, 'index'])->name('category.index');
     Route::get('restaurants/{restaurant}/sections/{section}/categories', [CategoryController::class, 'index'])->name('category.index');
     Route::post('sections', [SectionController::class, 'store'])->name('section.store');
@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('categories/{category}/items', [ItemController::class, 'index'])->name('item.index');
 });
 
-Route::post('/restaurants', [RestaurantController::class, 'store'])->name('restaurant.store');
+// Route::post('/restaurants', [RestaurantController::class, 'store'])->name('restaurant.store');
 
 // test route
 Route::get('/test', function () {
