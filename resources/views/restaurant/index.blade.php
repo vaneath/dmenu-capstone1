@@ -6,9 +6,13 @@ x-data="
     handleOpenQrCode: function(event){
         this.openQrCode = true;
         this.qrCodeUrl = event.detail;
+    },
+    closeQrCode: function(){
+        this.openQrCode = false;
     }
 }"
 
+x-on:close-qr-code.window="closeQrCode()"
 x-on:open-qr-code.window="handleOpenQrCode($event)"
 >
     <x-restaurant.restaurant-create />
