@@ -9,13 +9,13 @@
 <div
 x-data="{
     activeSectionPage: 0,
-    restaurantId: {{ $restaurant->id }},
+    restaurantName: '{{ $restaurant->name }}',
     fetchCategories: function(sectionId){
         if (sectionId == 0) {
             document.getElementById('display-section').innerHTML = '';
             return;
         }
-        fetch('/restaurants/' + this.restaurantId + '/sections/' + sectionId + '/categories')
+        fetch('/restaurants/' + this.restaurantName + '/sections/' + sectionId + '/categories')
         .then(response => {
             if (!response.ok) {
                 return '';
@@ -49,7 +49,6 @@ x-on:select-category.window="fetchItems($event.detail)"
 >
 
     <div id="display-section">
-
     </div>
 
 </div>
