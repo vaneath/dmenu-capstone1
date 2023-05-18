@@ -10,8 +10,9 @@
                 <button @click="toggleModal" class="w-full mb-5 py-2 bg-yellow rounded-2xl text-white font-bold text-lg">
                     +
                 </button>
-                <a href="/restaurants/{{ $restaurant->id }}/sections/{{ $section->id }}/categories/{{ $category->id }}">
-                    <li class="relative mb-5 bg-black rounded-2xl">
+                <!-- <a href="/restaurants/{{ $restaurant->id }}/sections/{{ $section->id }}/categories/{{ $category->id }}"> -->
+                <div  @click="$dispatch('select-category', {{ $category->id }})" class="cursor-pointer">
+                    <li class="relative mb-5">
                         <img
                             src="{{ $category->img_url ?? asset('images/dmenu.png') }}"
                             alt="{{ $category->name }}"
@@ -21,7 +22,8 @@
                             {{ $category->name }}
                         </h3>
                     </li>
-                </a>
+                </div>
+                <!-- </a> -->
             @endforeach
         @endif
 </ul>

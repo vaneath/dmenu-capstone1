@@ -15,12 +15,14 @@ return new class extends Migration
             $table->id();
             $table->boolean('is_visible')->default(true);
             $table->string('img_url');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->integer('sort_number');
             $table->unsignedBigInteger('section_id');
             $table->timestamps();
 
             $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
+
+            $table->unique(['name', 'section_id']);
         });
     }
 
