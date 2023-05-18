@@ -1,10 +1,15 @@
 <div class="flex-col w-44 h-56 px-2 py-3 bg-blue text-white rounded-xl shadow-lg shadow-blue-500">
     <div class="flex justify-end gap-2">
-        <x-primary-icon-button>
-            <span class="material-symbols-outlined">
-              qr_code
-            </span>
-        </x-primary-icon-button>
+        <div>
+            <x-primary-icon-button>
+                <span class="material-symbols-outlined">
+                  qr_code
+                </span>
+            </x-primary-icon-button>
+            <x-qr-code
+                :restaurantUrl="$_SERVER['HTTP_REFERER'] . '/' . $restaurant->id"
+            />
+        </div>
         <x-primary-icon-button>
             <span class="material-symbols-outlined">
                settings

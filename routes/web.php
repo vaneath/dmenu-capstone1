@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SectionController;
+use App\View\Components\QrCode;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,5 +39,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/test', function () {
     return view('tests.modal');
 });
+
+Route::get('/qr', [QrCode::class, 'render'])->name('qr');
 
 require __DIR__.'/auth.php';
