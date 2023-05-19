@@ -16,6 +16,7 @@ return new class extends Migration
             $table->boolean('is_visible')->default(true);
             $table->string('name');
             $table->integer('sort_number');
+            $table->string('unique_id')->unique();
             $table->unsignedBigInteger('restaurant_id');
             $table->timestamps();
 

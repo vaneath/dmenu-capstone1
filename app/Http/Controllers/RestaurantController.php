@@ -31,7 +31,11 @@ class RestaurantController extends Controller
         $restaurant->name = $request->name;
         $restaurant->user_id = $user_id;
         $restaurant->location = $request->location;
-        $restaurant->currency = $request->currency;
+        $restaurant->currency = $request->currency;  
+        do {
+            $restaurant->unique_id = uniqid('dr', true);
+            $unique_id = Restaurant::where('unique_id', $restaurant->unique_id)->first();
+        } while ($unique_id != null);
         $restaurant->no_of_tables = $request->no_of_tables;
         $restaurant->no_of_available_tables = $request->no_of_available_tables;
         $restaurant->save();

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('no_of_tables');
             $table->string('no_of_available_tables');
             $table->string('location');
+            $table->string('unique_id')->unique();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

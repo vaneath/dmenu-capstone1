@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SectionController;
 use App\View\Components\QrCode;
+use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,23 +25,26 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
-
-    //profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    //restaurants
+  
+    //restaurant
     Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurant.index');
-//    Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'show'])->name('restaurant.show');
     Route::post('/restaurants', [RestaurantController::class, 'store'])->name('restaurant.store');
 
     //category
     Route::get('restaurants/{restaurant}', [CategoryController::class, 'index'])->name('category.index');
     Route::post('categories', [CategoryController::class, 'store'])->name('category.store');
-
+  
     Route::post('sections', [SectionController::class, 'store'])->name('section.store');
+});
 
+Route::middleware('auth.custom')->group(function (){
+    Route::get('/qr/{restaurant}', [QrCodeController::class, 'index'])->name('qr.redirect');
+    Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'show'])->name('restaurant.show');
+    //Route::get('restaurants/{restaurant}/{category:slug}', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('restaurants/{restaurant}/sections/{section}/categories', [CategoryController::class, 'index'])->name('category.index');
     Route::get('categories/{category}/items', [ItemController::class, 'index'])->name('item.index');
 });
 
@@ -52,7 +56,5 @@ Route::get('/test', function () {
 });
 
 Route::get('/qr', [QrCode::class, 'render'])->name('qr');
-
-Route::get('/customer', [RestaurantController::class, 'show'])->middleware('guest');
 
 require __DIR__.'/auth.php';

@@ -13,9 +13,11 @@ class Restaurant extends Model
 
     protected static function booted()
     {
-        static::addGlobalScope('user_id', function (Builder $builder) {
-            $builder->where('user_id', Auth::id());
-        });
+        if(Auth::check()) {
+            static::addGlobalScope('user_id', function (Builder $builder) {
+                $builder->where('user_id', Auth::id());
+            });
+        }
     }
 
     public function getRouteKeyName()

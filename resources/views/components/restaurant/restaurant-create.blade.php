@@ -1,4 +1,5 @@
 <div x-data="{ createRestaurantFormOpen: false, toggleModal() { this.createRestaurantFormOpen = !this.createRestaurantFormOpen; this.$dispatch('create-restaurant-form-open', { createRestaurantFormOpen: this.createRestaurantFormOpen }); } }" @toggle-modal="toggleModal">
+    
     <div class="w-44 h-56 px-2 py-3 bg-blue text-white rounded-xl">
         <h3 class="mt-5 font-bold text-center text-md">Add Restaurant</h3>
         <div class="mt-5">
