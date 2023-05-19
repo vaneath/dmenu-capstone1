@@ -34,6 +34,10 @@ class CategoryController extends Controller
         $category->is_visible = $request->is_visible;
         $category->sort_number = $maxSortNumber + 1;
         $category->section_id = $request->section_id;
+        do {
+            $category->unique_id = uniqid('dc', true);
+            $unique_id = Category::where('unique_id', $category->unique_id)->first();
+        } while ($unique_id != null);
         $category->save();
         return redirect()->route('restaurant.show', [
             'restaurant' => $section->restaurant,

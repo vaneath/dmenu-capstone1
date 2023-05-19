@@ -21,6 +21,8 @@
 x-init="$dispatch('update-active-section-page', activeSectionPage)"
 @toggle-modal="toggleModal">
     <div class="mx-auto max-w-[40rem] mb-10 relative block">
+        @auth
+        @if(auth()->id == $restaurant->user_id)
         <a href="{{ $back }}">
             <div class="top-5 left-5 z-30 absolute w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white">
             <span class="material-symbols-outlined absolute left-[35%] top-[25%]">
@@ -28,6 +30,8 @@ x-init="$dispatch('update-active-section-page', activeSectionPage)"
             </span>
             </div>
         </a>
+        @endif
+        @endauth
         <img
             src="{{ $url }}"
             alt="restaurant-img"
@@ -45,9 +49,13 @@ x-init="$dispatch('update-active-section-page', activeSectionPage)"
             </div>
             <div class="mb-8" id="section">
                 <div class="flex gap-5 text-white whitespace-nowrap overflow-x-scroll">
+                    @auth
+                    @if(auth()->id() == $restaurant->user_id)
                     <button @click="toggleModal" class="px-4 py-2 bg-yellow font-bold text-xl rounded-full">
                         +
                     </button>
+                    @endif
+                    @endauth
                     @foreach($sections as $section)
                         <button
                         :class="{ 'bg-yellow': activeSectionPage == {{ $section->id }} }"

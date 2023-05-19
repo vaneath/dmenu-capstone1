@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('img_url');
             $table->string('name');
             $table->integer('sort_number');
+            $table->string('unique_id')->unique();
             $table->unsignedBigInteger('section_id');
             $table->timestamps();
 
