@@ -1,19 +1,33 @@
-<x-mobile-layout
-    :restaurant="$restaurant"
-    url="https://th.bing.com/th/id/R.cf3c02a778b9988ea28922849888e530?rik=4gnDcCikhk%2b4nA&pid=ImgRaw&r=0"
-    :back="route('restaurant.index')"
->
-    <x-slot:section>
-        @for($i = 0; $i < 6; $i++)
-            <button class="px-6 py-1 border-[3px] border-yellow rounded-3xl hover:bg-yellow">
-                Main menu
+<div x-data="{ createCategoryFormOpen: false, toggleModal() { this.createCategoryFormOpen = !this.createCategoryFormOpen; this.$dispatch('create-restaurant-form-open', { createCategoryFormOpen: this.createCategoryFormOpen }); } }" @toggle-modal="toggleModal">
+    <ul>
+        @if($categories->count() == 0)
+            <button @click="toggleModal" class="w-full mb-5 py-2 bg-yellow rounded-2xl text-white font-bold text-lg">
+                +
             </button>
-        @endfor
-    </x-slot:section>
-    <x-menu-card
-        url="https://th.bing.com/th/id/R.6e5ae58716febbd616cc8270fe3134ce?rik=44CGb0vVc4u6WQ&pid=ImgRaw&r=0"
-        name="hamburger"
-        description="I like this hamburger from Italy"
-        price="10"
-    />
-</x-mobile-layout>
+        @endif
+        @if($categories->count() > 0)
+            @foreach ($categories as $category)
+                @if (auth()->user()->id == $restaurant->user_id)
+                    <button @click="toggleModal" class="w-full mb-5 py-2 bg-yellow rounded-2xl text-white font-bold text-lg">
+                        +
+                    </button>
+                @endif
+                <!-- <a href="/restaurants/{{ $restaurant->id }}/sections/{{ $section->id }}/categories/{{ $category->id }}"> -->
+                <div  @click="$dispatch('select-category', {{ $category->id }})" class="cursor-pointer">
+                    <li class="relative mb-5">
+                        <img
+                            src="{{ $category->img_url ?? asset('images/dmenu.png') }}"
+                            alt="{{ $category->name }}"
+                            class="bg-cover bg-center h-52 w-full rounded-2xl blur-xs transition ease-linear duration-300 hover:opacity-70"
+                        >
+                        <h3 class="uppercase text-center w-full top-[40%] absolute font-semibold text-white text-3xl tracking-widest">
+                            {{ $category->name }}
+                        </h3>
+                    </li>
+                </div>
+                <!-- </a> -->
+            @endforeach
+        @endif
+    </ul>
+    <x-category-create-modal :section="$section"/>
+</div>
