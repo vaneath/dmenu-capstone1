@@ -22,6 +22,7 @@ return new class extends Migration
             $table->double('old_price')->nullable(true);
             $table->double('weight');
             $table->integer('sort_number');
+            $table->string('unique_id')->unique();
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
 
