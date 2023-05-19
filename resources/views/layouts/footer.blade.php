@@ -1,5 +1,5 @@
 <footer class="flex items-center w-full h-20 text-white bg-yellow absolute bottom-0">
-    <div class="mx-auto flex justify-center gap-10">
+    <div class="mx-auto flex justify-center gap-10 px-6">
         <a href="#!" class="text-yellow dark:text-neutral-200">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
