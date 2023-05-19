@@ -9,13 +9,6 @@ use App\Models\Restaurant;
 
 class SectionController extends Controller
 {
-    public function index()
-    {
-        return view('section.index', [
-            'sections' => Section::where('user_id', Auth::id())->get(),
-        ]);
-    }
-
     public function store(Request $request)
     {
         $request->is_visible = $request->is_visible === 'on' ? true : false;
@@ -32,7 +25,7 @@ class SectionController extends Controller
         $section->restaurant_id = $request->restaurant_id;
         $section->save();
 
-        return redirect()->route('restaurant.show', [
+        return redirect()->route('category.index', [
             'restaurant' => $restaurant,
             'sections' => $restaurant->sections,
         ]);

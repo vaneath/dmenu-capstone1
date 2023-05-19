@@ -28,14 +28,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+  
+    //restaurant
     Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurant.index');
-    //Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'show'])->name('restaurant.show');
     Route::post('/restaurants', [RestaurantController::class, 'store'])->name('restaurant.store');
-    //Route::get('restaurants/{restaurant}/{category:slug}', [CategoryController::class, 'index'])->name('category.index');
-    //Route::get('restaurants/{restaurant}/sections/{section}/categories', [CategoryController::class, 'index'])->name('category.index');
-    Route::post('sections', [SectionController::class, 'store'])->name('section.store');
+
+    //category
+    Route::get('restaurants/{restaurant}', [CategoryController::class, 'index'])->name('category.index');
     Route::post('categories', [CategoryController::class, 'store'])->name('category.store');
-    //Route::get('categories/{category}/items', [ItemController::class, 'index'])->name('item.index');
+  
+    Route::post('sections', [SectionController::class, 'store'])->name('section.store');
 });
 
 Route::middleware('auth.custom')->group(function (){
