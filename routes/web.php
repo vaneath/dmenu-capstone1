@@ -32,12 +32,11 @@ Route::middleware('auth')->group(function () {
 
     //restaurants
     Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurant.index');
-    Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'show'])->name('restaurant.show');
+//    Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'show'])->name('restaurant.show');
     Route::post('/restaurants', [RestaurantController::class, 'store'])->name('restaurant.store');
 
     //category
-    Route::get('restaurants/{restaurant}/{category:slug}', [CategoryController::class, 'index'])->name('category.index');
-    Route::get('restaurants/{restaurant}/sections/{section}/categories', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('restaurants/{restaurant}', [CategoryController::class, 'index'])->name('category.index');
     Route::post('categories', [CategoryController::class, 'store'])->name('category.store');
 
     Route::post('sections', [SectionController::class, 'store'])->name('section.store');
