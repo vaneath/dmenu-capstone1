@@ -22,7 +22,7 @@ x-init="$dispatch('update-active-section-page', activeSectionPage)"
 @toggle-modal="toggleModal">
     <div class="mx-auto max-w-[40rem] mb-10 relative block">
         @auth
-        @if(auth()->id == $restaurant->user_id)
+        @if(auth()->id() == $restaurant->user_id)
         <a href="{{ $back }}">
             <div class="top-5 left-5 z-30 absolute w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white">
             <span class="material-symbols-outlined absolute left-[35%] top-[25%]">

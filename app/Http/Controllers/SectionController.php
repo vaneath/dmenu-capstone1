@@ -25,7 +25,7 @@ class SectionController extends Controller
         $section->restaurant_id = $request->restaurant_id;
         $section->save();
 
-        return redirect()->route('category.index', [
+        return redirect()->route('restaurant.menu', [
             'restaurant' => $restaurant,
             'sections' => $restaurant->sections,
         ]);

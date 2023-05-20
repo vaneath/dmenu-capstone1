@@ -9,53 +9,17 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    // restaurants/{restaurant}/sections/{section}/categories in index function
     public function index(Restaurant $restaurant, Section $section)
     {
-//        if ($section->restaurant_id != $restaurant->id) {
-//            abort(403);
-//        }
-//        $categories = Category::where('section_id', $section->id)->get();
-//        return view('category.index-categories', [
-//            'restaurant' => $restaurant,
-//
-//            'categories' => $section->categories,
-//        ]);
-        $sections = Section::where('restaurant_id', $restaurant->id)->get();
-        $sections = $sections->sortBy('sort_number');
-        $activeSectionPage = request()->query('active-section-id');
-        if ($activeSectionPage != null && $sections->contains('id', $activeSectionPage)) {
-            return view('category.index', [
-                'restaurant' => $restaurant,
-                'sections' => $sections,
-                'activeSectionPage' => $activeSectionPage,
-                'categories' => $sections->get(0)->categories
-            ]);
-        } elseif ($activeSectionPage != null && !$sections->contains('id', $activeSectionPage)) {
-            return view('category.index', [
-                'restaurant' => $restaurant,
-                'sections' => $sections,
-                'activeSectionPage' => $sections->first()->id,
-                'categories' => $sections->get(0)->categories
-            ]);
-        } else {
-            if ($sections->isEmpty()) {
-                return view('category.index', [
-                    'restaurant' => $restaurant,
-                    'sections' => $sections,
-                    'activeSectionPage' => null,
-                    'categories' => $sections->get(0)->categories
-                ]);
-            } else {
-                return view('category.index', [
-                    'restaurant' => $restaurant,
-                    'sections' => $sections,
-                    'activeSectionPage' => $sections->first()->id,
-                    'categories' => $sections->get(0)->categories
-                ]);
-            }
+        if ($section->restaurant_id != $restaurant->id) {
+            abort(403);
         }
-
+        // $categories = Category::where('section_id', $section->id)->get();
+        return view('restaurant.show-categories', [
+            'restaurant' => $restaurant,
+            'section' => $section,
+            'categories' => $section->categories,
+        ]);
     }
 
     public function store(Request $request)
@@ -74,16 +38,22 @@ class CategoryController extends Controller
             $unique_id = Category::where('unique_id', $category->unique_id)->first();
         } while ($unique_id != null);
         $category->save();
-        return redirect()->route('category.index', [
+        return redirect()->route('restaurant.menu', [
             'restaurant' => $section->restaurant,
             'sections' => $section->restaurant->sections,
             'active-section-id' => $section->id,
         ]);
     }
 
-    public function show($id)
+    public function show(Restaurant $restaurant, $category)
     {
-        return view('components.menu-card');
+        $items = $category->items;
+        return view('components.menu-card', [
+            'url' => 'test.com',
+            'name' => 'test',
+            'description' => 'test',
+            'price' => 'test',
+        ]);
     }
 
     public function update(Request $request, $id)
