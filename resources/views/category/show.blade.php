@@ -1,19 +1,36 @@
-<x-mobile-layout
-    :restaurant="$restaurant"
-    url="https://th.bing.com/th/id/R.cf3c02a778b9988ea28922849888e530?rik=4gnDcCikhk%2b4nA&pid=ImgRaw&r=0"
-    :back="route('restaurant.index')"
+<div 
+x-data="{ 
+    createItemFormOpen: false, 
+    toggleModal() { 
+        this.createItemFormOpen = !this.createCategoryFormOpen; 
+    } 
+}" 
+@toggle-modal="toggleModal"
 >
-    <x-slot:section>
-        @for($i = 0; $i < 6; $i++)
-            <button class="px-6 py-1 border-[3px] border-yellow rounded-3xl hover:bg-yellow">
-                Main menu
-            </button>
-        @endfor
-    </x-slot:section>
-    <x-menu-card
-        url="https://th.bing.com/th/id/R.6e5ae58716febbd616cc8270fe3134ce?rik=44CGb0vVc4u6WQ&pid=ImgRaw&r=0"
-        name="hamburger"
-        description="I like this hamburger from Italy"
-        price="10"
-    />
-</x-mobile-layout>
+    <h1 class="text-white px-6 py-1">
+        {{ ucwords($category->name) }}
+    </h1>
+
+    @auth
+    @if(auth()->id() == $restaurant->user_id && $items->count() == 0)
+        <button @click="toggleModal" class="w-full mb-5 py-2 bg-yellow rounded-2xl text-white font-bold">
+            +
+        </button>
+    @endif
+    @endauth
+
+    @foreach($items as $item)
+        @auth
+        @if(auth()->id() == $restaurant->user_id)
+        <button @click="toggleModal" class="w-full mb-5 py-2 bg-yellow rounded-2xl text-white font-bold">
+            +
+        </button>
+        @endif
+        @endauth
+        <x-menu-card
+            :item="$item"
+        />
+    @endforeach
+
+    <x-item-create-modal />
+</div>

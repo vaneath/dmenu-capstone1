@@ -11,7 +11,7 @@ use App\Models\Section;
 class ItemController extends Controller
 {
     // Route::get('categories/{category}/items', [ItemController::class, 'index'])->name('item.index');
-    public function index(Category $category)
+    public function index(Restaurant $restaurant, $category)
     {
         return view('restaurant.show-items', [
             'category' => $category,

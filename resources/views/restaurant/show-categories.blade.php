@@ -30,7 +30,6 @@
                         </h3>
                     </li>
                 </div>
-                <!-- </a> -->
             @endforeach
         @endif
 </ul>

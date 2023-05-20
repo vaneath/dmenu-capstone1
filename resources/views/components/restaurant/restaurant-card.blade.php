@@ -20,7 +20,8 @@
                 Payment
             </div>
         </a>
-        <a href="{{ route('restaurant.show', ['restaurant' => $restaurant->name]) }}" >
+        <a href="{{ route('restaurant.menu', ['restaurant' => $restaurant->name]) }}" >
+        <!-- <a href="/restaurants/{{ urlencode($restaurant->name) }}/menu" > -->
             <div class="mx-auto w-[80%] px-4 py-2 rounded-lg bg-yellow">
                 Edit Menu
             </div>
