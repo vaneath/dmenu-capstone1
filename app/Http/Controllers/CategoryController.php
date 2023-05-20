@@ -47,12 +47,20 @@ class CategoryController extends Controller
 
     public function show(Restaurant $restaurant, $category)
     {
-        $items = $category->items;
-        return view('components.menu-card', [
-            'url' => 'test.com',
-            'name' => 'test',
-            'description' => 'test',
-            'price' => 'test',
+        $category = Category::where('id', $category)->first();
+        // $items = $category->items;
+        // return view('components.menu-card', [
+        //     'url' => 'test.com',
+        //     'name' => 'test',
+        //     'description' => 'test',
+        //     'price' => 'test',
+        // ]);
+        return view('category.show', [
+            'restaurant' => $restaurant,
+            'sections' => $restaurant->sections,
+            'category' => $category,
+            'items' => $category->items,
+            'activeSectionPage' => $category->section->id,
         ]);
     }
 
