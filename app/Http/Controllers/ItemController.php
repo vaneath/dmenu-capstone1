@@ -19,9 +19,9 @@ class ItemController extends Controller
         ]);
     }
 
-    public function store(Restaurant $request)
+    public function store(Request $request)
     {
-        dd($request->all(), $request->name, $request->category_id, $request->description, $request->img_url, $request->price, $request->old_price, $request->weight, $request->is_available, $request->is_visible);
+        // dd($request->all(), $request->name, $request->category_id, $request->description, $request->img_url, $request->price, $request->old_price, $request->weight, $request->is_available, $request->is_visible);
         $category = Category::find($request->category_id);
         $max_sort_number = Item::where('category_id', $request->category_id)->max('sort_number');
         $item = new Item();
@@ -36,8 +36,8 @@ class ItemController extends Controller
             $item->unique_id = uniqid('di', true);
             $unique_id = Item::where('unique_id', $item->unique_id)->first();
         } while ($unique_id != null);
-        $item->is_available = $request->is_available;
-        $item->is_visible = $request->is_visible;
+        $item->is_available = $request->is_available === 'on' ? true : false;
+        $item->is_visible = $request->is_visible === 'on' ? true : false;
         $item->sort_number = $max_sort_number + 1;
         $item->save();
 
