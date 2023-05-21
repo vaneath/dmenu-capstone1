@@ -14,12 +14,15 @@ return new class extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->boolean('is_visible')->default(true);
-            $table->string('name')->unique();
+            $table->string('name');
             $table->integer('sort_number');
+            $table->string('unique_id')->unique();
             $table->unsignedBigInteger('restaurant_id');
             $table->timestamps();
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
+
+            $table->unique(['name', 'restaurant_id']);
         });
     }
 

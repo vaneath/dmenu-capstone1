@@ -1,3 +1,3 @@
-<a href="#">
+<button class="inline-flex">
     {{ $slot }}
-</a>
+</button>
