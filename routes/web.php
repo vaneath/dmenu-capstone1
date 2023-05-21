@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function (){
     Route::get('/qr/{restaurant}', [QrCodeController::class, 'index'])->name('qr.redirect');
     Route::get('/restaurants/{restaurant}/menu', [RestaurantController::class, 'menu'])->name('restaurant.menu');
     Route::get('/restaurants/{restaurant}/menu/{category}/items', [CategoryController::class, 'show'])->name('category.show');
-    Route::post('/restaurants/{restaurant}/menu/{category}/items', [ItemController::class, 'store'])->name('item.store');
+    Route::post('/items', [ItemController::class, 'store'])->name('item.store');
     //Route::get('restaurants/{restaurant}/{category:slug}', [CategoryController::class, 'index'])->name('category.index');
     Route::get('restaurants/{restaurant}/sections/{section}/categories', [CategoryController::class, 'index'])->name('category.index');
     Route::get('categories/{category}/items', [ItemController::class, 'index'])->name('item.index');

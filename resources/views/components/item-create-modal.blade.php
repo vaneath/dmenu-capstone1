@@ -4,29 +4,12 @@
     inputValues: { name: '', description: '', img_url: '', price: '', old_price: '', weight: '' },
     submit() {
       // this.validateName();
-      console.log(event.target);
+      console.log(event.target.name.value);
       console.log(this.inputValues.name);
       if (Object.values(this.isValid).every(Boolean)) {
-        //event.target.submit();
-        // fetch post to /restaurants/{{ $restaurant->id }}/menu/{{ $category->id }}/items
-        fetch(`/restaurants/${this.restaurant}/menu/${this.category}/items`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-            body: JSON.stringify(this.inputValues)
-        });
-
-        if (response.ok) {
-            console.log('Form successfully submitted!');
-        } else {
-            console.log('Oops! Something went wrong!');
-        }
-        } catch (error) {
-        console.log('Oops! Something went wrong!');
-        console.error(error);
-        }
+        event.target.submit();
         this.createItemFormOpen = false;
+        // fetch post to /restaurants/{{ $restaurant->id }}/menu/{{ $category->id }}/items
       }
     },
     validateName() {
@@ -56,7 +39,7 @@
             <div class="relative w-auto max-w-2xl mx-auto">
                 <div class="bg-white w-full p-6 text-wrap break-words flex flex-col" style="max-height: 80vh; overflow-y: auto">
                     <h2 class="text-2xl font-bold mb-4 text-center">Add Item</h2>
-                    <form @submit.prevent="submit" action="/restaurants/{{ $restaurant->id }}/menu/{{ $category->id }}/items" method="POST">
+                    <form @submit.prevent="submit" action="/items" method="POST">
                         @csrf
                         <input type="hidden" name="category_id" value="{{ $category->id }}">
                         <div class="flex flex-col mb-4">
