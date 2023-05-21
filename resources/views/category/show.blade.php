@@ -32,5 +32,5 @@ x-data="{
         />
     @endforeach
 
-    <x-item-create-modal />
+    <x-item-create-modal :restaurant="$restaurant" :category="$category" />
 </div>
