@@ -10,6 +10,8 @@
 x-data="{
     activeSectionPage: 0,
     ignoreEvent: false,
+    xDataEmptyCart: true,
+    xDataCartItems: {},
     restaurantName: '{{ $restaurant->name }}',
     fetchCategories: function(sectionId){
         if (sectionId == 0) {
@@ -57,23 +59,20 @@ x-data="{
             sessionStorage.setItem('emptyCart', false);
         }
         cartItems[itemUniqueID] = cartItems[itemUniqueID] + 1 || 1;
-        console.log('items to be added', cartItems);
         sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
-        //sessionStorage.setItem('cartItems', JSON.stringify('abc'));
-
         let updatedCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-        console.log('updated cart items', updatedCartItems);
-
-        console.log('Stringified cart items', JSON.stringify(cartItems));
     },
     updateNoOfAddedToCart: function() {
         let cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-        console.log(cartItems);
         let noOfAddedToCart = document.querySelectorAll('.no-of-added-to-cart');
         noOfAddedToCart.forEach((element) => {
-            element.classList.remove('hidden');
-            element.innerText = cartItems[element.id];
-            console.log(cartItems[element.id], element.id);
+            if (cartItems[element.id] != undefined && cartItems[element.id] != 0) {
+                element.classList.remove('hidden');
+                element.innerText = cartItems[element.id]/4;
+            }
+            else if (!element.classList.contains('hidden')) {
+                element.classList.add('hidden');
+            }
         });
     },
 }"
@@ -83,7 +82,6 @@ x-on:add-to-cart="addToCart($event.detail.uniqueId), updateNoOfAddedToCart();"
 x-on:test="
 if (!ignoreEvent) { 
     addToCart('test'), updateNoOfAddedToCart();
-    console.log('Event received'); 
     ignoreEvent = true; 
     setTimeout(() => { ignoreEvent = false }, 5000); 
 }"

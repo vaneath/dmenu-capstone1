@@ -19,12 +19,6 @@ x-data="{
         });
     }
 }"
-x-init="
-    () => {
-        let noOfAddedToCart = document.querySelector('.no-of-added-to-cart');
-        noOfAddedToCart.id = '{{ $item->unique_id }}';
-    }
-"
 class="mb-5"
 >
     <img
@@ -40,6 +34,11 @@ class="mb-5"
         <span
         class="no-of-added-to-cart"
         class="w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white"
+        x-init="
+            () => {
+                $el.id = '{{ $item->unique_id }}';
+            }
+        "
         ></span>
 
         <button 
