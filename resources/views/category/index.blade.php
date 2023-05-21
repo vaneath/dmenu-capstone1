@@ -13,7 +13,8 @@ x-data="{
     restaurantName: '{{ $restaurant->name }}',
     fetchCategories: function(sectionId){
         if (sectionId == 0) {
-            document.getElementById('display-section').innerHTML = '';
+            document.getElementById('display-items').innerHTML = '';
+            document.getElementById('display-categories').innerHTML = '';
             return;
         }
         fetch('/restaurants/' + this.restaurantName + '/sections/' + sectionId + '/categories')
@@ -24,7 +25,8 @@ x-data="{
             return response.text();
         })
         .then(html => {
-        document.getElementById('display-section').innerHTML = html;
+        document.getElementById('display-items').innerHTML = '';
+        document.getElementById('display-categories').innerHTML = html;
         })
         .catch(error => {
         console.warn('Error fetching HTML:', error);
@@ -32,14 +34,16 @@ x-data="{
     },
     fetchItems: function(categoryId){
         if (categoryId == 0) {
-            document.getElementById('display-section').innerHTML = '';
+            document.getElementById('display-categories').innerHTML = '';
+            document.getElementById('display-items').innerHTML = '';
             return;
         }
         // path : '/restaurants/' + this.restaurantName + '/menu/' + categoryId + '/items'
         fetch('/restaurants/' + this.restaurantName + '/menu/' + categoryId + '/items')
         .then(response => response.text())
         .then(html => {
-        document.getElementById('display-section').innerHTML = html;
+        document.getElementById('display-categories').innerHTML = '';
+        document.getElementById('display-items').innerHTML = html;
         })
         .catch(error => {
         console.warn('Error fetching HTML:', error);
@@ -91,8 +95,10 @@ x-init="
 "
 >
 
-    <div id="display-section">
+    <div id="display-items">
     </div>
+
+    <div id="display-categories"></div>
 
 </div>
 </x-mobile-layout>
