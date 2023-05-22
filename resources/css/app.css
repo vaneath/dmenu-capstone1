@@ -5,9 +5,6 @@
 html {
     position: relative;
 }
-div {
-  overflow: hidden;
-}
 
 ::-webkit-scrollbar {
     display: none;
@@ -21,7 +18,7 @@ h1{
 .home-image {
     size: 110%;
     overflow: hidden;
-    
+
 }
 img{
   max-width: 100%;
@@ -32,7 +29,7 @@ img{
   .textMiddle {
     font-size: 50%;
     background-color: #0191B4;
-    
+
   }
   div.example {
     background-color: #0191B4;
@@ -42,13 +39,13 @@ img{
     height: 100%;
     width: 100%;
   }
-  
+
   @media screen and (min-width: 601px) {
     div.example {
       font-size: 50px;
     }
   }
-  
+
   @media screen and (max-width: 600px) {
     div.example {
       font-size: 30px;
@@ -63,16 +60,15 @@ img{
     height: 100%;
     width: 100%;
   }
-  
+
   @media screen and (min-width: 601px) {
     div.example1 {
       font-size: 50px;
     }
   }
-  
+
   @media screen and (max-width: 600px) {
     div.example1 {
       font-size: 30px;
     }
   }
- 
