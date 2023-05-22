@@ -21,6 +21,9 @@
 </div>
 
 <div class="wrapper">
+    <div class="priceplan">
+        Dmenu service plans
+    </div>
         <div class="services">
         <a href="#">
             <span class="single-img img-one">

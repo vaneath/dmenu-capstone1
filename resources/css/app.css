@@ -5,9 +5,7 @@
 html {
     position: relative;
 }
-div {
-  overflow: hidden;
-}
+
 
 ::-webkit-scrollbar {
     display: none;
@@ -70,12 +68,16 @@ img{
     }
   }
 
-  .wrapper{
+.wrapper{
+  background-image: url("/public/images/backgroundplan.png");
     padding: 125px 0 125px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-image: url("public/images/Lita.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    
 }
 .services{
     width: 1100px;
@@ -102,14 +104,14 @@ img{
     transform: translate(0, -9px);
 }
 .img-one{
-    background-image: url("public/images/Lita.jpg");
+    background-image: url('https://www.ubuy.com.kh/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNjEzV0MzT29MRkwuX0FDX1NMMTAwMF8uanBn.jpg');
     overflow: hidden;
     background-color: #0191B4;
     background-size: cover;
     background-position: center center;
 }
 .img-two{
-    background-image: url(3.jpg);
+    background-image: url("/public/images/Lita.jpg");
     background-size: cover;
     background-position: center center;
 }
@@ -164,4 +166,7 @@ img{
     a{
         margin-bottom: 35px;
     }
+}
+.priceplan{
+  text-align: center;
 }
