@@ -62,23 +62,57 @@ x-data="{
         sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
         let updatedCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
     },
-    updateNoOfAddedToCart: function() {
+    removeFromCart: function(itemUniqueID) {
         let cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-        let noOfAddedToCart = document.querySelectorAll('.no-of-added-to-cart');
-        noOfAddedToCart.forEach((element) => {
-            if (cartItems[element.id] != undefined && cartItems[element.id] != 0) {
-                element.classList.remove('hidden');
-                element.innerText = cartItems[element.id]/4;
+        let emptyCart = sessionStorage.getItem('emptyCart');
+        let rmButton = document.getElementById('rmButton-' + itemUniqueID);
+        if (cartItems[itemUniqueID] != undefined && cartItems[itemUniqueID] != 0) {
+            cartItems[itemUniqueID] = cartItems[itemUniqueID] - 1;
+            sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+            let updatedCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+            if (updatedCartItems[itemUniqueID] == 0) {
+                rmButton.classList.add('hidden');
+                rmButton.disabled = true;
             }
-            else if (!element.classList.contains('hidden')) {
-                element.classList.add('hidden');
+        }
+    },
+    updateItemInformation: function(itemUniqueID) {
+        let cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+        let itemQuantity = document.getElementById(itemUniqueID);
+        let rmButton = document.getElementById('rmButton-' + itemUniqueID);
+        if (cartItems[itemUniqueID] != undefined && cartItems[itemUniqueID] != 0) {
+            itemQuantity.classList.remove('hidden');
+            itemQuantity.innerHTML = cartItems[itemUniqueID] / 4;
+            rmButton.classList.remove('hidden');
+            rmButton.disabled = false;
+        } else {
+            itemQuantity.classList.add('hidden');
+            rmButton.classList.add('hidden');
+            rmButton.disabled = true;
+        }
+        let emptyCart = sessionStorage.getItem('emptyCart');
+        let showMyOrder = document.getElementById('show-my-order');
+        showMyOrder.classList.remove('hidden');
+        // if cart is empty or the total of all items is 0
+        console.log(Object.values(cartItems).reduce((a, b) => a + b, 0), emptyCart);
+        if ( (Object.values(cartItems).reduce((a, b) => a + b, 0) == 0) ) {
+            console.log('empty cart');
+            showMyOrder.classList.add('hidden');
+            if ( !showMyOrder.classList.contains('hidden') ) {
+                // showMyOrder.classList.add('hidden');
             }
-        });
+        //    // showMyOrder.classList.add('hidden');
+        } else if ( showMyOrder.classList.contains('hidden') ) {
+            console.log('not empty cart');
+            //showMyOrder.classList.remove('hidden');
+        }
+
     },
 }"
 x-on:update-active-section-page.window="activeSectionPage = $event.detail, fetchCategories($event.detail)"
 x-on:select-category.window="fetchItems($event.detail)"
-x-on:add-to-cart="addToCart($event.detail.uniqueId), updateNoOfAddedToCart();"
+x-on:add-to-cart="addToCart($event.detail.uniqueId), updateItemInformation($event.detail.uniqueId);"
+x-on:remove-from-cart="removeFromCart($event.detail.uniqueId), updateItemInformation($event.detail.uniqueId);"
 x-on:test="
 if (!ignoreEvent) { 
     addToCart('test'), updateNoOfAddedToCart();
@@ -99,4 +133,17 @@ x-init="
     <div id="display-categories"></div>
 
 </div>
+
+<div
+id="show-my-order"
+class="fixed bottom-0 left-0 right-0 flex justify-center items-center rounded-full hidden"
+style="background-color: #0F4C5C"
+>
+    <button
+    class="w-full h-14 rounded-t-3xl font-bold text-2xl text-white"
+    >Show My Order</button>
+</div>
+
+<x-order.show-my-order></x-order.show-my-order>
+
 </x-mobile-layout>
