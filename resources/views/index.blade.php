@@ -31,8 +31,7 @@
         <a href="#">
             <span class="single-img img-one">
                 <span class="img-text">
-                    <h4>Canon 9587</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, quam.</p>
+                    <p>This is plan is best for large businesses.</p>
                     <button>Buy Now</button>
                 </span>
             </span>
@@ -40,8 +39,8 @@
         <a href="#">
             <span class="single-img img-two"> 
                 <span class="img-text">
-                    <h4>Nikon 3458</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, quam.</p>
+                    
+                    <p>This is plan is best for entrepreneurs.</p>
                     <button>Buy Now</button>
                 </span>
             </span>
@@ -49,8 +48,8 @@
         <a href="#">
             <span class="single-img img-three">
                 <span class="img-text">
-                    <h4>Sony 1234</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, quam.</p>
+                    
+                    <p>This is plan is best for small businesses.</p>
                     <button>Buy Now</button>
                 </span>
             </span>
