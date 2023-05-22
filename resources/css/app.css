@@ -64,7 +64,7 @@ img{
   }
   @media screen and (max-width: 600px) {
     div.example1 {
-      font-size: 30px;
+      font-size: 15px;
     }
   }
 
@@ -104,7 +104,7 @@ img{
     transform: translate(0, -9px);
 }
 .img-one{
-    background-image: url('https://www.ubuy.com.kh/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNjEzV0MzT29MRkwuX0FDX1NMMTAwMF8uanBn.jpg');
+    background-image: url("/public/images/basic.png");
     overflow: hidden;
     background-color: #0191B4;
     background-size: cover;
@@ -169,4 +169,16 @@ img{
 }
 .priceplan{
   text-align: center;
+  padding: 10px;
+  font-size: 40px;
+  margin: 10px;
+  color:#0191B4;
+  
+}
+
+.fee {
+  text-align: center;
+  font-size: 20px;
+  padding-top: 0;
+  padding-bottom: 20px;
 }

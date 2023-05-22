@@ -24,6 +24,9 @@
     <div class="priceplan">
         Dmenu service plans
     </div>
+    <div class="fee">
+        No hidden fees. No contract.
+    </div>
         <div class="services">
         <a href="#">
             <span class="single-img img-one">
