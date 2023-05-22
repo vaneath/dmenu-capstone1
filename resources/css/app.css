@@ -104,19 +104,19 @@ img{
     transform: translate(0, -9px);
 }
 .img-one{
-    background-image: url("/public/images/basic.png");
+    background-image: url("/public/images/Professional.png");
     overflow: hidden;
     background-color: #0191B4;
     background-size: cover;
     background-position: center center;
 }
 .img-two{
-    background-image: url("/public/images/Lita.jpg");
+    background-image: url("/public/images/basic.png");
     background-size: cover;
     background-position: center center;
 }
 .img-three{
-    background-image: url(2.jpg);
+    background-image: url("/public/images/essentials.png");
     background-size: cover;
     background-position: center center;
 }
