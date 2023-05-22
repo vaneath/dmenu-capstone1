@@ -34,7 +34,7 @@
   @create-restaurant-form-open.window="open = $event.detail.createItemFormOpen"
 >
 
-    <div x-show="createItemFormOpen" class="fixed top-0 w-full h-full z-40 bg-black bg-opacity-80">
+    <div x-show="createItemFormOpen" class="fixed top-0 left-0 w-full h-full z-40 bg-black bg-opacity-80">
         <div class="fixed inset-0 items-center justify-center mt-24 max-w-2xl mx-auto overflow-x-hidden overflow-y-auto z-50">
             <div class="relative w-auto max-w-2xl mx-auto">
                 <div class="bg-white w-full p-6 text-wrap break-words flex flex-col" style="max-height: 80vh; overflow-y: auto">

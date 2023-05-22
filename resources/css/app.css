@@ -16,40 +16,59 @@ h1{
 
 }
 .home-image {
-    object-fit: fill;
+    size: 110%;
+    overflow: hidden;
+
 }
-.table {
-    display:grid;
-    width:200px;
-    height:200px;
-    grid-template-areas:"a1 b1" "a2 ." "a3 b3";
-    grid-gap:2px;
+img{
+  max-width: 100%;
+  max-height: 100%;
+  display: block; /* remove extra space below image */
+}
+
+  .textMiddle {
+    font-size: 50%;
+    background-color: #0191B4;
+
   }
-  
-  .table div {
-    background-color:red;
-    display:grid;
-    align-content:center;
-    justify-content:center;
-    color:white;
+  div.example {
+    background-color: #0191B4;
+    padding: 40px;
+    color: white;
+    text-align: center;
+    height: 100%;
+    width: 100%;
   }
-  
-  #a1 {
-    grid-area: a1;
+
+  @media screen and (min-width: 601px) {
+    div.example {
+      font-size: 50px;
+    }
   }
-  
-  #b1 {
-    grid-area: b1;
+
+  @media screen and (max-width: 600px) {
+    div.example {
+      font-size: 30px;
+    }
   }
-  
-  #a2 {
-    grid-area: a2;
-    width:calc(200% + 2px);
-    /*the calcluation adds the width of the gap if there are gaps. Logic: gapsize * gaps. e.g, 3 columns have 2 gaps etc. */
+
+  div.example1 {
+    background-color: #E4A11B;
+    padding: 40px;
+    color: white;
+    text-align: center;
+    height: 100%;
+    width: 100%;
   }
-  #a3 {
-    grid-area: a3;
+
+  @media screen and (min-width: 601px) {
+    div.example1 {
+      font-size: 50px;
+    }
   }
-  #b3 {
-    grid-area: b3;
+
+  @media screen and (max-width: 600px) {
+    div.example1 {
+      font-size: 30px;
+    }
   }
