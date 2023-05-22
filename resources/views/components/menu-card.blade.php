@@ -1,6 +1,32 @@
-@props(['url', 'name', 'description', 'price', ])
-
-<div class="mb-5">
+@props(['item'])
+@php
+    $url="https://th.bing.com/th/id/R.6e5ae58716febbd616cc8270fe3134ce?rik=44CGb0vVc4u6WQ&pid=ImgRaw&r=0";
+    $name="hamburger";
+    $description="I like this hamburger from Italy";
+    $price="10";
+@endphp
+<div
+x-data="{
+    called: function() {
+            console.log('called');
+            $dispatch('test');
+    },
+    handleAddToCart: function(event) {
+        console.log('handleAddToCart called');
+        event.stopPropagation();
+        this.$dispatch('add-to-cart', {
+            uniqueId: '{{ $item->unique_id }}',
+        });
+    }
+}"
+x-init="
+    () => {
+        let noOfAddedToCart = document.querySelector('.no-of-added-to-cart');
+        noOfAddedToCart.id = '{{ $item->unique_id }}';
+    }
+"
+class="mb-5"
+>
     <img
         src="{{ $url }}"
         alt=""
@@ -10,6 +36,16 @@
     <h4 class="font-semibold text-gray-300 text-sm">{{ $description }}</h4>
     <div class="flex items-center justify-between">
         <p class="font-black text-yellow text-3xl">{{ $price }} $</p>
-        <button class="w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white">+</button>
+
+        <span
+        class="no-of-added-to-cart"
+        class="w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white"
+        ></span>
+
+        <button 
+        class="w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white"
+        @click="handleAddToCart($event)"
+        >+</button>
+
     </div>
 </div>

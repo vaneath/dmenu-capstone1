@@ -31,7 +31,11 @@ class RestaurantController extends Controller
         $restaurant->name = $request->name;
         $restaurant->user_id = $user_id;
         $restaurant->location = $request->location;
-        $restaurant->currency = $request->currency;
+        $restaurant->currency = $request->currency;  
+        do {
+            $restaurant->unique_id = uniqid('dr', true);
+            $unique_id = Restaurant::where('unique_id', $restaurant->unique_id)->first();
+        } while ($unique_id != null);
         $restaurant->no_of_tables = $request->no_of_tables;
         $restaurant->no_of_available_tables = $request->no_of_available_tables;
         $restaurant->save();
@@ -96,6 +100,39 @@ class RestaurantController extends Controller
             return redirect()->route('restaurant.index');
         } else {
             return redirect()->route('restaurant.index');
+        }
+    }
+
+    public function menu(Restaurant $restaurant){
+        $sections = Section::where('restaurant_id', $restaurant->id)->get();
+        $sections = $sections->sortBy('sort_number');
+        $activeSectionPage = request()->query('active-section-id');
+        if ($activeSectionPage != null && $sections->contains('id', $activeSectionPage)) {
+            return view('category.index', [
+                'restaurant' => $restaurant,
+                'sections' => $sections,
+                'activeSectionPage' => $activeSectionPage,
+            ]);
+        } elseif ($activeSectionPage != null && !$sections->contains('id', $activeSectionPage)) {
+            return view('category.index', [
+                'restaurant' => $restaurant,
+                'sections' => $sections,
+                'activeSectionPage' => $sections->first()->id,
+            ]);
+        } else{
+            if ($sections->isEmpty()) {
+                return view('category.index', [
+                    'restaurant' => $restaurant,
+                    'sections' => $sections,
+                    'activeSectionPage' => null,
+                ]);
+            } else {
+                return view('category.index', [
+                    'restaurant' => $restaurant,
+                    'sections' => $sections,
+                    'activeSectionPage' => $sections->first()->id,
+                ]);
+            }
         }
     }
 }

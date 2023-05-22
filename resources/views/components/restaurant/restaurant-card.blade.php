@@ -1,10 +1,12 @@
-<div class="flex-col w-48 h-56 px-2 py-3 bg-blue text-white rounded-xl shadow-lg shadow-blue-500">
+<div class="flex-col w-44 h-56 px-2 py-3 bg-blue text-white rounded-xl shadow-lg shadow-blue-500">
     <div class="flex justify-end gap-2">
-        <x-primary-icon-button>
-            <span class="material-symbols-outlined">
-              qr_code
-            </span>
-        </x-primary-icon-button>
+        <div>
+            <x-primary-icon-button >
+                <span @click="$dispatch('open-qr-code', '{{ $_SERVER['HTTP_HOST'] . '/qr/' . $restaurant->unique_id }}')" class="material-symbols-outlined">
+                  qr_code
+                </span>
+            </x-primary-icon-button>
+        </div>
         <x-primary-icon-button>
             <span class="material-symbols-outlined">
                settings
@@ -18,7 +20,8 @@
                 Payment
             </div>
         </a>
-        <a href="{{ route('restaurant.show', $restaurant->id) }}" >
+        <a href="{{ route('restaurant.menu', ['restaurant' => $restaurant->name]) }}" >
+        <!-- <a href="/restaurants/{{ urlencode($restaurant->name) }}/menu" > -->
             <div class="mx-auto w-[80%] px-4 py-2 rounded-lg bg-yellow">
                 Edit Menu
             </div>

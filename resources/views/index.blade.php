@@ -19,6 +19,39 @@
     <source src="{{ asset('video/video2.mp4') }}" type="video/mp4" />
 </video>
 </div>
+
+<div class="wrapper">
+        <div class="services">
+        <a href="#">
+            <span class="single-img img-one">
+                <span class="img-text">
+                    <h4>Canon 9587</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, quam.</p>
+                    <button>Buy Now</button>
+                </span>
+            </span>
+        </a>
+        <a href="#">
+            <span class="single-img img-two"> 
+                <span class="img-text">
+                    <h4>Nikon 3458</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, quam.</p>
+                    <button>Buy Now</button>
+                </span>
+            </span>
+        </a>
+        <a href="#">
+            <span class="single-img img-three">
+                <span class="img-text">
+                    <h4>Sony 1234</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, quam.</p>
+                    <button>Buy Now</button>
+                </span>
+            </span>
+        </a>
+    </div>
+    </div>
+
 <div class="example1">
         Meet Our Amazing Team</div>
 <div style="width:100%;">

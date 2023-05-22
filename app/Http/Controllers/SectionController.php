@@ -9,13 +9,6 @@ use App\Models\Restaurant;
 
 class SectionController extends Controller
 {
-    public function index()
-    {
-        return view('section.index', [
-            'sections' => Section::where('user_id', Auth::id())->get(),
-        ]);
-    }
-
     public function store(Request $request)
     {
         $request->is_visible = $request->is_visible === 'on' ? true : false;
@@ -25,10 +18,14 @@ class SectionController extends Controller
         $section->name = $request->name;
         $section->is_visible = $request->is_visible;
         $section->sort_number = $maxSortNumber + 1;
+        do {
+            $section->unique_id = uniqid('ds', true);
+            $unique_id = Section::where('unique_id', $section->unique_id)->first();
+        } while ($unique_id != null);
         $section->restaurant_id = $request->restaurant_id;
         $section->save();
 
-        return redirect()->route('restaurant.show', [
+        return redirect()->route('restaurant.menu', [
             'restaurant' => $restaurant,
             'sections' => $restaurant->sections,
         ]);

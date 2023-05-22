@@ -18,10 +18,13 @@ return new class extends Migration
             $table->string('no_of_tables');
             $table->string('no_of_available_tables');
             $table->string('location');
+            $table->string('unique_id')->unique();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->unique(['name', 'user_id']);
         });
     }
 
