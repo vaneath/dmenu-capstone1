@@ -16,7 +16,7 @@ class QrCodeController extends Controller
         if ($restaurant == null) {
             abort(404);
         }
-        return redirect()->route('restaurant.show', [
+        return redirect()->route('restaurant.menu', [
             'restaurant' => $restaurant,
             'sections' => $restaurant->sections,
         ]);
