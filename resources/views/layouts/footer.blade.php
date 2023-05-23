@@ -27,10 +27,9 @@
       <li class="menu__item"><a class="menu__link" href="#">About</a></li>
       <li class="menu__item"><a class="menu__link" href="#">Services</a></li>
       <li class="menu__item"><a class="menu__link" href="#">Team</a></li>
-      <li class="menu__item"><a class="menu__link" href="#">Contact</a></li>
 
     </ul>
-    <p>&copy;2021 Nadine Coelho | All Rights Reserved</p>
+    <p>&copy;2023 Dmenu.com | All Rights Reserved</p>
   </footer>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
