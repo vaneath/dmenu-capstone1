@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::post('sections', [SectionController::class, 'store'])->name('section.store');
 });
 
-Route::middleware('auth')->group(function (){
+Route::middleware('auth.custom')->group(function (){
     Route::get('/qr/{restaurant}', [QrCodeController::class, 'index'])->name('qr.redirect');
     Route::get('/restaurants/{restaurant}/menu', [RestaurantController::class, 'menu'])->name('restaurant.menu');
     Route::get('/restaurants/{restaurant}/show-my-order', function () {
