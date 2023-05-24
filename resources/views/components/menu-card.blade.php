@@ -6,7 +6,7 @@
     $price="10";
 @endphp
 <div
-x-data="{
+    x-data="{
     called: function() {
             console.log('called');
             $dispatch('test');
@@ -24,7 +24,7 @@ x-data="{
         });
     },
 }"
-class="mb-5"
+    class="mb-5"
 >
     <img
         src="{{ $url }}"
@@ -37,34 +37,36 @@ class="mb-5"
         <p class="font-black text-yellow text-3xl">{{ $price }} $</p>
 
         <div
-        class="flex items-center justify-between w-1/3"
+            class="flex items-center justify-between w-1/3"
         >
-        <button
-        class="w-14 h-14 rounded-full font-bold text-2xl text-white hidden"
-        style="background-color: #FF0000"
-        x-init="
+            <button
+                class="w-14 h-14 rounded-full font-bold text-2xl text-white hidden"
+                style="background-color: #FF0000"
+                x-init="
             () => {
                 $el.id = 'rmButton-' + '{{ $item->unique_id }}';
             }
         "
-        @click="handleRemoveFromCart($event)"
-        disabled
-        >-</button>
+                @click="handleRemoveFromCart($event)"
+                disabled
+            >-
+            </button>
 
-        <span
-        class="no-of-added-to-cart"
-        class="w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white"
-        x-init="
+            <span
+                class="no-of-added-to-cart"
+                class="w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white"
+                x-init="
             () => {
                 $el.id = '{{ $item->unique_id }}';
             }
         "
-        ></span>
+            ></span>
 
-        <button 
-        class="w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white"
-        @click="handleAddToCart($event)"
-        >+</button>
+            <button
+                class="w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white"
+                @click="handleAddToCart($event)"
+            >+
+            </button>
         </div>
 
     </div>

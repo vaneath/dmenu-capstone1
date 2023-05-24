@@ -36,7 +36,7 @@
 
     <div x-show="createItemFormOpen" class="fixed top-0 left-0 w-full h-full z-40 bg-black bg-opacity-80">
         <div class="fixed inset-0 items-center justify-center mt-24 max-w-2xl mx-auto overflow-x-hidden overflow-y-auto z-50">
-            <div class="relative w-auto max-w-2xl mx-auto">
+            <div class="relative max-w-2xl mx-auto">
                 <div class="bg-white w-full p-6 text-wrap break-words flex flex-col" style="max-height: 80vh; overflow-y: auto">
                     <h2 class="text-2xl font-bold mb-4 text-center">Add Item</h2>
                     <form @submit.prevent="submit" action="/items" method="POST">
@@ -56,7 +56,7 @@
                             <x-form.input-label for="img_url">Item Image URL:</x-form.input-label>
                             <x-form.text-input @blur="validateImgUrl" placeholder="Item's Image URL" name="img_url" x-model="inputValues.img_url" />
                             <p x-show="!isValid.img_url" class="text-red-600 text-sm mt-1" id="name-required" x-cloak>Item's image URL required.</p>
-                        </div>  
+                        </div>
                         <div class="flex flex-col mb-4">
                             <x-form.input-label for="price">Item Price:</x-form.input-label>
                             <x-form.text-input @blur="validatePrice" placeholder="Item's Price" name="price" x-model="inputValues.price" />

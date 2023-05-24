@@ -6,8 +6,8 @@
     url="https://th.bing.com/th/id/R.93b95738cb630f899bacf7dd835b5ad5?rik=tTYET5ChbtekCw&riu=http%3a%2f%2fyesofcorsa.com%2fwp-content%2fuploads%2f2016%2f11%2f4K-Wallpapers-7.jpg&ehk=T6iESUSfpf9rlqxhPxnOLZKKmedMu0oOGAuICEPY%2fbo%3d&risl=&pid=ImgRaw&r=0"
 >
 
-<div
-x-data="{
+    <div
+        x-data="{
     activeSectionPage: 0,
     ignoreEvent: false,
     xDataEmptyCart: true,
@@ -109,40 +109,43 @@ x-data="{
 
     },
 }"
-x-on:update-active-section-page.window="activeSectionPage = $event.detail, fetchCategories($event.detail)"
-x-on:select-category.window="fetchItems($event.detail)"
-x-on:add-to-cart="addToCart($event.detail.uniqueId), updateItemInformation($event.detail.uniqueId);"
-x-on:remove-from-cart="removeFromCart($event.detail.uniqueId), updateItemInformation($event.detail.uniqueId);"
-x-on:test="
-if (!ignoreEvent) { 
+        x-on:update-active-section-page.window="activeSectionPage = $event.detail, fetchCategories($event.detail)"
+        x-on:select-category.window="fetchItems($event.detail)"
+        x-on:add-to-cart="addToCart($event.detail.uniqueId), updateItemInformation($event.detail.uniqueId);"
+        x-on:remove-from-cart="removeFromCart($event.detail.uniqueId), updateItemInformation($event.detail.uniqueId);"
+        x-on:test="
+if (!ignoreEvent) {
     addToCart('test'), updateNoOfAddedToCart();
-    ignoreEvent = true; 
-    setTimeout(() => { ignoreEvent = false }, 5000); 
+    ignoreEvent = true;
+    setTimeout(() => { ignoreEvent = false }, 5000);
 }"
-x-init="
+        x-init="
 () => {
     sessionStorage.setItem('emptyCart', true);
     sessionStorage.setItem('cartItems', JSON.stringify({}));
 }
 "
->
+    >
 
-    <div id="display-items">
+        <div id="display-items">
+        </div>
+
+        <div id="display-categories"></div>
+
     </div>
 
-    <div id="display-categories"></div>
-
-</div>
-
-<div
-id="show-my-order"
-class="fixed bottom-0 left-0 right-0 flex justify-center items-center rounded-full hidden"
-style="background-color: #0F4C5C"
->
-    <button
-    class="w-full h-14 rounded-t-3xl font-bold text-2xl text-white"
-    >Show My Order</button>
-</div>
+    <div
+        id="show-my-order"
+        class="w-full mx-auto fixed left-0 bottom-3 flex justify-center hidden"
+    >
+        <div
+            class="w-[30rem] h-14 px-10 bg-yellow rounded-full grid place-content-center"
+        >
+            <a href="{{ route('order.index', $restaurant->name) }}" class="font-semibold text-lg text-white absolute top-1/4 left-[40%]">
+                Show my order
+            </a>
+        </div>
+    </div>
 
 
 </x-mobile-layout>

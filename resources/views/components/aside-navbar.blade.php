@@ -19,5 +19,13 @@
                 Restaurant
             </a>
         </li>
+        <li class="px-3 py-2 rounded-lg {{ request()->is('order') ? 'bg-blue text-white' : '' }}">
+            <a href="{{ route('restaurant.index') }}" class="flex items-center gap-3">
+                        <span class="material-symbols-outlined">
+                           edit_note
+                        </span>
+                Order
+            </a>
+        </li>
     </ul>
 </aside>
