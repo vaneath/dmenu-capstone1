@@ -41,7 +41,7 @@
 <x-head
 >
     <body class="mx-auto bg-blue px-7 py-5 mb-8">
-    <div class="bg-white py-5 px-8">
+    <div class="max-w-[40rem] mx-auto bg-white py-5 px-8 relative">
         <h1 class="text-2xl font-bold text-center mb-7">Invoice</h1>
         <div class="flex justify-between">
             <div class="mb-7">
@@ -57,8 +57,8 @@
             <tr class="flex pb-2 mb-2 border-b border-gray-600">
                 <th>#</th>
                 <th class="pl-3">Name</th>
-                <th class="pl-36">Qty</th>
-                <th class="pl-16">Price</th>
+                <th class="absolute left-[62%]">Qty</th>
+                <th class="absolute left-[83%]">Price</th>
             </tr>
             <tr class="flex">
                 <td>1</td>
