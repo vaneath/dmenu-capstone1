@@ -144,6 +144,5 @@ style="background-color: #0F4C5C"
     >Show My Order</button>
 </div>
 
-<x-order.show-my-order></x-order.show-my-order>
 
 </x-mobile-layout>

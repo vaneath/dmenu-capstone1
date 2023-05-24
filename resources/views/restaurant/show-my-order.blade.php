@@ -1,3 +1,3 @@
 <div>
-    <x-restaurant.show-my-order />
+    <x-order.show-my-order />
 </div>
