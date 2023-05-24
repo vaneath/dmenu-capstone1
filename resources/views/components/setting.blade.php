@@ -28,10 +28,3 @@
         </div>
     </section>
 </x-app-layout>
-
-
-{{--<a href="#" class="absolute right-5 top-5" @click="open = false">--}}
-{{--                <span class="material-symbols-outlined">--}}
-{{--                    close--}}
-{{--                </span>--}}
-{{--</a>--}}
