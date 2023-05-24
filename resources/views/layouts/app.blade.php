@@ -1,3 +1,5 @@
+@props(['footer' => false])
+
 <x-head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -18,7 +20,7 @@
             </main>
 
             <!-- Page Footer -->
-            @if(! request()->has('/restaurants/1'))
+            @if($footer)
                 @include('layouts.footer')
             @endif
         </div>
