@@ -15,7 +15,7 @@
             @endif
 
             <!-- Page Content -->
-            <main class="mb-10" {{ $attributes->merge(['class' => '']) }}>
+            <main {{ $attributes->merge(['class' => '']) }}>
                 {{ $slot }}
             </main>
 

@@ -134,18 +134,17 @@ if (!ignoreEvent) {
 
     </div>
 
-    <div
-        id="show-my-order"
-        class="w-full mx-auto fixed left-0 bottom-3 flex justify-center hidden"
-    >
+    <a href="{{ route('order.index', $restaurant->name) }}"
+       class="w-[20rem] mb-1 fixed mx-auto left-0 right-0 bottom-3 bg-yellow rounded-full px-10 py-2 text-center"
+       >
         <div
-            class="w-[30rem] h-14 px-10 bg-yellow rounded-full grid place-content-center"
+            class="font-semibold text-lg text-white"
+            id="show-my-order"
         >
-            <a href="{{ route('order.index', $restaurant->name) }}" class="font-semibold text-lg text-white absolute top-1/4 left-[40%]">
-                Show my order
-            </a>
+            Show my order
         </div>
-    </div>
+    </a>
+
 
 
 </x-mobile-layout>

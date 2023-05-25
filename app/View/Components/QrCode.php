@@ -13,9 +13,15 @@ class QrCode extends Component
         $restaurant = Restaurant::find(1);
         $url = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&choe=UTF-8&chl=';
 
-		return view('components.qr-code', [
+		if ($restaurant) {
+            return view('components.qr-code', [
+                'url' => $url,
+                'restaurant' => $restaurant->name,
+            ]);
+        }
+        return view('components.qr-code', [
             'url' => $url,
-            'restaurant' => $restaurant->name,
+            'restaurant' => 'No restaurant found',
         ]);
 	}
 }

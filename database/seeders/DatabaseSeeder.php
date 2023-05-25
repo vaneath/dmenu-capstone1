@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Restaurant;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RestaurantsTableSeeder;
 use Database\Seeders\SectionsTableSeeder;
@@ -18,16 +20,24 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+//        Restaurant::factory(20)->create();
 
-        $this->call([
-            RestaurantsTableSeeder::class,
-            SectionsTableSeeder::class,
-            CategoriesTableSeeder::class,
-            ItemsTableSeeder::class,
-        ]);
+         User::factory()->create([
+             'name' => 'vaneath',
+             'email' => 'vaneath@gmail.com',
+         ]);
+         User::factory()->create([
+             'name' => 'superadmin',
+             'email' => 'superadmin@gmail.com',
+             'role' => 'superadmin',
+         ]);
+
+
+//        $this->call([
+//            RestaurantsTableSeeder::class,
+//            SectionsTableSeeder::class,
+//            CategoriesTableSeeder::class,
+//            ItemsTableSeeder::class,
+//        ]);
     }
 }

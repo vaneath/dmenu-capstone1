@@ -16,10 +16,6 @@ class CustomAuthenticate
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // dd('lkjaklsdjflajskld');
-        if (!auth()->check()) {
-            return $next($request);
-        }
         return $next($request);
     }
 }
