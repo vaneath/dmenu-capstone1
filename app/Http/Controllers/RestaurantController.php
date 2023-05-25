@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Restaurant;
 use App\Models\Section;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Auth;
 
 class RestaurantController extends Controller
@@ -31,7 +30,7 @@ class RestaurantController extends Controller
         $restaurant->name = $request->name;
         $restaurant->user_id = $user_id;
         $restaurant->location = $request->location;
-        $restaurant->currency = $request->currency;  
+        $restaurant->currency = $request->currency;
         do {
             $restaurant->unique_id = uniqid('dr', true);
             $unique_id = Restaurant::where('unique_id', $restaurant->unique_id)->first();

@@ -1,6 +1,6 @@
 <nav class="bg-blue flex justify-evenly items-center">
     <div class="w-16 h-16 md:w-20 md:h-20">
-        <a href="/">
+        <a href="{{ auth()->user()?->role == 'superadmin' ? route('superadmin.index') : '/' }}">
             <img src="{{ asset('images/dmenu.png') }}" alt="">
         </a>
     </div>

@@ -15,13 +15,17 @@
         </span>
     </div>
     <section class="px-6 py-8 mx-auto max-w-7xl">
-        <x-slot name="header">
-            <h2 class="font-semibold text-center text-xl text-gray-800 leading-tight">
-                {{ __('Dashboard') }}
-            </h2>
-        </x-slot>
+        @if(auth()->user()->role != 'superadmin')
+            <x-slot name="header">
+                    <h2 class="font-semibold text-center text-xl text-gray-800 leading-tight">
+                        {{ __('Dashboard') }}
+                    </h2>
+            </x-slot>
+        @endif
         <div class="flex justify-center gap-5 mb-10">
-            <x-aside-navbar class="hidden" />
+            @if(auth()->user()->role != 'superadmin')
+                <x-aside-navbar class="hidden" />
+            @endif
             <main {{ $attributes->merge(['class' => '']) }}>
                 {{ $slot }}
             </main>

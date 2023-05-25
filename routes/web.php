@@ -5,6 +5,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\SuperAdminController;
 use App\View\Components\QrCode;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\ItemController;
@@ -22,6 +23,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    if (auth()->user()?->role == 'superadmin') {
+        return redirect()->route('superadmin.index');
+    }
     return view('index');
 });
 
@@ -35,7 +39,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/restaurants', [RestaurantController::class, 'store'])->name('restaurant.store');
 
     //category
-    //Route::get('restaurants/{restaurant}', [CategoryController::class, 'index'])->name('category.index');
     Route::post('categories', [CategoryController::class, 'store'])->name('category.store');
 
     Route::post('sections', [SectionController::class, 'store'])->name('section.store');
@@ -48,12 +51,15 @@ Route::middleware('auth.custom')->group(function (){
     Route::get('/restaurants/{restaurant}/checkout', [OrderController::class, 'show'])->name('order.show');
     Route::get('/restaurants/{restaurant}/menu/{category}/items', [CategoryController::class, 'show'])->name('category.show');
     Route::post('/items', [ItemController::class, 'store'])->name('item.store');
-    //Route::get('restaurants/{restaurant}/{category:slug}', [CategoryController::class, 'index'])->name('category.index');
     Route::get('restaurants/{restaurant}/sections/{section}/categories', [CategoryController::class, 'index'])->name('category.index');
     Route::get('categories/{category}/items', [ItemController::class, 'index'])->name('item.index');
 });
 
-// Route::post('/restaurants', [RestaurantController::class, 'store'])->name('restaurant.store');
+Route::middleware(['auth', 'auth.superadmin'])->group(function () {
+    Route::get('superadmin', [SuperAdminController::class, 'index'])->name('superadmin.index');
+    Route::get('superadmin/users', [SuperAdminController::class, 'users'])->name('superadmin.users');
+    Route::get('superadmin/restaurants', [SuperAdminController::class, 'restaurants'])->name('superadmin.restaurants');
+});
 
 // test route
 Route::get('/test', function () {

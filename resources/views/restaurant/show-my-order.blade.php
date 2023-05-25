@@ -28,12 +28,17 @@
                             </div>
                         </div>
                         <div class="flex flex-1 items-end justify-between text-sm">
-                            <p class="text-white">
-                                Qty
-                                <span class="ml-1 px-3 py-1 bg-yellow rounded-full">
+                            <div class="bg-white px-5 py-1 rounded-full flex gap-5">
+                                <div class="text-sm text-yellow font-black text-lg">
+                                    -
+                                </div>
+                                <span class="font-bold">
                                     1
                                 </span>
-                            </p>
+                                <div class="text-sm text-yellow font-semibold">
+                                    +
+                                </div>
+                            </div>
 
                             <div class="flex px-5 py-2 bg-red-500 hover:bg-red-600 rounded-lg">
                                 <button type="button" class="font-medium text-white">Remove</button>
@@ -44,16 +49,14 @@
             </ul>
         </div>
     </div>
-    <div
-        id="show-my-order"
-        class="w-full mx-auto fixed left-0 bottom-3 flex justify-center"
+    <a href="{{ route('order.show', $restaurant->name) }}"
+       class="w-[20rem] mb-1 fixed mx-auto left-0 right-0 bottom-3 bg-yellow rounded-full px-10 py-2 text-center"
     >
         <div
-            class="w-[30rem] h-14 px-10 bg-yellow rounded-full grid place-content-center"
+            class="font-semibold text-lg text-white"
+            id="show-my-order"
         >
-            <a href="{{ route('order.show', $restaurant->name) }}" class="font-semibold text-lg text-white absolute top-1/4 left-[40%]">
-                Checkout
-            </a>
+            Checkout
         </div>
-    </div>
+    </a>
 </x-mobile-layout>

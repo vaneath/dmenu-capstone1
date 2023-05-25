@@ -29,6 +29,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if (auth()->user()->role == 'superadmin') {
+            return redirect(RouteServiceProvider::SUPERADMIN)->with('success', 'Welcome back !');
+        }
+
         return redirect(RouteServiceProvider::HOME)->with('success', 'Welcome back, ' . ucwords(auth()->user()->name));
     }
 

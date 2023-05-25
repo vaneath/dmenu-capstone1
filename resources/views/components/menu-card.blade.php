@@ -29,7 +29,7 @@
     <img
         src="{{ $url }}"
         alt=""
-        class="rounded-2xl h-72 md:h-96 w-full bg-cover bg-center mb-5"
+        class="rounded-2xl h-60 md:h-72 w-full bg-contain bg-center mb-5"
     >
     <h3 class="mb-1 font-bold text-white text-3xl">{{ ucwords($name) }}</h3>
     <h4 class="font-semibold text-gray-300 text-sm">{{ $description }}</h4>
@@ -37,11 +37,10 @@
         <p class="font-black text-yellow text-3xl">{{ $price }} $</p>
 
         <div
-            class="flex items-center justify-between w-1/3"
+            class="bg-white flex items-center justify-between px-5 py-2 rounded-full w-1/3 w-44"
         >
             <button
-                class="w-14 h-14 rounded-full font-bold text-2xl text-white hidden"
-                style="background-color: #FF0000"
+                class="font-bold rounded-full text-2xl text-white text-yellow"
                 x-init="
             () => {
                 $el.id = 'rmButton-' + '{{ $item->unique_id }}';
@@ -53,7 +52,7 @@
             </button>
 
             <span
-                class="no-of-added-to-cart"
+                class="no-of-added-to-cart font-bold"
                 class="w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white"
                 x-init="
             () => {
@@ -63,7 +62,7 @@
             ></span>
 
             <button
-                class="w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white"
+                class="font-bold rounded-full text-2xl text-white text-yellow"
                 @click="handleAddToCart($event)"
             >+
             </button>

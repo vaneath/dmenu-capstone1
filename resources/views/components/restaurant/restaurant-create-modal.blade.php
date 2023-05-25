@@ -1,5 +1,6 @@
 <?php
 $currencies = [
+    ['id' => 'USD or KHR', 'full_name' => 'Select Currency', 'country' => null],
     ['id' => 'USD', 'full_name' => 'United States Dollar', 'country' => 'America'],
     ['id' => 'KHR', 'full_name' => 'Khmer Riels', 'country' => 'Cambodia'],
 ];
