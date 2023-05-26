@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
@@ -38,10 +39,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurant.index');
     Route::post('/restaurants', [RestaurantController::class, 'store'])->name('restaurant.store');
 
+    //order
+    Route::get('orders', [OrderController::class, 'order'])->name('order.order');
+
     //category
     Route::post('categories', [CategoryController::class, 'store'])->name('category.store');
 
     Route::post('sections', [SectionController::class, 'store'])->name('section.store');
+
+    Route::get('dashboard', [AdminDashboardController::class, '__invoke'])->name('dashboard.index');
 });
 
 Route::middleware('auth.custom')->group(function (){

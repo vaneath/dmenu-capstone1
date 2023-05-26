@@ -15,7 +15,7 @@ class CategoryController extends Controller
             abort(403);
         }
         // $categories = Category::where('section_id', $section->id)->get();
-        return view('restaurant.show-categories', [
+        return view('admin.restaurant.show-categories', [
             'restaurant' => $restaurant,
             'section' => $section,
             'categories' => $section->categories,
@@ -55,7 +55,7 @@ class CategoryController extends Controller
         //     'description' => 'test',
         //     'price' => 'test',
         // ]);
-        return view('category.show', [
+        return view('admin.category.show', [
             'restaurant' => $restaurant,
             'sections' => $restaurant->sections,
             'category' => $category,

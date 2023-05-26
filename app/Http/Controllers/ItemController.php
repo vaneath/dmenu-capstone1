@@ -13,7 +13,7 @@ class ItemController extends Controller
     // Route::get('categories/{category}/items', [ItemController::class, 'index'])->name('item.index');
     public function index(Restaurant $restaurant, $category)
     {
-        return view('restaurant.show-items', [
+        return view('admin.restaurant.show-items', [
             'category' => $category,
             'items' => $category->items,
         ]);
@@ -41,7 +41,7 @@ class ItemController extends Controller
         $item->sort_number = $max_sort_number + 1;
         $item->save();
 
-        
+
         return redirect()->route('restaurant.menu', [
             'restaurant' => $category->section->restaurant,
             'sections' => $category->section->restaurant->sections,

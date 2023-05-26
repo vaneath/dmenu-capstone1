@@ -11,7 +11,7 @@ class RestaurantController extends Controller
 {
     public function index()
     {
-        return view('restaurant.index', [
+        return view('admin.restaurant.index', [
             'restaurants' => Restaurant::where('user_id', Auth::id())->get(),
         ]);
     }
@@ -47,26 +47,26 @@ class RestaurantController extends Controller
         $sections = $sections->sortBy('sort_number');
         $activeSectionPage = request()->query('active-section-id');
         if ($activeSectionPage != null && $sections->contains('id', $activeSectionPage)) {
-            return view('restaurant.show', [
+            return view('admin.restaurant.show', [
                 'restaurant' => $restaurant,
                 'sections' => $sections,
                 'activeSectionPage' => $activeSectionPage,
             ]);
         } elseif ($activeSectionPage != null && !$sections->contains('id', $activeSectionPage)) {
-            return view('restaurant.show', [
+            return view('admin.restaurant.show', [
                 'restaurant' => $restaurant,
                 'sections' => $sections,
                 'activeSectionPage' => $sections->first()->id,
             ]);
         } else{
             if ($sections->isEmpty()) {
-                return view('restaurant.show', [
+                return view('admin.restaurant.show', [
                     'restaurant' => $restaurant,
                     'sections' => $sections,
                     'activeSectionPage' => null,
                 ]);
             } else {
-                return view('restaurant.show', [
+                return view('admin.restaurant.show', [
                     'restaurant' => $restaurant,
                     'sections' => $sections,
                     'activeSectionPage' => $sections->first()->id,
@@ -107,26 +107,26 @@ class RestaurantController extends Controller
         $sections = $sections->sortBy('sort_number');
         $activeSectionPage = request()->query('active-section-id');
         if ($activeSectionPage != null && $sections->contains('id', $activeSectionPage)) {
-            return view('category.index', [
+            return view('admin.category.index', [
                 'restaurant' => $restaurant,
                 'sections' => $sections,
                 'activeSectionPage' => $activeSectionPage,
             ]);
         } elseif ($activeSectionPage != null && !$sections->contains('id', $activeSectionPage)) {
-            return view('category.index', [
+            return view('admin.category.index', [
                 'restaurant' => $restaurant,
                 'sections' => $sections,
                 'activeSectionPage' => $sections->first()->id,
             ]);
         } else{
             if ($sections->isEmpty()) {
-                return view('category.index', [
+                return view('admin.category.index', [
                     'restaurant' => $restaurant,
                     'sections' => $sections,
                     'activeSectionPage' => null,
                 ]);
             } else {
-                return view('category.index', [
+                return view('admin.category.index', [
                     'restaurant' => $restaurant,
                     'sections' => $sections,
                     'activeSectionPage' => $sections->first()->id,
