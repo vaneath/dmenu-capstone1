@@ -21,26 +21,26 @@ class QrCodeController extends Controller
         $sections = $sections->sortBy('sort_number');
         $activeSectionPage = request()->query('active-section-id');
         if ($activeSectionPage != null && $sections->contains('id', $activeSectionPage)) {
-            return view('category.index', [
+            return view('admin.category.index', [
                 'restaurant' => $restaurant,
                 'sections' => $sections,
                 'activeSectionPage' => $activeSectionPage,
             ]);
         } elseif ($activeSectionPage != null && !$sections->contains('id', $activeSectionPage)) {
-            return view('category.index', [
+            return view('admin.category.index', [
                 'restaurant' => $restaurant,
                 'sections' => $sections,
                 'activeSectionPage' => $sections->first()->id,
             ]);
         } else{
             if ($sections->isEmpty()) {
-                return view('category.index', [
+                return view('admin.category.index', [
                     'restaurant' => $restaurant,
                     'sections' => $sections,
                     'activeSectionPage' => null,
                 ]);
             } else {
-                return view('category.index', [
+                return view('admin.category.index', [
                     'restaurant' => $restaurant,
                     'sections' => $sections,
                     'activeSectionPage' => $sections->first()->id,
