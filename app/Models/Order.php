@@ -4,20 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Restaurant;
+use App\Models\OrderItem;
 
-class Section extends Model
+class Order extends Model
 {
     use HasFactory;
 
     public $incrementing = false;
-    
+
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
     }
 
-    public function categories()
+    public function orderItems()
     {
-        return $this->hasMany(Category::class);
+        return $this->hasMany(OrderItem::class);
     }
 }
+

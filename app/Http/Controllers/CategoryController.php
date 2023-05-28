@@ -11,6 +11,7 @@ class CategoryController extends Controller
 {
     public function index(Restaurant $restaurant, Section $section)
     {
+        // dd('hi');
         if ($section->restaurant_id != $restaurant->id) {
             abort(403);
         }
@@ -34,9 +35,9 @@ class CategoryController extends Controller
         $category->sort_number = $maxSortNumber + 1;
         $category->section_id = $request->section_id;
         do {
-            $category->unique_id = uniqid('dc', true);
-            $unique_id = Category::where('unique_id', $category->unique_id)->first();
-        } while ($unique_id != null);
+            $category->id = uniqid('dc', true);
+            $id = Category::where('id', $category->id)->first();
+        } while ($id != null);
         $category->save();
         return redirect()->route('restaurant.menu', [
             'restaurant' => $section->restaurant,

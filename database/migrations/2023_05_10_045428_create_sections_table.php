@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sections', function (Blueprint $table) {
-            $table->id();
+            $table->string('id', 25)->primary();
             $table->boolean('is_visible')->default(true);
-            $table->string('name');
+            $table->string('name', 191);
             $table->integer('sort_number');
-            $table->string('unique_id')->unique();
-            $table->unsignedBigInteger('restaurant_id');
+            $table->string('restaurant_id', 25);
             $table->timestamps();
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');

@@ -20,23 +20,25 @@ class RestaurantController extends Controller
     {
         $this->validate($request, array(
             'name' => 'required|max:255',
-            'location' => 'required|max:255',
-            'currency' => 'required|max:255',
             'no_of_tables' => 'required|max:255',
-            'no_of_available_tables' => 'required|max:255'
+            'village' => 'required|max:255',
+            'district' => 'required|max:255',
+            'commune' => 'required|max:255',
+            'province' => 'required|max:255',
         ));
         $user_id = Auth::id();
         $restaurant = new Restaurant();
         $restaurant->name = $request->name;
         $restaurant->user_id = $user_id;
-        $restaurant->location = $request->location;
-        $restaurant->currency = $request->currency;
         do {
-            $restaurant->unique_id = uniqid('dr', true);
-            $unique_id = Restaurant::where('unique_id', $restaurant->unique_id)->first();
-        } while ($unique_id != null);
+            $restaurant->id = uniqid('dr', true);
+            $id = Restaurant::where('id', $restaurant->id)->first();
+        } while ($id != null);
         $restaurant->no_of_tables = $request->no_of_tables;
-        $restaurant->no_of_available_tables = $request->no_of_available_tables;
+        $restaurant->village = $request->village;
+        $restaurant->district = $request->district;
+        $restaurant->commune = $request->commune;
+        $restaurant->province = $request->province;
         $restaurant->save();
         return redirect()->route('restaurant.index');
     }
@@ -102,7 +104,9 @@ class RestaurantController extends Controller
         }
     }
 
-    public function menu(Restaurant $restaurant){
+    public function menu($restaurant){
+        $user = Auth::user();
+        $restaurant = $user->restaurants()->where('name', $restaurant)->first();
         $sections = Section::where('restaurant_id', $restaurant->id)->get();
         $sections = $sections->sortBy('sort_number');
         $activeSectionPage = request()->query('active-section-id');

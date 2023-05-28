@@ -1,9 +1,10 @@
 @props(['item'])
+{{ $item }}
 @php
     $url="https://th.bing.com/th/id/R.6e5ae58716febbd616cc8270fe3134ce?rik=44CGb0vVc4u6WQ&pid=ImgRaw&r=0";
-    $name="hamburger";
-    $description="I like this hamburger from Italy";
-    $price="10";
+    $name=$item->name;
+    $description=$item->description;
+    $price=$item->price;
 @endphp
 <div
     x-data="{
@@ -14,13 +15,13 @@
     handleAddToCart: function(event) {
         event.stopPropagation();
         this.$dispatch('add-to-cart', {
-            uniqueId: '{{ $item->unique_id }}',
+            uniqueId: '{{ $item->id }}',
         });
     },
     handleRemoveFromCart: function(event) {
         event.stopPropagation();
         this.$dispatch('remove-from-cart', {
-            uniqueId: '{{ $item->unique_id }}',
+            uniqueId: '{{ $item->id }}',
         });
     },
 }"
@@ -40,10 +41,10 @@
             class="bg-white flex items-center justify-between px-5 py-2 rounded-full w-1/3 w-44"
         >
             <button
-                class="font-bold rounded-full text-2xl text-white text-yellow"
+                class="font-bold rounded-full text-2xl text-white text-white"
                 x-init="
             () => {
-                $el.id = 'rmButton-' + '{{ $item->unique_id }}';
+                $el.id = 'rmButton-' + '{{ $item->id }}';
             }
         "
                 @click="handleRemoveFromCart($event)"
@@ -56,10 +57,10 @@
                 class="w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white"
                 x-init="
             () => {
-                $el.id = '{{ $item->unique_id }}';
+                $el.id = '{{ $item->id }}';
             }
         "
-            ></span>
+            >--</span>
 
             <button
                 class="font-bold rounded-full text-2xl text-white text-yellow"
