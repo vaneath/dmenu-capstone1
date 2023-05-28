@@ -56,17 +56,11 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $restaurantId)
     {
-        $restaurantName = $request->restaurant;
-
-        $restaurant = Restaurant::where('name', $restaurantName)->first();
+        $restaurant = Restaurant::find($restaurantId);
 
         $cartItems = json_decode($request->cart_items, true);
-
-        dd($request->all(), $cartItems);
-
-        // dd($restaurant, $myRestaurant->id);
 
         $sections = Section::where('restaurant_id', $restaurant->id)->get();
         $sections = $sections->sortBy('sort_number');

@@ -185,9 +185,9 @@
         </div>
     </a>
 
-    <form @submit.prevent="checkoutItems" action="{{ route('order.store', $restaurant->name) }}" method="POST" id="order-form">
+    <form @submit.prevent="checkoutItems" action="{{ route('order.store', $restaurant->id) }}" method="POST" id="order-form">
         @csrf
-        <input type="hidden" name="restaurant" value="{{ $restaurant }}"> 
+        <input type="hidden" name="restaurant" value="{{ $restaurant->id }}"> 
         <input type="hidden" id="cart-items-input" name="cart_items" value="">
         <button type="submit" id="submit-order">Checkout V2</button>
     </form>
