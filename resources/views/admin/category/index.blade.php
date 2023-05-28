@@ -71,7 +71,8 @@
             sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
             let updatedCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
             if (updatedCartItems[itemUniqueID] == 0) {
-                rmButton.classList.add('hidden');
+                rmButton.classList.remove('text-yellow');
+                rmButton.classList.add('text-white');
                 rmButton.disabled = true;
             }
         }
@@ -81,30 +82,28 @@
         let itemQuantity = document.getElementById(itemUniqueID);
         let rmButton = document.getElementById('rmButton-' + itemUniqueID);
         if (cartItems[itemUniqueID] != undefined && cartItems[itemUniqueID] != 0) {
-            itemQuantity.classList.remove('hidden');
+            itemQuantity.classList.remove('text-white');
             itemQuantity.innerHTML = cartItems[itemUniqueID] / 4;
-            rmButton.classList.remove('hidden');
+            rmButton.classList.remove('text-white');
+            rmButton.classList.add('text-yellow');
             rmButton.disabled = false;
         } else {
-            itemQuantity.classList.add('hidden');
-            rmButton.classList.add('hidden');
+            itemQuantity.innerText = '--';
+            {{-- itemQuantity.classList.add('text-white'); --}}
+            rmButton.classList.remove('text-yellow');
+            rmButton.classList.add('text-white');
             rmButton.disabled = true;
         }
         let emptyCart = sessionStorage.getItem('emptyCart');
         let showMyOrder = document.getElementById('show-my-order');
         showMyOrder.classList.remove('hidden');
-        // if cart is empty or the total of all items is 0
         console.log(Object.values(cartItems).reduce((a, b) => a + b, 0), emptyCart);
         if ( (Object.values(cartItems).reduce((a, b) => a + b, 0) == 0) ) {
             console.log('empty cart');
             showMyOrder.classList.add('hidden');
-            if ( !showMyOrder.classList.contains('hidden') ) {
-                // showMyOrder.classList.add('hidden');
-            }
-        //    // showMyOrder.classList.add('hidden');
-        } else if ( showMyOrder.classList.contains('hidden') ) {
+        } else {
             console.log('not empty cart');
-            //showMyOrder.classList.remove('hidden');
+            showMyOrder.classList.remove('hidden');
         }
 
     },
@@ -135,11 +134,11 @@ if (!ignoreEvent) {
     </div>
 
     <a href="{{ route('order.index', $restaurant->name) }}"
-       class="w-[20rem] mb-1 fixed mx-auto left-0 right-0 bottom-3 bg-yellow rounded-full px-10 py-2 text-center"
+       class="w-[20rem] mb-1 fixed mx-auto left-0 right-0 bottom-3 bg-yellow rounded-full px-10 py-2 text-center hidden"
+       id="show-my-order"
        >
         <div
             class="font-semibold text-lg text-white"
-            id="show-my-order"
         >
             Show my order
         </div>

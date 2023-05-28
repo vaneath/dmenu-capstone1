@@ -12,19 +12,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('restaurants', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('currency');
-            $table->string('no_of_tables');
-            $table->string('no_of_available_tables');
-            $table->string('location');
-            $table->string('unique_id')->unique();
+            $table->string('id', 25)->primary();
+            $table->string('name', 191);
+            $table->string('no_of_tables')->nullable(true);
+
+            $table->string('logo_url')->nullable(true);
+
+            $table->string('village');
+            $table->string('commune');
+            $table->string('district');
+            $table->string('province');
+
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->unique(['name', 'user_id']);
+
+            $table->string('address')->virtualAs("CONCAT(COALESCE(village, ''), ', ', COALESCE(commune, ''), ', ', COALESCE(district, ''), ', ', COALESCE(province, ''))")->nullable()->change();
         });
     }
 

@@ -9,6 +9,8 @@ class Item extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     public function category()
     {
         return $this->belongsTo(Category::class);

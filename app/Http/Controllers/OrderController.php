@@ -56,9 +56,42 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $restaurantId)
     {
-        //
+        $restaurant = Restaurant::find($restaurantId);
+
+        $cartItems = json_decode($request->cart_items, true);
+
+        $sections = Section::where('restaurant_id', $restaurant->id)->get();
+        $sections = $sections->sortBy('sort_number');
+        $activeSectionPage = request()->query('active-section-id');
+        if ($activeSectionPage != null && $sections->contains('id', $activeSectionPage)) {
+            return view('admin.restaurant.checkout', [
+                'restaurant' => $restaurant,
+                'sections' => $sections,
+                'activeSectionPage' => $activeSectionPage,
+            ]);
+        } elseif ($activeSectionPage != null && !$sections->contains('id', $activeSectionPage)) {
+            return view('admin.restaurant.checkout', [
+                'restaurant' => $restaurant,
+                'sections' => $sections,
+                'activeSectionPage' => $sections->first()->id,
+            ]);
+        } else {
+            if ($sections->isEmpty()) {
+                return view('admin.restaurant.checkout', [
+                    'restaurant' => $restaurant,
+                    'sections' => $sections,
+                    'activeSectionPage' => null,
+                ]);
+            } else {
+                return view('admin.restaurant.checkout', [
+                    'restaurant' => $restaurant,
+                    'sections' => $sections,
+                    'activeSectionPage' => $sections->first()->id,
+                ]);
+            }
+        }
     }
 
     /**

@@ -2,7 +2,7 @@
     <div class="flex justify-end gap-2">
         <div>
             <x-primary-icon-button >
-                <span @click="$dispatch('open-qr-code', '{{ $_SERVER['HTTP_HOST'] . '/qr/' . $restaurant->unique_id }}')" class="material-symbols-outlined">
+                <span @click="$dispatch('open-qr-code', '{{ $_SERVER['HTTP_HOST'] . '/qr/' . $restaurant->id }}')" class="material-symbols-outlined">
                   qr_code
                 </span>
             </x-primary-icon-button>

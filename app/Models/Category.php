@@ -9,6 +9,8 @@ class Category extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     public function section()
     {
         return $this->belongsTo(Section::class);
