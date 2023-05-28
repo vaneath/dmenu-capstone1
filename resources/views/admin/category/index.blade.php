@@ -136,10 +136,10 @@ if (!ignoreEvent) {
 
     <a href="{{ route('order.index', $restaurant->name) }}"
        class="w-[20rem] mb-1 fixed mx-auto left-0 right-0 bottom-3 bg-yellow rounded-full px-10 py-2 text-center"
+       id="show-my-order"
        >
         <div
             class="font-semibold text-lg text-white"
-            id="show-my-order"
         >
             Show my order
         </div>

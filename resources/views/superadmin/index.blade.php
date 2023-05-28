@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="mx-5">
-                        <h4 class="text-2xl font-semibold text-gray-700">{{ $users->count() }}</h4>
+                        <h4 class="text-2xl font-semibold text-gray-700">{{  $users->where('role', '!=', 'superadmin')->count() }}</h4>
                         <div class="text-gray-500">Total Users</div>
                     </div>
                 </div>

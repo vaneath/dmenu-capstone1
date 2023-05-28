@@ -12,7 +12,6 @@ class QrCodeController extends Controller
 {
     public function index($unique_id)
     {
-        // dd('hi');
         $restaurant = Restaurant::where('unique_id', $unique_id)->first();
         $sections = $restaurant->sections;
         if ($restaurant == null) {
