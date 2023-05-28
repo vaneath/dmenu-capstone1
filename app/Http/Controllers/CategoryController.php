@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
     public function index(Restaurant $restaurant, Section $section)
     {
-        if ($section->restaurant_id != $restaurant->id) {
+        if ($section->restaurant_id != $restaurant->unique_id) {
             abort(403);
         }
         // $categories = Category::where('section_id', $section->id)->get();
