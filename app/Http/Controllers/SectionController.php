@@ -12,7 +12,7 @@ class SectionController extends Controller
     public function store(Request $request)
     {
         $request->is_visible = $request->is_visible === 'on' ? true : false;
-        $restaurant = Restaurant::find($request->restaurant_id);
+        $restaurant = Restaurant::where('id', $request->restaurant_id)->first();
         $maxSortNumber = $restaurant->sections->max('sort_number');
         $section = new Section();
         $section->name = $request->name;

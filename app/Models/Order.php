@@ -11,6 +11,8 @@ class Order extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);

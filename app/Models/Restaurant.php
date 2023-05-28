@@ -11,13 +11,11 @@ class Restaurant extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     protected static function booted()
     {
-        if(Auth::check()) {
-            static::addGlobalScope('user_id', function (Builder $builder) {
-                $builder->where('user_id', Auth::id());
-            });
-        }
+       
     }
 
     public function getRouteKeyName()

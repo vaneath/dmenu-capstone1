@@ -11,6 +11,7 @@ class CategoryController extends Controller
 {
     public function index(Restaurant $restaurant, Section $section)
     {
+        // dd('hi');
         if ($section->restaurant_id != $restaurant->id) {
             abort(403);
         }

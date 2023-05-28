@@ -21,7 +21,6 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all(), $request->name, $request->category_id, $request->description, $request->img_url, $request->price, $request->old_price, $request->weight, $request->is_available, $request->is_visible);
         $category = Category::find($request->category_id);
         $max_sort_number = Item::where('category_id', $request->category_id)->max('sort_number');
         $item = new Item();
@@ -29,7 +28,7 @@ class ItemController extends Controller
         $item->description = $request->description;
         $item->img_url = $request->img_url;
         $item->price = $request->price;
-        $item->old_price = $request->old_price;
+        $item->discount_price = $request->discount_price;
         $item->weight = $request->weight;
         $item->category_id = $request->category_id;
         do {
@@ -37,7 +36,6 @@ class ItemController extends Controller
             $id = Item::where('id', $item->id)->first();
         } while ($id != null);
         $item->is_available = $request->is_available === 'on' ? true : false;
-        $item->is_visible = $request->is_visible === 'on' ? true : false;
         $item->sort_number = $max_sort_number + 1;
         $item->save();
 

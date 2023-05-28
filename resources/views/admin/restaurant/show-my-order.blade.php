@@ -32,8 +32,9 @@
                 cartItemsAtCheckout[itemsUniqueId] = 0;
             } else if (cartItemsAtCheckout[itemsUniqueId] == 0){
                 cartItemsAtCheckout[itemsUniqueId] = -2;
-            }
-            else{
+            } else if (cartItems[itemsUniqueId]/4 + cartItemsAtCheckout[itemsUniqueId]/2 == 0){
+                cartItemsAtCheckout[itemsUniqueId] = 0;
+            } else{
                 cartItemsAtCheckout[itemsUniqueId] -= 1;
             }
             sessionStorage.setItem('cartItemsAtCheckout', JSON.stringify(cartItemsAtCheckout));
@@ -68,8 +69,6 @@
                 cartItems[item] = cartItems[item]/4 + cartItemsAtCheckout[item]/2;
             }
             cartItemsInput.value = JSON.stringify(cartItems);
-            console.log('Yes, its successful');
-            console.log(cartItemsInput.value);
         },
         checkoutItems: function() {
             combineCartItems();
@@ -121,9 +120,6 @@
                     </div>
                 </li>
                 `;
-
-
-
             }
             itemList.innerHTML = content;
 
@@ -134,8 +130,8 @@
         displayItems();
         sessionStorage.setItem('cartItemsAtCheckout', JSON.stringify({}));
         combineCartItems();
-        {{-- let cartItemsInput = document.getElementById('cart-items-input');
-        cartItemsInput.value = sessionStorage.getItem('cartItems'); --}}
+        let cartItemsInput = document.getElementById('cart-items-input');
+        cartItemsInput.value = sessionStorage.getItem('cartItems');
     }
     "
 >

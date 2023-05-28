@@ -11,6 +11,8 @@ class OrderItem extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     public function order()
     {
         return $this->belongsTo(Order::class);

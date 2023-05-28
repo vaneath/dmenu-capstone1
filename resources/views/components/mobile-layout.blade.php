@@ -8,7 +8,7 @@
     <div x-data="{
     createSectionFormOpen: false,
     someVariable: 'someValue',
-    activeSectionPage: {{ $activeSectionPage }},
+    activeSectionPage: '{{ $activeSectionPage }}',
     setActiveSectionPage(sectionId) {
         this.activeSectionPage = sectionId;
         $dispatch('update-active-section-page', sectionId);
@@ -60,9 +60,9 @@
                             @endauth
                             @foreach($sections as $section)
                                 <button
-                                    :class="{ 'bg-yellow': activeSectionPage == {{ $section->id }} }"
+                                    :class="{ 'bg-yellow': activeSectionPage == '{{ $section->id }}' }"
                                     class="px-6 py-1 border-[3px] border-yellow rounded-3xl hover:bg-yellow"
-                                    @click="setActiveSectionPage({{ $section->id }})"
+                                    @click="setActiveSectionPage('{{ $section->id }}')"
                                 >
                                     {{ ucwords($section->name) }}
                                 </button>

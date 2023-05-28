@@ -18,7 +18,7 @@
                 </button>
                 @endif
                 @endauth
-                <div  @click="$dispatch('select-category', {{ $category->id }})" class="cursor-pointer">
+                <div  @click="$dispatch('select-category', '{{ $category->id }}')" class="cursor-pointer">
                     <li class="relative mb-5 hover:bg-black hover:opacity-80 rounded-2xl transition ease-linear duration-300 blur-xs">
                         <img
                             src="{{ $category->img_url ?? asset('images/dmenu.png') }}"

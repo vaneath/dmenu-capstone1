@@ -15,7 +15,8 @@ return new class extends Migration
             $table->string('id', 25)->primary();
             $table->string('name', 191);
             $table->string('no_of_tables')->nullable(true);
-            $table->string('location');
+
+            $table->string('logo_url')->nullable(true);
 
             $table->string('village');
             $table->string('commune');
