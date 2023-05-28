@@ -15,13 +15,13 @@
     handleAddToCart: function(event) {
         event.stopPropagation();
         this.$dispatch('add-to-cart', {
-            uniqueId: '{{ $item->unique_id }}',
+            uniqueId: '{{ $item->id }}',
         });
     },
     handleRemoveFromCart: function(event) {
         event.stopPropagation();
         this.$dispatch('remove-from-cart', {
-            uniqueId: '{{ $item->unique_id }}',
+            uniqueId: '{{ $item->id }}',
         });
     },
 }"
@@ -44,7 +44,7 @@
                 class="font-bold rounded-full text-2xl text-white text-white"
                 x-init="
             () => {
-                $el.id = 'rmButton-' + '{{ $item->unique_id }}';
+                $el.id = 'rmButton-' + '{{ $item->id }}';
             }
         "
                 @click="handleRemoveFromCart($event)"
@@ -57,7 +57,7 @@
                 class="w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white"
                 x-init="
             () => {
-                $el.id = '{{ $item->unique_id }}';
+                $el.id = '{{ $item->id }}';
             }
         "
             >--</span>

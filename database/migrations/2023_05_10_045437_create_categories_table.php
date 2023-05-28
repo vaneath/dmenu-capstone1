@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->string('unique_id', 25)->primary();
+            $table->string('id', 25)->primary();
             $table->boolean('is_visible')->default(true);
             $table->string('img_url');
             $table->string('name', 191);
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('section_id', 25);
             $table->timestamps();
 
-            $table->foreign('section_id')->references('unique_id')->on('sections')->onDelete('cascade');
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
 
             $table->unique(['name', 'section_id']);
         });

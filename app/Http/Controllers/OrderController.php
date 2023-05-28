@@ -13,7 +13,7 @@ class OrderController extends Controller
      */
     public function index(Restaurant $restaurant)
     {
-        $sections = Section::where('restaurant_id', $restaurant->unique_id)->get();
+        $sections = Section::where('restaurant_id', $restaurant->id)->get();
         $sections = $sections->sortBy('sort_number');
         $activeSectionPage = request()->query('active-section-id');
         if ($activeSectionPage != null && $sections->contains('id', $activeSectionPage)) {
@@ -68,7 +68,7 @@ class OrderController extends Controller
 
         // dd($restaurant, $myRestaurant->id);
 
-        $sections = Section::where('restaurant_id', $restaurant->unique_id)->get();
+        $sections = Section::where('restaurant_id', $restaurant->id)->get();
         $sections = $sections->sortBy('sort_number');
         $activeSectionPage = request()->query('active-section-id');
         if ($activeSectionPage != null && $sections->contains('id', $activeSectionPage)) {

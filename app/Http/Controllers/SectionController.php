@@ -19,9 +19,9 @@ class SectionController extends Controller
         $section->is_visible = $request->is_visible;
         $section->sort_number = $maxSortNumber + 1;
         do {
-            $section->unique_id = uniqid('ds', true);
-            $unique_id = Section::where('unique_id', $section->unique_id)->first();
-        } while ($unique_id != null);
+            $section->id = uniqid('ds', true);
+            $id = Section::where('id', $section->id)->first();
+        } while ($id != null);
         $section->restaurant_id = $request->restaurant_id;
         $section->save();
 

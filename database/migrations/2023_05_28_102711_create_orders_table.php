@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->string('unique_id', 25)->primary();
+            $table->string('id', 25)->primary();
             $table->string('restaurant_id');
-            $table->foreign('restaurant_id')->references('unique_id')->on('restaurants')->onDelete('cascade');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
             $table->integer('table_no')->nullable(true);
             $table->boolean('is_paid')->default(false);
             try{

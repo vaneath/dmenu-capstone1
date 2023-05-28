@@ -32,9 +32,9 @@ class RestaurantController extends Controller
         $restaurant->location = $request->location;
         $restaurant->currency = $request->currency;
         do {
-            $restaurant->unique_id = uniqid('dr', true);
-            $unique_id = Restaurant::where('unique_id', $restaurant->unique_id)->first();
-        } while ($unique_id != null);
+            $restaurant->id = uniqid('dr', true);
+            $id = Restaurant::where('id', $restaurant->id)->first();
+        } while ($id != null);
         $restaurant->no_of_tables = $request->no_of_tables;
         $restaurant->no_of_available_tables = $request->no_of_available_tables;
         $restaurant->save();

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('items', function (Blueprint $table) {
-            $table->string('unique_id', 25)->primary();
+            $table->string('id', 25)->primary();
             $table->boolean('is_available')->default(true);
             $table->string('img_url');
             $table->string('name', 191);
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('category_id', 25);
             $table->timestamps();
 
-            $table->foreign('category_id')->references('unique_id')->on('categories')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 
             $table->unique(['name', 'category_id']);
         });

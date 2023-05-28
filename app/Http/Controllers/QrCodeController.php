@@ -10,10 +10,10 @@ use App\Models\Item;
 
 class QrCodeController extends Controller
 {
-    public function index($unique_id)
+    public function index($id)
     {
         // dd('hi');
-        $restaurant = Restaurant::where('unique_id', $unique_id)->first();
+        $restaurant = Restaurant::where('id', $id)->first();
         $sections = $restaurant->sections;
         if ($restaurant == null) {
             abort(404);

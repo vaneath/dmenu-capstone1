@@ -33,9 +33,9 @@ class ItemController extends Controller
         $item->weight = $request->weight;
         $item->category_id = $request->category_id;
         do {
-            $item->unique_id = uniqid('di', true);
-            $unique_id = Item::where('unique_id', $item->unique_id)->first();
-        } while ($unique_id != null);
+            $item->id = uniqid('di', true);
+            $id = Item::where('id', $item->id)->first();
+        } while ($id != null);
         $item->is_available = $request->is_available === 'on' ? true : false;
         $item->is_visible = $request->is_visible === 'on' ? true : false;
         $item->sort_number = $max_sort_number + 1;

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('restaurants', function (Blueprint $table) {
-            $table->string('unique_id', 25)->primary();
+            $table->string('id', 25)->primary();
             $table->string('name', 191);
             $table->string('no_of_tables')->nullable(true);
             $table->string('location');
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('unique_id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->unique(['name', 'user_id']);
 
