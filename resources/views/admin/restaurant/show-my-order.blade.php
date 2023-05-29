@@ -23,21 +23,20 @@
             this.checkoutXDataCartItems = checkoutXDataCartItems;
         },
         increaseQuantity: function(itemUniqueID) {
-            checkoutXDataCartItems = this.getCheckoutXDataCartItems();
+            let checkoutXDataCartItems = this.getCheckoutXDataCartItems();
             checkoutXDataCartItems[itemUniqueID] = checkoutXDataCartItems[itemUniqueID] + 1 || 1;
             console.log('increase: ', checkoutXDataCartItems);
             this.setCheckoutXDataCartItems(checkoutXDataCartItems);
             document.getElementById('quantity-' + itemUniqueID).innerText = checkoutXDataCartItems[itemUniqueID] / 2;
-            populateHiddenInput();
+            this.populateHiddenInput(checkoutXDataCartItems);
         },
-        populateHiddenInput: function() {
-            let checkoutXDataCartItems = this.getCheckoutXDataCartItems();
-            let cartItemsInput = document.getElementById('cart-items-input');
-            console.log('hidden: ', checkoutXDataCartItems);
+        populateHiddenInput: function(checkoutXDataCartItems) {
             let cartItems = JSON.parse(JSON.stringify(checkoutXDataCartItems));
+            //let cartItems = JSON.parse(JSON.stringify(checkoutXDataCartItems));
             for(let [item, quantity] of Object.entries(checkoutXDataCartItems)) {
                 cartItems[item] = checkoutXDataCartItems[item] / 2;
             }
+            let cartItemsInput = document.getElementById('cart-items-input');
             cartItemsInput.value = JSON.stringify(cartItems);
         },
         decreaseQuantity: function(itemsUniqueId){
@@ -50,16 +49,17 @@
                 this.setCheckoutXDataCartItems(checkoutXDataCartItems);
                 document.getElementById('quantity-' + itemsUniqueId).innerText = checkoutXDataCartItems[itemsUniqueId] / 2;
             }
-            populateHiddenInput();
+            this.populateHiddenInput(checkoutXDataCartItems);
         },
         deleteFromCartItems: function(itemUniqueID) {
             let checkoutXDataCartItems = this.getCheckoutXDataCartItems();
             delete checkoutXDataCartItems[itemUniqueID];
+            this.populateHiddenInput(checkoutXDataCartItems);
             this.setCheckoutXDataCartItems(checkoutXDataCartItems);
             document.getElementById('item-' + itemUniqueID).remove();
         },
         checkoutItems: function() {
-            populateHiddenInput();
+            this.populateHiddenInput(this.getCheckoutXDataCartItems());
             event.target.submit();
         },
         displayItems: function(){

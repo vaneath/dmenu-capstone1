@@ -67,6 +67,8 @@ class OrderController extends Controller
 
         $cartItems = json_decode($request->cart_items, true);
 
+        // dd($cartItems);
+
         $order = Order::create([
             'restaurant_id' => $restaurant->id,
             'id' => uniqid('do', true)

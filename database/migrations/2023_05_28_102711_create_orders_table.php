@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->string('id', 25)->primary();
             $table->string('restaurant_id');
+
+            $table->string('passphrase', 191)->nullable(true);
+            $table->string('email', 191)->nullable(true);
+            $table->string('phone', 191)->nullable(true);
+
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
             $table->integer('table_no')->nullable(true);
             $table->boolean('is_paid')->default(false);
