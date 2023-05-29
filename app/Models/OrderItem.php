@@ -13,6 +13,8 @@ class OrderItem extends Model
 
     public $incrementing = false;
 
+    protected $fillable = ['order_id', 'item_id', 'id', 'quantity', 'price', 'sub_total'];
+
     public function order()
     {
         return $this->belongsTo(Order::class);

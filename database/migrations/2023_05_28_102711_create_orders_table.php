@@ -23,8 +23,9 @@ return new class extends Migration
                 $table->string('status')->default('pending');
                 Log::error('Error creating enum column: ' . $e->getMessage());
             }
-            $table->timestamp('order_at');
+            $table->timestamp('order_at')->default(now());
             $table->timestamp('paid_at')->nullable(true);
+            $table->double('tax')->nullable(true);
 
             $table->timestamps();
         });

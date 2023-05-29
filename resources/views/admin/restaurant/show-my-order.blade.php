@@ -1,7 +1,3 @@
-{{--<div>--}}
-{{--    <x-order.show-my-order />--}}
-{{--</div>--}}
-
 <x-mobile-layout
     :hind-section="true"
     :restaurant="$restaurant"
@@ -12,83 +8,69 @@
 >
 <div 
     x-data="{
+        checkoutXDataCartItems: JSON.parse(JSON.stringify(JSON.parse(sessionStorage.getItem('cartItems')))),
+        getCheckoutXDataCartItems: function() {
+            if (this.checkoutXDataCartItems == null) {
+                return {};
+            }
+            return this.checkoutXDataCartItems;
+        },
+        setCheckoutXDataCartItems: function(checkoutXDataCartItems) {
+            checkoutXDataCartItems = JSON.parse(JSON.stringify(checkoutXDataCartItems));
+            if (checkoutXDataCartItems == null) {
+                checkoutXDataCartItems = {};
+            }
+            this.checkoutXDataCartItems = checkoutXDataCartItems;
+        },
         increaseQuantity: function(itemUniqueID) {
-            let cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-            let cartItemsAtCheckout = JSON.parse(sessionStorage.getItem('cartItemsAtCheckout'));
-            let emptyCart = sessionStorage.getItem('emptyCart');
-            if (cartItemsAtCheckout[itemUniqueID] == undefined) {
-                cartItemsAtCheckout[itemUniqueID] = 1;
-                console.log(cartItemsAtCheckout[itemUniqueID]);
-            } else {
-                cartItemsAtCheckout[itemUniqueID] += 1;
-            }
-            sessionStorage.setItem('cartItemsAtCheckout', JSON.stringify(cartItemsAtCheckout));
-            console.log('total', cartItems[itemUniqueID]/4 + cartItemsAtCheckout[itemUniqueID]/2);
-            console.log(cartItems[itemUniqueID] + cartItemsAtCheckout[itemUniqueID]);
-            document.getElementById('quantity-' + itemUniqueID).innerHTML = cartItems[itemUniqueID]/4 + cartItemsAtCheckout[itemUniqueID]/2;
+            checkoutXDataCartItems = this.getCheckoutXDataCartItems();
+            checkoutXDataCartItems[itemUniqueID] = checkoutXDataCartItems[itemUniqueID] + 1 || 1;
+            console.log('increase: ', checkoutXDataCartItems);
+            this.setCheckoutXDataCartItems(checkoutXDataCartItems);
+            document.getElementById('quantity-' + itemUniqueID).innerText = checkoutXDataCartItems[itemUniqueID] / 2;
+            populateHiddenInput();
         },
-        decreaseQuantity: function(itemsUniqueId){
-            let cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-            let cartItemsAtCheckout = JSON.parse(sessionStorage.getItem('cartItemsAtCheckout'));
-            let emptyCart = sessionStorage.getItem('emptyCart');
-            if (cartItemsAtCheckout[itemsUniqueId] == undefined) {
-                cartItemsAtCheckout[itemsUniqueId] = 0;
-            } else if (cartItemsAtCheckout[itemsUniqueId] == 0){
-                cartItemsAtCheckout[itemsUniqueId] = 0;
-                cartItems[itemsUniqueId] -= 4;
-                console.log('yep', cartItems[itemsUniqueId]);
-            } else if (cartItems[itemsUniqueId]/4 + cartItemsAtCheckout[itemsUniqueId]/2 == 0){
-                cartItemsAtCheckout[itemsUniqueId] = -2;
-            } else{
-                cartItemsAtCheckout[itemsUniqueId] -= 1;
-            }
-            sessionStorage.setItem('cartItemsAtCheckout', JSON.stringify(cartItemsAtCheckout));
-            console.log(itemsUniqueId, cartItemsAtCheckout[itemsUniqueId], cartItems[itemsUniqueId]);
-            document.getElementById('quantity-' + itemsUniqueId).innerHTML = cartItems[itemsUniqueId]/4 + cartItemsAtCheckout[itemsUniqueId]/2;
-        },
-        deleteFromCartItems: function(itemUniqueID) {
-            let cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-            let cartItemsAtCheckout = JSON.parse(sessionStorage.getItem('cartItemsAtCheckout'));
-            let emptyCart = sessionStorage.getItem('emptyCart');
-            if (cartItemsAtCheckout[itemUniqueID] == undefined) {
-                cartItemsAtCheckout[itemUniqueID] = 0;
-            };
-            delete cartItems[itemUniqueID];
-            delete cartItemsAtCheckout[itemUniqueID];
-            sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
-            sessionStorage.setItem('cartItemsAtCheckout', JSON.stringify(cartItemsAtCheckout));
-            document.getElementById('item-' + itemUniqueID).remove();
-            if (Object.keys(cartItemsAtCheckout).length == 0) {
-                sessionStorage.setItem('emptyCart', true);
-            }
-        },
-        combineCartItems: function() {
-            let cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-            let cartItemsAtCheckout = JSON.parse(sessionStorage.getItem('cartItemsAtCheckout'));
+        populateHiddenInput: function() {
+            let checkoutXDataCartItems = this.getCheckoutXDataCartItems();
             let cartItemsInput = document.getElementById('cart-items-input');
-            let emptyCart = sessionStorage.getItem('emptyCart');
-            for (let item in cartItems){
-                if (cartItemsAtCheckout[item] == undefined) {
-                    cartItemsAtCheckout[item] = 0;
-                }
-                cartItems[item] = cartItems[item]/4 + cartItemsAtCheckout[item]/2;
+            console.log('hidden: ', checkoutXDataCartItems);
+            let cartItems = JSON.parse(JSON.stringify(checkoutXDataCartItems));
+            for(let [item, quantity] of Object.entries(checkoutXDataCartItems)) {
+                cartItems[item] = checkoutXDataCartItems[item] / 2;
             }
             cartItemsInput.value = JSON.stringify(cartItems);
         },
+        decreaseQuantity: function(itemsUniqueId){
+            let checkoutXDataCartItems = this.getCheckoutXDataCartItems();
+            if (checkoutXDataCartItems[itemsUniqueId] <= 0) {
+                return;
+            } else {
+                checkoutXDataCartItems[itemsUniqueId] = checkoutXDataCartItems[itemsUniqueId] - 1;
+                console.log('decrease: ', checkoutXDataCartItems);
+                this.setCheckoutXDataCartItems(checkoutXDataCartItems);
+                document.getElementById('quantity-' + itemsUniqueId).innerText = checkoutXDataCartItems[itemsUniqueId] / 2;
+            }
+            populateHiddenInput();
+        },
+        deleteFromCartItems: function(itemUniqueID) {
+            let checkoutXDataCartItems = this.getCheckoutXDataCartItems();
+            delete checkoutXDataCartItems[itemUniqueID];
+            this.setCheckoutXDataCartItems(checkoutXDataCartItems);
+            document.getElementById('item-' + itemUniqueID).remove();
+        },
         checkoutItems: function() {
-            combineCartItems();
+            populateHiddenInput();
             event.target.submit();
         },
         displayItems: function(){
-            let cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-            let cartItemsAtCheckout = JSON.parse(sessionStorage.getItem('cartItemsAtCheckout'));
+            let checkoutXDataCartItems = this.getCheckoutXDataCartItems();
             let itemList = document.getElementById('item-list');
             let content = ``;
-            for(item in cartItems){
-                if (cartItemsAtCheckout[item] == undefined) {
-                    cartItemsAtCheckout[item] = 0;
-                }
-                let quantity = cartItems[item]/4 + cartItemsAtCheckout[item]/2;
+            console.log('invoked');
+            console.log(typeof checkoutXDataCartItems);
+            for(let [item, quantity] of Object.entries(checkoutXDataCartItems)) {
+                console.log('items: ', item);
+                {{-- let quantity = checkoutXDataCartItems[item]; --}}
                 content += `
                 <li class='flex py-6' id='item-${item}'>
                     <div class='h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200'>
@@ -110,7 +92,7 @@
                                     -
                                 </div>
                                 <span class='font-bold' id='quantity-${item}'>
-                                    ${quantity}
+                                    ${quantity / 2}
                                 </span>
                                 <div class='cursor-pointer text-sm text-yellow font-semibold' @click='increaseQuantity(&quot;${item}&quot;)'>
                                     +
@@ -129,50 +111,17 @@
     }"
     x-init="
     () => {
-        sessionStorage.setItem('cartItemsAtCheckout', JSON.stringify({}));
+        {{-- sessionStorage.setItem('cartItemsAtCheckout', JSON.stringify({})); --}}
         displayItems();
-        combineCartItems();
+        {{-- combineCartItems();
         let cartItemsInput = document.getElementById('cart-items-input');
-        cartItemsInput.value = sessionStorage.getItem('cartItems');
+        cartItemsInput.value = sessionStorage.getItem('cartItems'); --}}
     }
     "
 >
     <div class="my-8">
         <div class="flow-root">
             <ul role="list" class="-my-6 divide-y divide-gray-200" id="item-list">
-                <li class="flex py-6">
-                    <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                        <img src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg" alt="Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch." class="h-full w-full object-cover object-center">
-                    </div>
-
-                    <div class="ml-4 flex flex-1 flex-col">
-                        <div>
-                            <div class="flex-col justify-between text-base font-medium text-gray-900">
-                                <h3 class="text-yellow font-semibold text-lg">
-                                    Medium Stuff Satchel
-                                </h3>
-                                <p class="text-sm text-white">$32.00</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-1 items-end justify-between text-sm">
-                            <div class="bg-white px-5 py-1 rounded-full flex gap-5">
-                                <div class="text-sm text-yellow font-black text-lg">
-                                    -
-                                </div>
-                                <span class="font-bold">
-                                    1
-                                </span>
-                                <div class="text-sm text-yellow font-semibold">
-                                    +
-                                </div>
-                            </div>
-
-                            <div class="flex px-5 py-2 bg-red-500 hover:bg-red-600 rounded-lg">
-                                <button type="button" class="font-medium text-white">Remove</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
             </ul>
         </div>
     </div>

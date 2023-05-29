@@ -105,7 +105,9 @@ class RestaurantController extends Controller
     }
 
     public function menu($restaurant){
+        // dd($restaurant);
         $user = Auth::user();
+        // dd($user);
         $restaurant = $user->restaurants()->where('name', $restaurant)->first();
         $sections = Section::where('restaurant_id', $restaurant->id)->get();
         $sections = $sections->sortBy('sort_number');
