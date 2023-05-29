@@ -2,13 +2,14 @@
 <div
     x-data="{
         qrGeneratorPrefix: 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&choe=UTF-8&chl=',
+        restaurantNameHeading: document.getElementById('restaurant-name-heading'),
     }"
-    x-on:open-qr-code.window="document.querySelector('.qr-code-img').src = qrGeneratorPrefix + qrCodeUrl;"
+    x-on:open-qr-code.window="document.querySelector('.qr-code-img').src = qrGeneratorPrefix + qrCodeUrl; restaurantNameHeading.innerText = qrCodeRestaurant;"
     class="fixed left-0 top-[15%] sm:top-[20%] w-full z-50"
 >
     <div x-show="openQrCode" class="bg-blue max-w-[40rem] mx-10 sm:mx-auto p-10 rounded-xl grid justify-evenlyz sm:flex justify-between gap-7" @click="$dispatch('close-qr-code')">
         <div class="grid content-center sm:flex-shrink-0 text-center">
-            <h2 class="font-semibold text-3xl text-white">{{ $restaurant }}</h2>
+            <h2 class="font-semibold text-3xl text-white" id="restaurant-name-heading">{{ $restaurant }}</h2>
             <div class="mt-7">
                 <h3 class="mb-3 text-sm text-gray-300 place-self-end">You can download your Qr Code here</h3>
                 <div class="flex justify-evenly">

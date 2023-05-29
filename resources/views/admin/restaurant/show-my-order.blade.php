@@ -18,10 +18,13 @@
             let emptyCart = sessionStorage.getItem('emptyCart');
             if (cartItemsAtCheckout[itemUniqueID] == undefined) {
                 cartItemsAtCheckout[itemUniqueID] = 1;
+                console.log(cartItemsAtCheckout[itemUniqueID]);
             } else {
                 cartItemsAtCheckout[itemUniqueID] += 1;
             }
             sessionStorage.setItem('cartItemsAtCheckout', JSON.stringify(cartItemsAtCheckout));
+            console.log('total', cartItems[itemUniqueID]/4 + cartItemsAtCheckout[itemUniqueID]/2);
+            console.log(cartItems[itemUniqueID] + cartItemsAtCheckout[itemUniqueID]);
             document.getElementById('quantity-' + itemUniqueID).innerHTML = cartItems[itemUniqueID]/4 + cartItemsAtCheckout[itemUniqueID]/2;
         },
         decreaseQuantity: function(itemsUniqueId){
@@ -31,14 +34,16 @@
             if (cartItemsAtCheckout[itemsUniqueId] == undefined) {
                 cartItemsAtCheckout[itemsUniqueId] = 0;
             } else if (cartItemsAtCheckout[itemsUniqueId] == 0){
-                cartItemsAtCheckout[itemsUniqueId] = -2;
-            } else if (cartItems[itemsUniqueId]/4 + cartItemsAtCheckout[itemsUniqueId]/2 == 0){
                 cartItemsAtCheckout[itemsUniqueId] = 0;
+                cartItems[itemsUniqueId] -= 4;
+                console.log('yep', cartItems[itemsUniqueId]);
+            } else if (cartItems[itemsUniqueId]/4 + cartItemsAtCheckout[itemsUniqueId]/2 == 0){
+                cartItemsAtCheckout[itemsUniqueId] = -2;
             } else{
                 cartItemsAtCheckout[itemsUniqueId] -= 1;
             }
             sessionStorage.setItem('cartItemsAtCheckout', JSON.stringify(cartItemsAtCheckout));
-            console.log(itemsUniqueId, cartItemsAtCheckout[itemsUniqueId]);
+            console.log(itemsUniqueId, cartItemsAtCheckout[itemsUniqueId], cartItems[itemsUniqueId]);
             document.getElementById('quantity-' + itemsUniqueId).innerHTML = cartItems[itemsUniqueId]/4 + cartItemsAtCheckout[itemsUniqueId]/2;
         },
         deleteFromCartItems: function(itemUniqueID) {
@@ -84,7 +89,6 @@
                     cartItemsAtCheckout[item] = 0;
                 }
                 let quantity = cartItems[item]/4 + cartItemsAtCheckout[item]/2;
-                console.log(item);
                 content += `
                 <li class='flex py-6' id='item-${item}'>
                     <div class='h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200'>
@@ -112,7 +116,6 @@
                                     +
                                 </div>
                             </div>
-
                             <div class='flex px-5 py-2 bg-red-500 hover:bg-red-600 rounded-lg' @click='deleteFromCartItems(&quot;${item}&quot;)'>
                                 <button type='button' class='font-medium text-white'>Remove</button>
                             </div>
@@ -122,13 +125,12 @@
                 `;
             }
             itemList.innerHTML = content;
-
         }
     }"
     x-init="
     () => {
-        displayItems();
         sessionStorage.setItem('cartItemsAtCheckout', JSON.stringify({}));
+        displayItems();
         combineCartItems();
         let cartItemsInput = document.getElementById('cart-items-input');
         cartItemsInput.value = sessionStorage.getItem('cartItems');

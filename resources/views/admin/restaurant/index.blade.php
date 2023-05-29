@@ -5,10 +5,12 @@
                x-data="
 {
     openQrCode: false,
+    qrCodeRestaurant: '',
     qrCodeUrl: null,
     handleOpenQrCode: function(event){
         this.openQrCode = true;
-        this.qrCodeUrl = event.detail;
+        this.qrCodeRestaurant = event.detail.qrCodeRestaurant;
+        this.qrCodeUrl = event.detail.qrCodeUrl;
     },
     closeQrCode: function(){
         this.openQrCode = false;
