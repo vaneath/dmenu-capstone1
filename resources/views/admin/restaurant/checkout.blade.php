@@ -5,42 +5,94 @@
         <h1 class="text-2xl font-bold text-center mb-7">Invoice</h1>
         <div class="flex justify-between">
             <div class="flex-col mb-7">
-                <img class="w-16 h-16 mx-auto" src="{{ asset('images/restaurant_logo.jfif') }}" alt="">
-                <p class="font-bold text-xs text-gray-500">Restaurant name</p>
+                @empty($restaurant->logo_url)
+                    <img class="w-16 h-16 mx-auto" src="{{ asset('images/restaurant_logo.jfif') }}" alt="">
+                @else
+                    <img class="w-16 h-16 mx-auto" src="{{ asset($restaurant->logo_url) }}" alt="">
+                @endempty
+                <p class="font-bold text-xs text-gray-500">{{ $restaurant->name }}</p>
             </div>
             <div>
-                <h3 class="text-xs font-semibold">Order Id: <span class="font-medium">3573495834</span></h3>
-                <p class="font-bold text-xs">Restaurant address</p>
+                <h3 class="text-xs font-semibold">Order Id: <span class="font-medium">{{ $order->id }}</span></h3>
+                <p class="font-bold text-xs">
+                    Date: <span class="font-medium">{{ $order->created_at->format('d-m-Y h:i a') }}</span>
+                </p>
+                <p class="font-bold text-xs">
+                    Address: <span class="font-medium">{{ $restaurant->village }}, {{ $restaurant->commune }}, {{ $restaurant->district }}, {{ $restaurant->province }}</span>
+                </p>
             </div>
         </div>
         <table class="w-full mt-7">
             <tr class="flex pb-2 mb-2 border-b border-gray-600">
                 <th>#</th>
                 <th class="pl-3">Name</th>
-                <th class="absolute left-[62%]">Qty</th>
-                <th class="absolute left-[83%]">Price</th>
+                <th class="absolute left-[50%]">Qty</th>
+                <th class="absolute left-[70%]">UP</th>
+                <th class="absolute left-[85%]">Amount</th>
             </tr>
-            @for($i = 0; $i < 10; $i++)
+            @for($i = 0; $i < 2; $i++)
                 <tr class="flex">
                     <td>1.</td>
                     <td class="pl-3">Hamburger is the best</td>
-                    <td class="absolute left-[62%]">33</td>
-                    <td class="absolute left-[83%]">3$3</td>
+                    <td class="absolute left-[50%]">33</td>
+                    <td class="absolute left-[70%]">$3</td>
+                    <td class="absolute left-[85%]">$99</td>
                 </tr>
             @endfor
+            @foreach($orderItems as $orderItem)
+                <tr class="flex">
+                    <td>{{ $loop->iteration }}.</td>
+                    <td class="pl-3">{{ $orderItem->item->name }}</td>
+                    <td class="absolute left-[50%]">{{ $orderItem->quantity }}</td>
+                    <td class="absolute left-[70%]">{{ $orderItem->item->price }}$</td>
+                    <td class="absolute left-[85%]">{{ $orderItem->sub_total }}$</td>
+                </tr>
+            @endforeach
         </table>
         <div class="flex justify-evenly items-center mt-12">
-            <img class="w-32 h-32" src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&choe=UTF-8&chl=test" alt="">
+            <img class="w-32 h-32" src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&choe=UTF-8&chl={{ $order->id }}" alt="">
             <div class="flex gap-5">
                 <div class="flex-col">
                     <h3>Subtotal: </h3>
+                    <h3>Discount: </h3>
                     <h3>Tax: </h3>
                     <h3>Total: </h3>
                 </div>
                 <div class="flex-col">
-                    <p class="font-bold">12$</p>
-                    <p class="font-bold">0$</p>
-                    <p class="font-bold text-lg text-red-500">12$</p>
+                    <p class="font-bold">
+                        @php
+                            $subTotal = 0;
+                            foreach ($orderItems as $orderItem) {
+                                $subTotal += $orderItem->sub_total;
+                            }
+                        @endphp
+                        {{ $subTotal }}$
+                    </p>
+                    <p class="font-bold">
+                        @php
+                            $discount = 0;
+                            foreach ($orderItems as $orderItem) {
+                                $discount += $orderItem->discount * $orderItem->quantity * $orderItem->item->price;
+                            }
+                        @endphp
+                        @if($discount == 0)
+                        {{ $discount }}$
+                        @else
+                        -{{ $discount }}$
+                        @endif
+                    </p>
+                    <p class="font-bold">
+                        @php
+                            $tax = ($subTotal - $discount) * 0; // should be $restaurant->tax
+                        @endphp
+                        {{ $tax }}$
+                    </p>
+                    <p class="font-bold text-lg text-red-500">
+                        @php
+                            $total = $subTotal - $discount + $tax;
+                        @endphp
+                        {{ $total }}$
+                    </p>
                 </div>
             </div>
         </div>

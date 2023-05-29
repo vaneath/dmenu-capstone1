@@ -30,7 +30,7 @@ return new class extends Migration
 
             $table->unique(['name', 'user_id']);
 
-            $table->string('address')->virtualAs("CONCAT(COALESCE(village, ''), ', ', COALESCE(commune, ''), ', ', COALESCE(district, ''), ', ', COALESCE(province, ''))")->nullable()->change();
+            $table->string('address')->virtualAs("CONCAT(COALESCE(village, ''), ', ', COALESCE(commune, ''), ', ', COALESCE(district, ''), ', ', COALESCE(province, ''))")->nullable();
         });
     }
 

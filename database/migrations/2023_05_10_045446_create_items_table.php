@@ -20,7 +20,7 @@ return new class extends Migration
             $table->double('price');
             $table->double('weight');
             $table->integer('sort_number');
-            $table->double('discount_price')->nullable(true);
+            $table->double('discount')->default(0);
             $table->string('category_id', 25);
             $table->timestamps();
 
