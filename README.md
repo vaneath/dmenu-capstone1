@@ -30,7 +30,7 @@ Dmenu is a fullstack web application for order food via qr scanner, we provide a
 $ composer install
 ```
 ### Step 2:
-```php
+```bash
 $ npm run
 ```
 ### Step 3:
