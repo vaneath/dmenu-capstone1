@@ -30,7 +30,7 @@
                 <th class="absolute left-[70%]">UP</th>
                 <th class="absolute left-[85%]">Amount</th>
             </tr>
-            @for($i = 0; $i < 2; $i++)
+            {{-- @for($i = 0; $i < 2; $i++)
                 <tr class="flex">
                     <td>1.</td>
                     <td class="pl-3">Hamburger is the best</td>
@@ -38,7 +38,7 @@
                     <td class="absolute left-[70%]">$3</td>
                     <td class="absolute left-[85%]">$99</td>
                 </tr>
-            @endfor
+            @endfor --}}
             @foreach($orderItems as $orderItem)
                 <tr class="flex">
                     <td>{{ $loop->iteration }}.</td>
