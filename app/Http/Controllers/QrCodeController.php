@@ -7,6 +7,7 @@ use App\Models\Restaurant;
 use App\Models\Section;
 use App\Models\Category;
 use App\Models\Item;
+use Illuminate\Support\Facades\Auth;
 
 class QrCodeController extends Controller
 {
@@ -42,11 +43,16 @@ class QrCodeController extends Controller
                 // find sections with visible
                 // $sections = $sections->where('is_visible', 1)->first()->id;
                 // dd($sections);
+                if(!Auth::check() || (Auth::check() && Auth::user()->id != $restaurant->user_id)){
+                    $activeSectionPage = $sections->where('is_visible', 1)->first()->id;
+                } else{
+                    $activeSectionPage = $sections->first()->id;
+                }
                 return view('admin.category.index', [
                     'restaurant' => $restaurant,
                     'sections' => $sections,
                     // find sections first visible
-                    'activeSectionPage' => $sections->where('is_visible', 1)->first()->id,
+                    'activeSectionPage' => $activeSectionPage,
                     // 'activeSectionPage' => $sections->first()->id,
                 ]);
             }

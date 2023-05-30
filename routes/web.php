@@ -62,6 +62,8 @@ Route::middleware('auth.custom')->group(function (){
     Route::get('/restaurants/{restaurant}/sections/{section}/categories', [CategoryController::class, 'index'])->name('category.index');
     Route::get('/categories/{category}/items', [ItemController::class, 'index'])->name('item.index');
 
+    Route::get('/items/{itemIDs}', [ItemController::class, 'list'])->name('item.list');
+
     Route::post('/images', [ImageController::class, 'store'])->name('images.store');
     Route::get('/images', [ImageController::class, 'index'])->name('images.index');
 });

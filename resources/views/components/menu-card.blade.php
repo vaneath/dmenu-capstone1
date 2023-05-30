@@ -1,5 +1,4 @@
 @props(['item'])
-{{ $item }}
 @php
     $url="https://th.bing.com/th/id/R.6e5ae58716febbd616cc8270fe3134ce?rik=44CGb0vVc4u6WQ&pid=ImgRaw&r=0";
     $name=$item->name;
@@ -27,11 +26,19 @@
 }"
     class="mb-5"
 >
+    @if($item->img_url)
     <img
         src="{{ $url }}"
         alt=""
         class="rounded-2xl h-60 md:h-72 w-full bg-contain bg-center mb-5"
     >
+    @else
+    <img
+        src="{{ $item->img_url }}"
+        alt=""
+        class="rounded-2xl h-60 md:h-72 w-full bg-contain bg-center mb-5"
+    >
+    @endif
     <h3 class="mb-1 font-bold text-white text-3xl">{{ ucwords($name) }}</h3>
     <h4 class="font-semibold text-gray-300 text-sm">{{ $description }}</h4>
     <div class="flex items-center justify-between">
