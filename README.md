@@ -25,10 +25,38 @@ Dmenu is a fullstack web application for order food via qr scanner, we provide a
 
 ## Project Setup
 
+###Step 1:
 ```bash
-First: composer install
-
+$ composer install
 ```
+###Step 2:
+```php
+$ npm run
+```
+###Step 3:
+Create the neccessary database according to the ```.env``` file.
+###Step 4:
+```bash
+$ php artisan migrate:fresh
+```
+###Step 5:
+```bash
+$ php artisan key:generate
+```
+###Step 6:
+In development environment:
+```bash
+$ npm run dev
+```
+In production environment:
+```bash
+$ npm run build
+```
+###Step 7:
+```bash
+$ php artisan server --port=8000
+```
+
 
 ## Laravel Sponsors
 
