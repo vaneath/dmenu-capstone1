@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="mx-5">
-                        <h4 class="text-2xl font-semibold text-gray-700">{{ $restaurants->count() }}</h4>
+                        <h4 class="text-2xl font-semibold text-gray-700">{{ auth()->user()->role == 'superadmin' ? $restaurants->count() : $restaurants->where('user_id', auth()->user()->id)->count() }}</h4>
                         <div class="text-gray-500">Total Restaurants</div>
                     </div>
                 </div>
