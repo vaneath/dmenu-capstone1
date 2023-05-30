@@ -11,6 +11,7 @@ use App\View\Components\QrCode;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,8 +59,11 @@ Route::middleware('auth.custom')->group(function (){
     Route::get('/restaurants/{restaurant}/checkout', [OrderController::class, 'show'])->name('order.show');
     Route::get('/restaurants/{restaurant}/menu/{category}/items', [CategoryController::class, 'show'])->name('category.show');
     Route::post('/items', [ItemController::class, 'store'])->name('item.store');
-    Route::get('restaurants/{restaurant}/sections/{section}/categories', [CategoryController::class, 'index'])->name('category.index');
-    Route::get('categories/{category}/items', [ItemController::class, 'index'])->name('item.index');
+    Route::get('/restaurants/{restaurant}/sections/{section}/categories', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('/categories/{category}/items', [ItemController::class, 'index'])->name('item.index');
+
+    Route::post('/images', [ImageController::class, 'store'])->name('images.store');
+    Route::get('/images', [ImageController::class, 'index'])->name('images.index');
 });
 
 Route::middleware(['auth', 'auth.superadmin'])->group(function () {

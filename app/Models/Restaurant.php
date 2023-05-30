@@ -28,6 +28,11 @@ class Restaurant extends Model
         return $this->hasMany(Section::class);
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

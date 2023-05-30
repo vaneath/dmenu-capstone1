@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->string('id', 25)->primary();
             $table->string('restaurant_id');
+
+            $table->string('passphrase', 191)->nullable(true);
+            $table->string('email', 191)->nullable(true);
+            $table->string('phone', 191)->nullable(true);
+
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
             $table->integer('table_no')->nullable(true);
             $table->boolean('is_paid')->default(false);
@@ -23,8 +28,9 @@ return new class extends Migration
                 $table->string('status')->default('pending');
                 Log::error('Error creating enum column: ' . $e->getMessage());
             }
-            $table->timestamp('order_at');
+            $table->timestamp('order_at')->default(now());
             $table->timestamp('paid_at')->nullable(true);
+            $table->double('tax')->nullable(true);
 
             $table->timestamps();
         });

@@ -52,25 +52,17 @@
         });
     },
     addToCart: function(itemUniqueID) {
-        let cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-        let emptyCart = sessionStorage.getItem('emptyCart');
-        if (emptyCart == 'true') {
-            cartItems = {};
-            sessionStorage.setItem('emptyCart', false);
+        if (this.xDataEmptyCart == 'true') {
+            this.xDataCartItems = {};
         }
-        cartItems[itemUniqueID] = cartItems[itemUniqueID] + 1 || 1;
-        sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
-        let updatedCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+        this.xDataCartItems[itemUniqueID] = this.xDataCartItems[itemUniqueID] + 1 || 1;
     },
     removeFromCart: function(itemUniqueID) {
-        let cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-        let emptyCart = sessionStorage.getItem('emptyCart');
+        console.log('removeFromCart is called');
         let rmButton = document.getElementById('rmButton-' + itemUniqueID);
-        if (cartItems[itemUniqueID] != undefined && cartItems[itemUniqueID] != 0) {
-            cartItems[itemUniqueID] = cartItems[itemUniqueID] - 1;
-            sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
-            let updatedCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-            if (updatedCartItems[itemUniqueID] == 0) {
+        if (this.xDataCartItems[itemUniqueID] != undefined && this.xDataCartItems[itemUniqueID] != 0) {
+            this.xDataCartItems[itemUniqueID] = this.xDataCartItems[itemUniqueID] - 1;
+            if (this.xDataCartItems[itemUniqueID] == 0) {
                 rmButton.classList.remove('text-yellow');
                 rmButton.classList.add('text-white');
                 rmButton.disabled = true;
@@ -78,34 +70,37 @@
         }
     },
     updateItemInformation: function(itemUniqueID) {
-        let cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+        {{-- Condition for each item buttons and quantity display --}}
         let itemQuantity = document.getElementById(itemUniqueID);
         let rmButton = document.getElementById('rmButton-' + itemUniqueID);
-        if (cartItems[itemUniqueID] != undefined && cartItems[itemUniqueID] != 0) {
+        if (this.xDataCartItems[itemUniqueID] != undefined && this.xDataCartItems[itemUniqueID] != 0) {
             itemQuantity.classList.remove('text-white');
-            itemQuantity.innerHTML = cartItems[itemUniqueID] / 4;
+            itemQuantity.innerHTML = this.xDataCartItems[itemUniqueID] / 2;
             rmButton.classList.remove('text-white');
             rmButton.classList.add('text-yellow');
             rmButton.disabled = false;
         } else {
             itemQuantity.innerText = '--';
-            {{-- itemQuantity.classList.add('text-white'); --}}
             rmButton.classList.remove('text-yellow');
             rmButton.classList.add('text-white');
             rmButton.disabled = true;
         }
-        let emptyCart = sessionStorage.getItem('emptyCart');
+        {{-- Condition for show-my-order button --}}
         let showMyOrder = document.getElementById('show-my-order');
-        showMyOrder.classList.remove('hidden');
-        console.log(Object.values(cartItems).reduce((a, b) => a + b, 0), emptyCart);
-        if ( (Object.values(cartItems).reduce((a, b) => a + b, 0) == 0) ) {
+        if ( (Object.values(this.xDataCartItems).reduce((a, b) => a + b, 0) == 0) ) {
             console.log('empty cart');
             showMyOrder.classList.add('hidden');
         } else {
             console.log('not empty cart');
             showMyOrder.classList.remove('hidden');
+            console.log(showMyOrder);
         }
 
+    },
+    sessionStoreCartItems: function() {
+        sessionStorage.setItem('emptyCart', this.xDataEmptyCart);
+        sessionStorage.setItem('cartItems', JSON.stringify(this.xDataCartItems));
+        console.log(this.xDataCartItems);
     },
 }"
         x-on:update-active-section-page.window="activeSectionPage = $event.detail, fetchCategories($event.detail)"
@@ -120,8 +115,8 @@ if (!ignoreEvent) {
 }"
         x-init="
 () => {
-    sessionStorage.setItem('emptyCart', true);
-    sessionStorage.setItem('cartItems', JSON.stringify({}));
+    {{-- sessionStorage.setItem('xDataEmptyCart', true);
+    sessionStorage.setItem('xDataCartItems', JSON.stringify({})); --}}
 }
 "
     >
@@ -131,9 +126,7 @@ if (!ignoreEvent) {
 
         <div id="display-categories"></div>
 
-    </div>
-
-    <a href="{{ route('order.index', $restaurant->name) }}"
+    <a @click="sessionStoreCartItems" href="{{ route('order.index', $restaurant->name) }}"
        class="w-[20rem] mb-1 fixed mx-auto left-0 right-0 bottom-3 bg-yellow rounded-full px-10 py-2 text-center hidden"
        id="show-my-order"
        >
@@ -144,6 +137,7 @@ if (!ignoreEvent) {
         </div>
     </a>
 
+</div>
 
 
 </x-mobile-layout>

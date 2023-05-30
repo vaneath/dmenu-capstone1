@@ -1,4 +1,12 @@
 @props(['restaurant'])
+
+<style>
+    input:checked ~ .dot {
+    transform: translateX(100%);
+    background-color: #48bb78;
+    }
+</style>
+
 <div x-data="{ open: false,
     isValid: { name: true },
     inputValues: { name: '' },
@@ -23,48 +31,30 @@
                 <div class="bg-white w-full p-6 text-wrap break-words flex flex-col" style="max-height: 80vh; overflow-y: auto">
                     <h2 class="text-2xl font-bold mb-4 text-center">Add Section</h2>
                     <form @submit.prevent="submit" action="/sections" method="POST" x-data="{  }">
+                        
+
+
                         @csrf
                         <div class="flex flex-col mb-4">
                             <x-form.input-label for="name">Section Name:</x-form.input-label>
                             <x-form.text-input @blur="validateName" placeholder="Wonderful Section" name="name" x-model="inputValues.name" />
                             <p x-show="!isValid.name" class="text-red-600 text-sm mt-1" id="name-required" x-cloak>This field is required.</p>
                         </div>
-                        <div class="inline-flex items-center">
-                            <label
-                                class="relative flex cursor-pointer items-center rounded-full p-3"
-                                for="is_visible"
-                                data-ripple-dark="true"
+                        <div class="flex items-center w-full mb-12 ml-5">
+                            <label 
+                              for="toogleA"
+                              class="flex items-center cursor-pointer"
                             >
-                                <input
-                                    id="is_visible"
-                                    name="is_visible"
-                                    type="checkbox"
-                                    class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-gray-300 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-gray-300 before:opacity-0 before:transition-opacity checked:border-gray-300 checked:bg-gray-300 checked:before:bg-gray-300 hover:before:opacity-100"
-                                />
-                                <div class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-gray-700 opacity-0 transition-opacity peer-checked:opacity-100">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-3.5 w-3.5"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                        stroke="currentColor"
-                                        stroke-width="1"
-                                    >
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                            clip-rule="evenodd"
-                                        ></path>
-                                    </svg>
-                                </div>
-                            </label>
-                            <label
-                                class="mt-px cursor-pointer select-none text-gray-700"
-                                for="is_visible"
-                            >
+                              <div class="relative">
+                                <input id="toogleA" name="is_visible" type="checkbox" class="sr-only" />
+                                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                                <div class="dot absolute w-6 h-6 bg-white rounded-full shadow shadow-gray-500 -left-1 -top-1 transition"></div>
+                              </div>
+                              <div class="ml-3 text-gray-700 font-medium">
                                 Is Section Visible?
+                              </div>
                             </label>
-                        </div>
+                          </div>
                         <input type="hidden" name="restaurant_id" value="{{ $restaurant->id }}">
                         <div class="flex justify-center space-x-4">
                             <button type="button" class="bg-red-500 text-white rounded-lg px-6 py-2" @click="createSectionFormOpen = false">

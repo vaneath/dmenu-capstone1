@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
 use App\Models\Section;
+use App\Models\User;
+use App\Models\Category;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Item;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -62,36 +67,37 @@ class OrderController extends Controller
 
         $cartItems = json_decode($request->cart_items, true);
 
+        // dd($cartItems);
+
+        $order = Order::create([
+            'restaurant_id' => $restaurant->id,
+            'id' => uniqid('do', true)
+        ]);
+
+        $orderItems = [];
+
+        foreach ($cartItems as $item => $quantity) {
+            $item = Item::find($item);
+            $orderItem = OrderItem::create([
+                'id' => uniqid('oi', true),
+                'order_id' => $order->id,
+                'item_id' => $item->id,
+                'quantity' => $quantity,
+                'price' => $item->price,
+                'sub_total' => $quantity * $item->price,
+            ]);
+            array_push($orderItems, $orderItem);
+        }
+
         $sections = Section::where('restaurant_id', $restaurant->id)->get();
         $sections = $sections->sortBy('sort_number');
-        $activeSectionPage = request()->query('active-section-id');
-        if ($activeSectionPage != null && $sections->contains('id', $activeSectionPage)) {
-            return view('admin.restaurant.checkout', [
-                'restaurant' => $restaurant,
-                'sections' => $sections,
-                'activeSectionPage' => $activeSectionPage,
-            ]);
-        } elseif ($activeSectionPage != null && !$sections->contains('id', $activeSectionPage)) {
-            return view('admin.restaurant.checkout', [
-                'restaurant' => $restaurant,
-                'sections' => $sections,
-                'activeSectionPage' => $sections->first()->id,
-            ]);
-        } else {
-            if ($sections->isEmpty()) {
-                return view('admin.restaurant.checkout', [
-                    'restaurant' => $restaurant,
-                    'sections' => $sections,
-                    'activeSectionPage' => null,
-                ]);
-            } else {
-                return view('admin.restaurant.checkout', [
-                    'restaurant' => $restaurant,
-                    'sections' => $sections,
-                    'activeSectionPage' => $sections->first()->id,
-                ]);
-            }
-        }
+        return view('admin.restaurant.checkout', [
+            'restaurant' => $restaurant,
+            'sections' => $sections,
+            'order' => $order,
+            'orderItems' => $orderItems,
+            'activeSectionPage' => null,
+        ]);
     }
 
     /**

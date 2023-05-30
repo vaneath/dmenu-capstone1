@@ -59,18 +59,25 @@
                                 @endif
                             @endauth
                             @foreach($sections as $section)
-                                <button
-                                    :class="{ 'bg-yellow': activeSectionPage == '{{ $section->id }}' }"
-                                    class="relative flex items-center px-6 py-1 border-[3px] border-yellow rounded-3xl hover:bg-yellow"
-                                    @click="setActiveSectionPage('{{ $section->id }}')"
-                                >
-                                    <h3 class="{{ auth()->check() ? 'mr-3' : '' }}">{{ ucwords($section->name) }}</h3>
-                                    @auth
-                                        <span class="self-center">
-                                            <i class="fa-regular fa-pen-to-square fa-2xs"></i>
-                                        </span>
-                                    @endauth
-                                </button>
+                                @if(!Auth::check())
+                                    @if($section->is_visible)
+                                        <button
+                                            :class="{ 'bg-yellow': activeSectionPage == '{{ $section->id }}' }"
+                                            class="px-6 py-1 border-[3px] border-yellow rounded-3xl hover:bg-yellow"
+                                            @click="setActiveSectionPage('{{ $section->id }}')"
+                                        >
+                                            {{ ucwords($section->name) }}
+                                        </button>
+                                    @endif
+                                @else
+                                    <button
+                                        :class="{ 'bg-yellow': activeSectionPage == '{{ $section->id }}' }"
+                                        class="px-6 py-1 border-[3px] border-yellow rounded-3xl hover:bg-yellow"
+                                        @click="setActiveSectionPage('{{ $section->id }}')"
+                                    >
+                                        {{ ucwords($section->name) }}
+                                    </button>
+                                @endif
                             @endforeach
                         </div>
                     </div>

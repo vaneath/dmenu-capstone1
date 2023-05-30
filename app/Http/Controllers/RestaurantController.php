@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Restaurant;
 use App\Models\Section;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
 
 class RestaurantController extends Controller
 {
@@ -18,6 +20,30 @@ class RestaurantController extends Controller
 
     public function store(Request $request)
     {
+        // post to /images namge images.store
+        // $response = Http::get(route('images.index'));
+        // dd($response);
+
+        // $client = new Client();
+        // $response = $client->request('POST', route('images.store'), [
+        //     'form_params' => [
+        //         'logo' => $request->logo,
+        //     ]
+        // ]);
+
+        dd('hi');
+
+        $response = Http::post(route('images.store'), [
+            'logo' => $request->file('logo'),
+        ]);
+
+        dd($response);
+
+        $response = Http::get(route('images.index'));
+
+        dd($request);
+        dd($request->all(), $request->logo, gettype($request->logo), $request->file('logo'));
+
         $this->validate($request, array(
             'name' => 'required|max:255',
             'no_of_tables' => 'required|max:255',
@@ -105,8 +131,15 @@ class RestaurantController extends Controller
     }
 
     public function menu($restaurant){
-        $user = Auth::user();
-        $restaurant = $user->restaurants()->where('name', $restaurant)->first();
+        // dd($restaurant);
+        
+        // dd($user);
+        // check if authenticated use auth
+        if(Auth::check()){
+            $user = Auth::user();
+            $restaurant = $user->restaurants()->where('name', $restaurant)->first();
+        }
+        
         $sections = Section::where('restaurant_id', $restaurant->id)->get();
         $sections = $sections->sortBy('sort_number');
         $activeSectionPage = request()->query('active-section-id');

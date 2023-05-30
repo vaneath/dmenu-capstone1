@@ -13,6 +13,8 @@ class Order extends Model
 
     public $incrementing = false;
 
+    protected $fillable = ['restaurant_id', 'id', 'table_no', 'is_paid', 'status', 'paid_at', 'tax'];
+
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
