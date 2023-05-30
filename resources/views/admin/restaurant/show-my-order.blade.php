@@ -15,6 +15,28 @@
             }
             return this.checkoutXDataCartItems;
         },
+        checkoutXDataCartItemsDetails: null,
+        getCheckoutXDataCartItemsDetails: function() {
+            let response = 0;
+
+            console.log('checkoutXDataCartItems: ', this.getCheckoutXDataCartItems());
+            let checkoutXDataCartItemsKeys = JSON.stringify(Object.keys(this.getCheckoutXDataCartItems()));
+            console.log('checkoutXDataCartItemsKeys: ', checkoutXDataCartItemsKeys);
+
+            fetch('/items/' + checkoutXDataCartItemsKeys)
+            .then(response => response.text())
+            .then(data => {
+                console.log('data: ', data);
+                return data;
+            })
+            .catch(error => {
+                console.warn('Error fetching HTML:', error);
+                return null;
+            });
+            
+
+            
+        },
         setCheckoutXDataCartItems: function(checkoutXDataCartItems) {
             checkoutXDataCartItems = JSON.parse(JSON.stringify(checkoutXDataCartItems));
             if (checkoutXDataCartItems == null) {
@@ -23,6 +45,9 @@
             this.checkoutXDataCartItems = checkoutXDataCartItems;
         },
         increaseQuantity: function(itemUniqueID) {
+
+            console.log(this.getCheckoutXDataCartItemsDetails());
+
             let checkoutXDataCartItems = this.getCheckoutXDataCartItems();
             checkoutXDataCartItems[itemUniqueID] = checkoutXDataCartItems[itemUniqueID] + 1 || 1;
             console.log('increase: ', checkoutXDataCartItems);
@@ -113,6 +138,8 @@
     () => {
         {{-- sessionStorage.setItem('cartItemsAtCheckout', JSON.stringify({})); --}}
         displayItems();
+        checkoutXDataCartItemsDetails = getCheckoutXDataCartItemsDetails();
+        console.log('init: ', checkoutXDataCartItemsDetails);
         {{-- combineCartItems();
         let cartItemsInput = document.getElementById('cart-items-input');
         cartItemsInput.value = sessionStorage.getItem('cartItems'); --}}
@@ -125,23 +152,18 @@
             </ul>
         </div>
     </div>
-    <a href="{{ route('order.show', $restaurant->name) }}"
-       class="w-[20rem] mb-1 fixed mx-auto left-0 right-0 bottom-3 bg-yellow rounded-full px-10 py-2 text-center"
-    >
-        <div
-            class="font-semibold text-lg text-white"
-            id="show-my-order"
-        >
-            Checkout
-        </div>
-    </a>
 
+    <div class="w-[20rem] mb-1 fixed mx-auto left-0 right-0 bottom-3 bg-yellow rounded-full px-10 py-2 text-center">
     <form @submit.prevent="checkoutItems" action="{{ route('order.store', $restaurant->id) }}" method="POST" id="order-form">
         @csrf
         <input type="hidden" name="restaurant" value="{{ $restaurant->id }}"> 
         <input type="hidden" id="cart-items-input" name="cart_items" value="">
-        <button type="submit" id="submit-order">Checkout V2</button>
+        <button 
+            class="font-semibold text-lg text-white"
+            id="show-my-order"
+            type="submit" id="submit-order">Checkout</button>
     </form>
+    </div>
 </div>
 
 </x-mobile-layout>

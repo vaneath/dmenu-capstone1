@@ -46,7 +46,10 @@
                 <span class="material-symbols-outlined">
                     location_on
                 </span>
-                    {{ ucwords($restaurant->location) }}
+                @if($restaurant->street)
+                    {{ ucwords($restaurant->street) }},
+                @endif
+                    {{ ucwords($restaurant->village) }}, {{ ucwords($restaurant->commune) }}, {{ ucwords($restaurant->district) }}, {{ ucwords($restaurant->province) }}
                 </div>
                 @if(! $hindSection)
                     <div class="mb-8" id="section">

@@ -131,10 +131,7 @@ class RestaurantController extends Controller
     }
 
     public function menu($restaurant){
-        // dd($restaurant);
         
-        // dd($user);
-        // check if authenticated use auth
         if(Auth::check()){
             $user = Auth::user();
             $restaurant = $user->restaurants()->where('name', $restaurant)->first();

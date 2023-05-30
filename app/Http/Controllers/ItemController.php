@@ -61,4 +61,20 @@ class ItemController extends Controller
     {
         //
     }
+
+    public function list($itemIDs){
+
+        // get $itemsIDs from request query
+
+        // $itemIDs = request()->query('itemIDs');
+
+        // get type of $itemIDs
+
+        $itemIDs = json_decode($itemIDs);
+
+        // $itemIDs = explode(',', $itemIDs);
+        $items = Item::whereIn('id', $itemIDs)->get();
+
+        return $items;
+    }
 }
