@@ -1,13 +1,4 @@
 <x-app-layout :footer="true">
-    <!doctype html>
-    <html>
-    <head>
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
-
-        <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    </head>
     <body>
     <div>
         <img src="{{ asset('images/background1.png') }}" alt="">
@@ -67,5 +58,4 @@
              alt="">
     </div>
     </body>
-    </html>
 </x-app-layout>

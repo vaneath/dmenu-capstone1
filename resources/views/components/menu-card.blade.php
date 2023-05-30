@@ -24,9 +24,16 @@
         });
     },
 }"
-    class="mb-5"
+    class="mb-5 relative"
 >
     @if($item->img_url)
+    @auth
+        <div class="absolute flex space-x-5 bg-white top-3 right-3 px-6 py-4 rounded-lg">
+            <i class="fa-solid fa-up-down-left-right fa-lg" style="color: #e4a11b;"></i>
+            <i class="fa-regular fa-pen-to-square fa-lg" style="color: #e4a11b;"></i>
+            <i class="fa-solid fa-trash fa-lg" style="color: #e4a11b;"></i>
+        </div>
+    @endauth
     <img
         src="{{ $url }}"
         alt=""
@@ -75,6 +82,5 @@
             >+
             </button>
         </div>
-
     </div>
 </div>
