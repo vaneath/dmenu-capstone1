@@ -9,19 +9,21 @@
 
 ## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Dmenu is a fullstack web application for order food via qr scanner, we provide a service for restaurant owner to manage their restaurants, menu, and have a statistic of food ordering for owner to track in their restaurant. Customer can easily scan qr code and order food from their mobile phone.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Scan to pay: the cycle of our system is for restaurants' customers to scan browse food in the menu lists, add to card, checkout, get invoice and pay. We try to make the use of technology to replace the traditional order that we use a paper menu that is not flexible to update, maintenance and pass from one to another. So imagine the case when customers come in scan the Qr code on the table select the food that they want to eat, add to cart to review all menu (just like when the waiter or waitress confirming the menu again), checkout and get invoice to pay. Done!
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Admin (Restaurant owner): In tradition, each restaurant is using the paper base food menu for their customer, but for our system we provide many functions for admin that can help to manage their business:
+    CRUD restaurant: admin can create as many restaurants as they want in their account so for each admin can have more than 1 restaurant to manage on, with just a single device.
+    CRUD category and menu: in each restaurant, admin can create category for any type of food that makes it easy for customers to browse straight into the category that has food they want to order. And for each category admin can also create a lot of food menu and serve for customer to browse and order.
+    Track and Analyze data: besides from all those above features, our system also provide a dashboard for admin to track all the records from their restaurant, review all order and also live order from customer. All order record of each restaurant will be saved for customer to calculate the income and expense for each restaurant.
+    Telegram bot (future plan): we also want to apply this additional feature that we think it might be good for admin to be more flexible with all the data, we want to provide a telegram bot for each restaurant and customer can also order via telegram and all the order, invoice, and other stuffs will be sent directly to admin as a document that might be easy for admin to maintenance.
 
-## Learning Laravel
+- Superadmin: this feature is design personally for our team members to tracking and maintenance the whole system for our user in case any bug or error haappen to the system. We also provide some additional features for superadmin.
+    Dashboard: this dashboard will show the overall data for every restaurant, user, our income for the system, best restaurant with highest order, chat message with admin in case anything happen to the system.
+    Restaurant and User insight: we have the data for each restaurant and use that have registered in our system that show how many restaurant that each user own, which restaurant belong to who and showing best food of each restaurant and more.
+
+## Project Setup
 
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
