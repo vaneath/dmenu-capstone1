@@ -39,10 +39,15 @@ class QrCodeController extends Controller
                     'activeSectionPage' => null,
                 ]);
             } else {
+                // find sections with visible
+                // $sections = $sections->where('is_visible', 1)->first()->id;
+                // dd($sections);
                 return view('admin.category.index', [
                     'restaurant' => $restaurant,
                     'sections' => $sections,
-                    'activeSectionPage' => $sections->first()->id,
+                    // find sections first visible
+                    'activeSectionPage' => $sections->where('is_visible', 1)->first()->id,
+                    // 'activeSectionPage' => $sections->first()->id,
                 ]);
             }
         }

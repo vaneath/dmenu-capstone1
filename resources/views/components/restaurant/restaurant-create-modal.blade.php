@@ -1,9 +1,8 @@
 <div x-data="{
     open: false,
-    isValid: { name: true, no_of_tables: true, village: true, commune: true, district: true, province: true },
-    inputValues: { name: '', no_of_tables: '', village: '', commune: '', district: '', province: '' },
+    isValid: { name: true, no_of_tables: true, village: true, commune: true, district: true, province: true, logo: true },
+    inputValues: { name: '', no_of_tables: '', village: '', commune: '', district: '', province: '', logo: '' },
     submit() {
-        console.log(this.inputValues);
 
         if (Object.values(this.isValid).every(Boolean)) {
             event.target.submit();
@@ -30,6 +29,21 @@
     },
     validateProvince() {
         this.isValid.province = this.inputValues.province.trim() !== '';
+    },
+    validateLogo() {
+        console.log(typeof this.inputValues.logo);
+        console.log(this.inputValues.logo);
+        // check extention of this.inputValues.logo if it's jpg, jpeg, png, gif
+        if (this.inputValues.logo.trim() == '') {
+             this.isValid.logo = true;
+        } else{
+            let ext = this.inputValues.logo.split('.').pop().toLowerCase();
+            if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
+                this.isValid.logo = true;
+            } else {
+                this.isValid.logo = false;
+            }
+        }
     }
 }" @create-restaurant-form-open.window="open = $event.detail.createRestaurantFormOpen">
 
@@ -39,7 +53,7 @@
             <div class="bg-white w-full p-6 text-wrap break-words flex flex-col"
                 style="max-height: 80vh; overflow-y: auto">
                 <h2 class="text-2xl font-bold mb-4 text-center">Add Restaurant</h2>
-                <form @submit.prevent="submit" action="/restaurants" method="POST" x-data="{}">
+                <form @submit.prevent="submit" action="/restaurants" method="POST" x-data="{}" enctype="multipart/form-data">
                     @csrf
                     <div class="flex flex-col mb-4">
                         <x-form.input-label for="name">
@@ -50,6 +64,16 @@
                         <p x-show="!isValid.name" class="text-red-600 text-sm mt-1" id="name-required" x-cloak>This
                             field is required.</p>
                     </div>
+                    <div class="flex flex-col mb-4">
+                        <x-form.input-label for="logo">
+                            Logo:
+                        </x-form.input-label>
+                        <input type="file" name="logo" placeholder="Choose an image." id="logo" x-model="inputValues.logo" @blur="validateLogo">
+                        <p x-show="!isValid.logo" class="text-red-600 text-sm mt-1" id="logo-required" x-cloak>Invalid type. Supported types: jpeg, jpg, png, gif.</p>
+                    </div>
+                    <div class="preview">
+                        <img id="preview-image">
+                      </div>
                     <div class="flex flex-col mb-4">
                         <x-form.input-label for="no_of_tables">
                             Number of Table:
@@ -112,3 +136,16 @@
     <div x-show="createRestaurantFormOpen" class="absolute z-40 inset-0 bg-black bg-opacity-80"></div>
 
 </div>
+
+<script>
+    const input = document.getElementById('logo');
+    const previewImage = document.getElementById('preview-image');
+  
+    input.addEventListener('change', function() {
+      const file = input.files[0];
+      const objectURL = URL.createObjectURL(file);
+      previewImage.style.width = '200px';
+      previewImage.style.height = '200px';
+      previewImage.src = objectURL;
+    });
+  </script>
