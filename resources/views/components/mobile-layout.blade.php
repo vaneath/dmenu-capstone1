@@ -36,7 +36,7 @@
             <img
                 src="{{ $url }}"
                 alt="restaurant-img"
-                class="bg-cover h-40 w-full"
+                class="bg-cover h-48 w-full"
             >
             <div class="bg-blue absolute top-32 w-full rounded-l-3xl rounded-r-3xl px-5 py-7">
                 <h2 class="mb-3 text-3xl text-white font-bold">

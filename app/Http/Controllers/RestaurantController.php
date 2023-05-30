@@ -31,19 +31,11 @@ class RestaurantController extends Controller
         //     ]
         // ]);
 
-        dd('hi');
+//        $response = Http::post(route('images.store'), [
+//            'logo' => $request->file('logo'),
+//        ]);
 
-        $response = Http::post(route('images.store'), [
-            'logo' => $request->file('logo'),
-        ]);
-
-        dd($response);
-
-        $response = Http::get(route('images.index'));
-
-        dd($request);
-        dd($request->all(), $request->logo, gettype($request->logo), $request->file('logo'));
-
+//        $response = Http::get(route('images.index'));
         $this->validate($request, array(
             'name' => 'required|max:255',
             'no_of_tables' => 'required|max:255',
@@ -132,14 +124,14 @@ class RestaurantController extends Controller
 
     public function menu($restaurant){
         // dd($restaurant);
-        
+
         // dd($user);
         // check if authenticated use auth
         if(Auth::check()){
             $user = Auth::user();
             $restaurant = $user->restaurants()->where('name', $restaurant)->first();
         }
-        
+
         $sections = Section::where('restaurant_id', $restaurant->id)->get();
         $sections = $sections->sortBy('sort_number');
         $activeSectionPage = request()->query('active-section-id');

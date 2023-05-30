@@ -23,7 +23,7 @@
                         <img
                             src="{{ $category->img_url ?? asset('images/dmenu.png') }}"
                             alt="{{ $category->name }}"
-                            class="bg-cover bg-center h-52 w-full rounded-2xl"
+                            class="bg-cover bg-center h-52 sm:h-64 w-full rounded-2xl"
                         >
                         <h3 class="uppercase text-center w-full top-[40%] absolute font-semibold text-white text-3xl tracking-widest">
                             {{ $category->name }}

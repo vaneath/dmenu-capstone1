@@ -137,8 +137,11 @@ class OrderController extends Controller
         }
     }
 
-    public function order()
+    public function order(Order $order)
     {
+        //order
+        $orders = Order::where('restaurant_id', $order->id)->get();
+        dd($orders);
         return view('admin.order.index');
     }
 
