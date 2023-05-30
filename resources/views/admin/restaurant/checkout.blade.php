@@ -20,7 +20,7 @@
                 <th class="absolute left-[62%]">Qty</th>
                 <th class="absolute left-[83%]">Price</th>
             </tr>
-            @for($i = 0; $i < 10; $i++)
+            @for($i = 0; $i < 5; $i++)
                 <tr class="flex">
                     <td>1.</td>
                     <td class="pl-3">Hamburger is the best</td>
