@@ -20,8 +20,13 @@ class ImageController extends Controller
         
         $file = file_get_contents($filePath);
 
+        // get the type of $file
+        $finfo = finfo_open();
+        $mime_type = finfo_buffer($finfo, $file, FILEINFO_MIME_TYPE);
+        finfo_close($finfo);
+
         // Storage::disk('do-spaces')->put('uploads', $file, 'public');
 
-        return $filePath;
+        return $mime_type;
     }
 }
