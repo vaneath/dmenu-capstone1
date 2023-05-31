@@ -45,7 +45,9 @@ class RestaurantController extends Controller
         //     base64_encode($image), 'image/jpeg'
         // )->post(route('image-control.store'));
 
-        $response = Http::post(route('image-control.store'), 'This is a test string');
+        $response = Http::post(route('image-control.store'), [
+            'logo' => $image,
+        ]);
 
         // dd($request->session()->token(), csrf_token());
 
