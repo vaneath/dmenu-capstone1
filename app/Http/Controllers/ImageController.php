@@ -20,7 +20,7 @@ class ImageController extends Controller
         
         $file = file_get_contents($filePath);
 
-        Storage::disk('do-spaces')->put('uploads', $file, 'public');
+        // Storage::disk('do-spaces')->put('uploads', $file, 'public');
 
         return $filePath;
     }
