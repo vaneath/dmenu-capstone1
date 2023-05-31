@@ -34,14 +34,14 @@ class RestaurantController extends Controller
         //     ]
         // ]);
 
-        // $response = Http::get(route('image-control.index'));
+        $response = Http::get(route('image-control.index'));
 
         $image = $request->file('logo');
 
         // $response = Http::attach('logo', file_get_contents($image->getPathname()), $image->getClientOriginalName())
         //         ->post(route('image-control.store'));
 
-        $response = Http::post(route('image-control.store'));
+        // $response = Http::post(route('image-control.store'));
 
         // dd($response);
 
