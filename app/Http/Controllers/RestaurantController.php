@@ -49,7 +49,7 @@ class RestaurantController extends Controller
         //     'logo' => $request->file('logo'),
         // ]);
 
-        dd($response);
+        dd($response->all());
 
         // $response = Http::get(route('images.index'));
 
