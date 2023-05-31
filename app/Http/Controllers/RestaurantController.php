@@ -33,8 +33,10 @@ class RestaurantController extends Controller
         //         'X-CSRF-TOKEN' => csrf_token()
         //     ]
         // ]);
-        
+
         // $response = Http::get(route('image-control.index'));
+
+        $image = $request->file('logo');
 
         $response = Http::attach('logo', file_get_contents($image->getPathname()), $image->getClientOriginalName())
                 ->post(route('image-control.store'));
