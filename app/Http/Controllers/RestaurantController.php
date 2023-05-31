@@ -71,7 +71,7 @@ class RestaurantController extends Controller
 
         $body = $response->body();
 
-        dd($body);
+        dd($body, $response->status());
 
         // $response = Http::get(route('images.index'));
 
