@@ -58,6 +58,8 @@ class ImageController extends Controller
         // Storage::disk('do-spaces')->putFile('uploads', $request->file('logo'), 'public');
         $filePath = $request->logo;
 
+        return $filePath;
+
         $client_id = "c24e5980b0c2515";
         $image = file_get_contents($file_path);
         // dd($image_path, file_exists($image_path));
