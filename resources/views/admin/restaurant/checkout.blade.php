@@ -45,7 +45,7 @@
                     <td class="pl-3">{{ $orderItem->item->name }}</td>
                     <td class="absolute left-[50%]">{{ $orderItem->quantity }}</td>
                     <td class="absolute left-[70%]">{{ $orderItem->item->price }}$</td>
-                    <td class="absolute left-[85%]">{{ $orderItem->sub_total }}$</td>
+                    <td class="absolute left-[85%]">{{ $orderItem->amount }}$</td>
                 </tr>
             @endforeach
         </table>
@@ -63,7 +63,7 @@
                         @php
                             $subTotal = 0;
                             foreach ($orderItems as $orderItem) {
-                                $subTotal += $orderItem->sub_total;
+                                $subTotal += $orderItem->amount;
                             }
                         @endphp
                         {{ $subTotal }}$

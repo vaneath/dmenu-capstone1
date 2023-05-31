@@ -83,8 +83,9 @@ class OrderController extends Controller
                 'order_id' => $order->id,
                 'item_id' => $item->id,
                 'quantity' => $quantity,
-                'price' => $item->price,
-                'sub_total' => $quantity * $item->price,
+                'tax_deduction' => null,
+                'discount_amount' => null,
+                'amount' => $quantity * $item->price,
             ]);
             array_push($orderItems, $orderItem);
         }

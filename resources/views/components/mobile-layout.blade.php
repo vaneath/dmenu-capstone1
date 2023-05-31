@@ -11,14 +11,27 @@
     activeSectionPage: '{{ $activeSectionPage }}',
     setActiveSectionPage(sectionId) {
         this.activeSectionPage = sectionId;
-        $dispatch('update-active-section-page', sectionId);
+        $dispatch('update-active-section-page', { activeSectionPage: sectionId, localCommonDisplay: null });
     },
     toggleModal() {
         this.createSectionFormOpen = !this.createSectionFormOpen;
         this.$dispatch('create-restaurant-form-open', { createSectionFormOpen: this.createSectionFormOpen });
     },
 }"
-         x-init="$dispatch('update-active-section-page', activeSectionPage)"
+         x-init="
+         () => {
+            let localCommonDisplay = JSON.parse(localStorage.getItem('commonDisplay'));
+            localCommonDisplay = localCommonDisplay.trim();
+            let localActiveSectionPage = localStorage.getItem('activeSectionPage');
+            if (localActiveSectionPage != 0 || localActiveSectionPage != null || localActiveSectionPage != undefined || localActiveSectionPage != 'null' || localActiveSectionPage != 'undefined') {
+                activeSectionPage = localStorage.getItem('activeSectionPage');
+            }
+            if(localCommonDisplay == undefined && localCommonDisplay == '' && localCommonDisplay == null && localCommonDisplay == 'null' && localCommonDisplay == 'undefined') {
+                $dispatch('update-active-section-page', { activeSectionPage: activeSectionPage, localCommonDisplay: null });
+            } else {
+                $dispatch('update-active-section-page', { activeSectionPage: activeSectionPage, localCommonDisplay: localCommonDisplay });
+            }
+         }"
          @toggle-modal="toggleModal">
         <div class="mx-auto max-w-[40rem] mb-10 relative block">
             @auth
