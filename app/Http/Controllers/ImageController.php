@@ -65,20 +65,13 @@ class ImageController extends Controller
         $title = "My Image";
         $description = "This is my image.";
 
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, 'https://api.imgur.com/3/image');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, [
+        $response = Http::post('https://api.imgur.com/3/image', [
             'Authorization' => 'Client-ID ' . $client_id,
             'Content-Type' => 'multipart/form-data',
             'image' => base64_encode($image),
             'title' => $title,
             'description' => $description,
         ]);
-
-        $response = curl_exec($ch);
 
         dd($response);
         
