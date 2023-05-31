@@ -25,8 +25,12 @@ class ImageController extends Controller
         $mime_type = finfo_buffer($finfo, $file, FILEINFO_MIME_TYPE);
         finfo_close($finfo);
 
+        Storage::disk('do-spaces')->put('example.txt', 'Contents');
+        $contents = Storage::disk('do-spaces')->get('example.txt');
+
+
         Storage::disk('do-spaces')->put('uploads', $file, 'public');
 
-        return $mime_type;
+        return $contents;
     }
 }
