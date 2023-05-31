@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Http;
 
 class ImageController extends Controller
 {
     public function index(){
+        $content = Storage::disk('do-spaces')->get('khmergpt-img-14-10-24.jpg');
+        
+        dd($content);
+
+        return $content;
         // dd('');
 
         // $disk = Storage::disk('do-spaces');
@@ -20,36 +24,6 @@ class ImageController extends Controller
 
         // dd($content, $listContents);
 
-        $client_id = "c24e5980b0c2515";
-        $image_path = "public\images\dmenu.png";
-        $image = file_get_contents($image_path);
-        // dd($image_path, file_exists($image_path));
-        $title = "My Image";
-        $description = "This is my image.";
-
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, 'https://api.imgur.com/3/image');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, [
-            'Authorization' => 'Client-ID ' . $client_id,
-            'Content-Type' => 'multipart/form-data',
-            'image' => base64_encode($image),
-            'title' => $title,
-            'description' => $description,
-        ]);
-
-        $response = curl_exec($ch);
-
-        dd($response);
-
-        $data = json_decode($response, true);
-        
-        dd($data);
-
-        curl_close($ch);
-
         return 'bye';
     }
 
@@ -57,24 +31,11 @@ class ImageController extends Controller
         // dd('hi');
         // return 'hi';
         // Storage::disk('do-spaces')->putFile('uploads', $request->file('logo'), 'public');
+
+        $content = Storage::disk('do-spaces')->get('khmergpt-img-14-10-24.jpg');
+        return $content;
+
         $filePath = $request->logo;
-
-        $image = file_get_contents($filePath);
-
-        $client_id = "c24e5980b0c2515";
-        // dd($image_path, file_exists($image_path));
-        $title = "My Image";
-        $description = "This is my image.";
-
-        $response = Http::post('https://api.imgur.com/3/image', [
-            'Authorization' => 'Client-ID ' . $client_id,
-            'Content-Type' => 'multipart/form-data',
-            'image' => base64_encode($image),
-            'title' => $title,
-            'description' => $description,
-        ]);
-
-        dd($response);
         
         $file = file_get_contents($filePath);
 
