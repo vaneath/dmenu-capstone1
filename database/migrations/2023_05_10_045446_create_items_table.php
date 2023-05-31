@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->string('id', 25)->primary();
+            $table->string('tax_id')->nullable(true);
             $table->boolean('is_available')->default(true);
             $table->string('img_url');
             $table->string('name', 191);
@@ -20,7 +21,8 @@ return new class extends Migration
             $table->double('price');
             $table->double('weight');
             $table->integer('sort_number');
-            $table->double('discount')->default(0);
+            $table->double('amount')->default(0);
+            $table->boolean('discount')->nullable(true);
             $table->string('category_id', 25);
             $table->timestamps();
 

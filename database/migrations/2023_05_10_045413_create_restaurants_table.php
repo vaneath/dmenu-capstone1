@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('district');
             $table->string('province');
 
+            $table->string('khqr_url')->nullable(true);
+
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

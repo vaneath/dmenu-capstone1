@@ -1,11 +1,14 @@
 <div 
 x-data="{ 
     createItemFormOpen: false, 
+    updateItemFormOpen: false,
+    updateItem: null,
     toggleModal() { 
         this.createItemFormOpen = !this.createCategoryFormOpen; 
-    } 
+    },
 }" 
 @toggle-modal="toggleModal"
+x-on:update-item-form-open.window="updateItemFormOpen = $event.detail.updateItemFormOpen, updateItem = $event.detail"
 >
     <h1 class="text-white px-6 py-1">
         {{ ucwords($category->name) }}
@@ -31,14 +34,17 @@ x-data="{
             @if($item->is_available)
                 <x-menu-card
                     :item="$item"
+                    :restaurant="$restaurant"
                 />
             @endif
         @else
             <x-menu-card
                 :item="$item"
+                :restaurant="$restaurant"
             />
         @endif
     @endforeach
 
     <x-item-create-modal :restaurant="$restaurant" :category="$category" />
+    <x-item-update-modal :restaurant="$restaurant" :category="$category" />
 </div>

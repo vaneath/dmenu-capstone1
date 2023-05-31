@@ -8,11 +8,17 @@
 
     <div
         x-data="{
-    activeSectionPage: 0,
     ignoreEvent: false,
     xDataEmptyCart: true,
     xDataCartItems: {},
     restaurantName: '{{ $restaurant->name }}',
+    handleCommonDisplay: function(commonDisplay) {
+        console.log('hanldeCommonDisplay is called');
+        document.getElementById('common-display').innerHTML = commonDisplay;
+        localStorage.setItem('commonDisplay', JSON.stringify(commonDisplay));
+        console.log('handleCommonDisplay', activeSectionPage);
+        localStorage.setItem('activeSectionPage', activeSectionPage);
+    },
     fetchCategories: function(sectionId){
         if (sectionId == 0) {
             document.getElementById('display-items').innerHTML = '';
@@ -27,8 +33,9 @@
             return response.text();
         })
         .then(html => {
-        document.getElementById('display-items').innerHTML = '';
-        document.getElementById('display-categories').innerHTML = html;
+        {{-- document.getElementById('display-items').innerHTML = '';
+        document.getElementById('display-categories').innerHTML = html; --}}
+        this.handleCommonDisplay(html);
         })
         .catch(error => {
         console.warn('Error fetching HTML:', error);
@@ -44,38 +51,45 @@
         fetch('/restaurants/' + this.restaurantName + '/menu/' + categoryId + '/items')
         .then(response => response.text())
         .then(html => {
-        document.getElementById('display-categories').innerHTML = '';
-        document.getElementById('display-items').innerHTML = html;
+        {{-- document.getElementById('display-categories').innerHTML = '';
+        document.getElementById('display-items').innerHTML = html; --}}
+        this.handleCommonDisplay(html);
         })
         .catch(error => {
         console.warn('Error fetching HTML:', error);
         });
     },
-    addToCart: function(itemUniqueID) {
+    addToCart: function(foodItem) {
+        console.log('addToCart is called', foodItem.id);
         if (this.xDataEmptyCart == 'true') {
             this.xDataCartItems = {};
         }
-        this.xDataCartItems[itemUniqueID] = this.xDataCartItems[itemUniqueID] + 1 || 1;
+        if ( this.xDataCartItems[foodItem.id] == undefined ) {
+            this.xDataCartItems[foodItem.id] = {};
+            this.xDataCartItems[foodItem.id]['name'] = foodItem.name;
+            this.xDataCartItems[foodItem.id]['price'] = foodItem.price;
+            this.xDataCartItems[foodItem.id]['imgUrl'] = foodItem.imgUrl;
+        }
+        this.xDataCartItems[foodItem.id]['quantity'] = this.xDataCartItems[foodItem.id]['quantity'] + 1 || 1;
     },
-    removeFromCart: function(itemUniqueID) {
+    removeFromCart: function(foodItem) {
         console.log('removeFromCart is called');
-        let rmButton = document.getElementById('rmButton-' + itemUniqueID);
-        if (this.xDataCartItems[itemUniqueID] != undefined && this.xDataCartItems[itemUniqueID] != 0) {
-            this.xDataCartItems[itemUniqueID] = this.xDataCartItems[itemUniqueID] - 1;
-            if (this.xDataCartItems[itemUniqueID] == 0) {
+        let rmButton = document.getElementById('rmButton-' + foodItem.id);
+        if (this.xDataCartItems[foodItem.id] != undefined && this.xDataCartItems[foodItem.id]['quantity'] != 0) {
+            this.xDataCartItems[foodItem.id]['quantity'] = this.xDataCartItems[foodItem.id]['quantity'] - 1;
+            if (this.xDataCartItems[foodItem.id]['quantity'] == 0) {
                 rmButton.classList.remove('text-yellow');
                 rmButton.classList.add('text-white');
                 rmButton.disabled = true;
             }
         }
     },
-    updateItemInformation: function(itemUniqueID) {
-        {{-- Condition for each item buttons and quantity display --}}
-        let itemQuantity = document.getElementById(itemUniqueID);
-        let rmButton = document.getElementById('rmButton-' + itemUniqueID);
-        if (this.xDataCartItems[itemUniqueID] != undefined && this.xDataCartItems[itemUniqueID] != 0) {
+    updateItemInformation: function(foodItem) {
+        let itemQuantity = document.getElementById(foodItem.id);
+        let rmButton = document.getElementById('rmButton-' + foodItem.id);
+        if (this.xDataCartItems[foodItem.id] != undefined && this.xDataCartItems[foodItem.id]['quantity'] != 0) {
             itemQuantity.classList.remove('text-white');
-            itemQuantity.innerHTML = this.xDataCartItems[itemUniqueID] / 2;
+            itemQuantity.innerHTML = this.xDataCartItems[foodItem.id]['quantity'] / 2;
             rmButton.classList.remove('text-white');
             rmButton.classList.add('text-yellow');
             rmButton.disabled = false;
@@ -103,10 +117,18 @@
         console.log(this.xDataCartItems);
     },
 }"
-        x-on:update-active-section-page.window="activeSectionPage = $event.detail, fetchCategories($event.detail)"
-        x-on:select-category.window="fetchItems($event.detail)"
-        x-on:add-to-cart="addToCart($event.detail.uniqueId), updateItemInformation($event.detail.uniqueId);"
-        x-on:remove-from-cart="removeFromCart($event.detail.uniqueId), updateItemInformation($event.detail.uniqueId);"
+        x-on:update-active-section-page.window="
+        if($event.detail.localCommonDisplay == null) {
+            activeSectionPage = $event.detail.activeSectionPage;
+            fetchCategories($event.detail.activeSectionPage);
+        } else {
+            activeSectionPage = $event.detail.activeSectionPage;
+            handleCommonDisplay($event.detail.localCommonDisplay);
+        }
+        "
+        x-on:select-category.window="fetchItems($event.detail);"
+        x-on:add-to-cart="addToCart($event.detail), updateItemInformation($event.detail);"
+        x-on:remove-from-cart="removeFromCart($event.detail), updateItemInformation($event.detail);"
         x-on:test="
 if (!ignoreEvent) {
     addToCart('test'), updateNoOfAddedToCart();
@@ -115,8 +137,12 @@ if (!ignoreEvent) {
 }"
         x-init="
 () => {
-    {{-- sessionStorage.setItem('xDataEmptyCart', true);
-    sessionStorage.setItem('xDataCartItems', JSON.stringify({})); --}}
+    {{-- let localCommonDisplay = JSON.parse(localStorage.getItem('commonDisplay'));
+    localCommonDisplay = localCommonDisplay.trim();
+    if(localCommonDisplay != undefined && localCommonDisplay != '' && localCommonDisplay != null && localCommonDisplay != 'null' && localCommonDisplay != 'undefined') {
+        console.log('localCommonDisplay is not empty', localCommonDisplay);
+        handleCommonDisplay(localCommonDisplay);
+    } --}}
 }
 "
     >
@@ -125,6 +151,8 @@ if (!ignoreEvent) {
         </div>
 
         <div id="display-categories"></div>
+
+        <div id="common-display"></div>
 
     <a @click="sessionStoreCartItems" href="{{ route('order.index', $restaurant->name) }}"
        class="w-[20rem] mb-1 fixed mx-auto left-0 right-0 bottom-3 bg-yellow rounded-full px-10 py-2 text-center hidden"

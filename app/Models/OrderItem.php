@@ -13,7 +13,7 @@ class OrderItem extends Model
 
     public $incrementing = false;
 
-    protected $fillable = ['order_id', 'item_id', 'id', 'quantity', 'price', 'sub_total'];
+    protected $fillable = ['order_id', 'item_id', 'id', 'quantity', 'amount', 'tax_deduction', 'discount_amount'];
 
     public function order()
     {
