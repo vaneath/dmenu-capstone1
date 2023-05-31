@@ -45,7 +45,7 @@ class RestaurantController extends Controller
         //     base64_encode($image), 'image/jpeg'
         // )->post(route('image-control.store'));
 
-        dd($request->session()->token());
+        dd($request->session()->token(), csrf_token());
 
         $response = Http::withHeaders([
             'X-CSRF-TOKEN' => $request->session()->token(),
