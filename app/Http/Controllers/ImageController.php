@@ -60,10 +60,7 @@ class ImageController extends Controller
 
         $image = file_get_contents($filePath);
 
-        return $filePath;
-
         $client_id = "c24e5980b0c2515";
-        $image = file_get_contents($file_path);
         // dd($image_path, file_exists($image_path));
         $title = "My Image";
         $description = "This is my image.";
