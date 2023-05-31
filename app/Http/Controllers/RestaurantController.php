@@ -23,7 +23,7 @@ class RestaurantController extends Controller
         // post to /images namge images.store
         $client = new Client();
 
-        $response = $client->request('GET', route('image-control.index'));
+        // $response = $client->request('GET', route('image-control.index'));
 
         // $response = $client->request('POST', route('image-control.store'), [
         //     'form_params' => [
@@ -33,7 +33,7 @@ class RestaurantController extends Controller
         //         'X-CSRF-TOKEN' => csrf_token()
         //     ]
         // ]);
-        // $response = Http::get(route('image-control.index'));
+        $response = Http::get(route('image-control.index'));
         // dd($response);
 
         // $client = new Client();
@@ -49,7 +49,7 @@ class RestaurantController extends Controller
         //     'logo' => $request->file('logo'),
         // ]);
 
-        dd($response->all());
+        dd($response);
 
         // $response = Http::get(route('images.index'));
 
