@@ -41,7 +41,7 @@ class RestaurantController extends Controller
         // $response = Http::attach('logo', file_get_contents($image->getPathname()), $image->getClientOriginalName())
         //         ->post(route('image-control.store'));
 
-        $respone = Http::withBody(
+        $response = Http::withBody(
             base64_encode($image), 'image/jpeg'
         )->post(route('image-control.store'));
 
@@ -69,9 +69,8 @@ class RestaurantController extends Controller
         //     'logo' => $request->file('logo'),
         // ]);
 
-        $body = $response->body();
 
-        dd($body, $response->status(), $image);
+        dd($response->body(), $response->status(), $image);
 
         // $response = Http::get(route('images.index'));
 
