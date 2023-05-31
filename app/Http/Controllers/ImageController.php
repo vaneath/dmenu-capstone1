@@ -9,8 +9,10 @@ class ImageController extends Controller
 {
     public function index(){
         $content = Storage::disk('do-spaces')->get('khmergpt-img-14-10-24.jpg');
+
+        $exist = Storage::disk('do-spaces')->exists('khmergpt-img-14-10-24.jpg');
         
-        dd($content);
+        dd('image', $content, $exist);
 
         return $content;
         // dd('');
