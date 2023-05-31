@@ -22,7 +22,7 @@ class RestaurantController extends Controller
     {
         // post to /images namge images.store
         $client = new Client();
-        $response = $client->request('POST', route('images.store'), [
+        $response = $client->request('POST', route('image-control.store'), [
             'form_params' => [
                 'logo' => $request->logo,
             ]
