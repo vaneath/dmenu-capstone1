@@ -36,14 +36,14 @@ class RestaurantController extends Controller
 
         // $response = Http::get(route('image-control.index'));
 
-        // $image = $request->file('logo');
+        $image = $request->file('logo');
 
         // $response = Http::attach('logo', file_get_contents($image->getPathname()), $image->getClientOriginalName())
         //         ->post(route('image-control.store'));
 
-        // $respone = Http::withBody(
-        //     base64_encode($image), 'image/jpeg'
-        // )->post(route('image-control.store'));
+        $respone = Http::withBody(
+            base64_encode($image), 'image/jpeg'
+        )->post(route('image-control.store'));
 
         // dd($request->session()->token(), csrf_token());
 
