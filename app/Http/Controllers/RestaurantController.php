@@ -47,9 +47,9 @@ class RestaurantController extends Controller
 
         // dd($request->session()->token(), csrf_token());
 
-        $response = Http::withHeaders([
-            'X-CSRF-TOKEN' => $request->session()->token(),
-        ])->post(route('image-control.store'));
+        // $response = Http::withHeaders([
+        //     'X-CSRF-TOKEN' => $request->session()->token(),
+        // ])->post(route('image-control.store'));
 
         
         
@@ -71,7 +71,7 @@ class RestaurantController extends Controller
 
         $body = $response->body();
 
-        dd($body, $response->status());
+        dd($body, $response->status(), $image);
 
         // $response = Http::get(route('images.index'));
 
