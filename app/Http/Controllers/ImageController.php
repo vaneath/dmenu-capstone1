@@ -9,6 +9,46 @@ class ImageController extends Controller
 {
     public function index(){
         // dd('');
+
+        // $disk = Storage::disk('do-spaces');
+        // dd(Storage::disk('do-spaces')->exists('images/khmergpt-img-14-10-24.jpg'));
+
+        // $content = Storage::disk('do-spaces')->get('khmergpt-img-14-10-24.jpg');
+
+        // $listContents = Storage::disk('do-spaces')->listContents('images');
+
+        // dd($content, $listContents);
+
+        $client_id = "c24e5980b0c2515";
+        $image_path = "public\images\dmenu.png";
+        $image = file_get_contents($image_path);
+        // dd($image_path, file_exists($image_path));
+        $title = "My Image";
+        $description = "This is my image.";
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://api.imgur.com/3/image');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, [
+            'Authorization' => 'Client-ID ' . $client_id,
+            'Content-Type' => 'multipart/form-data',
+            'image' => base64_encode($image),
+            'title' => $title,
+            'description' => $description,
+        ]);
+
+        $response = curl_exec($ch);
+
+        dd($response);
+
+        $data = json_decode($response, true);
+        
+        dd($data);
+
+        curl_close($ch);
+
         return 'bye';
     }
 
