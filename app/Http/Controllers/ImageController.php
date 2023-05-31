@@ -17,6 +17,8 @@ class ImageController extends Controller
         // return 'hi';
         // Storage::disk('do-spaces')->putFile('uploads', $request->file('logo'), 'public');
         $filePath = $request->logo;
-        return $filePath;
+        // get file from file path
+        $file = file_get_contents($filePath);
+        return $file;
     }
 }
