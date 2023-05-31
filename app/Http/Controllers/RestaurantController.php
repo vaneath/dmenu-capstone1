@@ -25,6 +25,9 @@ class RestaurantController extends Controller
         $response = $client->request('POST', route('image-control.store'), [
             'form_params' => [
                 'logo' => $request->logo,
+            ],
+            'headers' => [
+                'X-CSRF-TOKEN' => csrf_token()
             ]
         ]);
         // $response = Http::get(route('image-control.index'));
