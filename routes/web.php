@@ -77,10 +77,7 @@ Route::middleware(['auth', 'auth.superadmin'])->group(function () {
 });
 
 // test route
-Route::get('/test', function () {
-    return view('tests.modal');
-});
-
+Route::get('/test', [ImageController::class, 'index'])->name('test');
 Route::get('/qr', [QrCode::class, 'render'])->name('qr');
 
 require __DIR__.'/auth.php';
