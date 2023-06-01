@@ -20,66 +20,6 @@ class RestaurantController extends Controller
 
     public function store(Request $request)
     {
-        // post to /images namge images.store
-        $client = new Client();
-
-        // $response = $client->request('GET', route('image-control.index'));
-
-        // $response = $client->request('POST', route('image-control.store'), [
-        //     'form_params' => [
-        //         'logo' => $request->logo,
-        //     ],
-        //     'headers' => [
-        //         'X-CSRF-TOKEN' => csrf_token()
-        //     ]
-        // ]);
-
-        // $response = Http::get(route('image-control.index'));
-
-        $image = $request->file('logo');
-
-        // $response = Http::attach('logo', file_get_contents($image->getPathname()), $image->getClientOriginalName())
-        //         ->post(route('image-control.store'));
-
-        // $response = Http::withBody(
-        //     base64_encode($image), 'image/jpeg'
-        // )->post(route('image-control.store'));
-
-        $response = Http::post(route('image-control.store'), [
-            'logo' => $image->getPathname(),
-        ]);
-
-        // dd($request->session()->token(), csrf_token());
-
-        // $response = Http::withHeaders([
-        //     'X-CSRF-TOKEN' => $request->session()->token(),
-        // ])->post(route('image-control.store'));
-
-        
-        
-
-        // dd($response);
-
-        // $client = new Client();
-        // $response = $client->request('POST', route('images.store'), [
-        //     'form_params' => [
-        //         'logo' => $request->logo,
-        //     ]
-        // ]);
-
-        // dd('hi');
-
-        // $response = Http::post(route('images.store'), [
-        //     'logo' => $request->file('logo'),
-        // ]);
-
-
-        dd($response->body(), $response->status(), $image);
-
-        // $response = Http::get(route('images.index'));
-
-        // dd($request);
-        // dd($request->all(), $request->logo, gettype($request->logo), $request->file('logo'));
 
         $this->validate($request, array(
             'name' => 'required|max:255',
