@@ -20,50 +20,21 @@ class RestaurantController extends Controller
 
     public function store(Request $request)
     {
-        // post to /images namge images.store
-        $client = new Client();
-//        $response = $client->request('GET', route('image-control.index'));
-        // $response = Http::get(route('image-control.index'));
-        // dd($response);
-
-        // $client = new Client();
-        // $response = $client->request('POST', route('images.store'), [
-        //     'form_params' => [
-        //         'logo' => $request->logo,
-        //     ]
-        // ]);
-
-        // $response = Http::post(route('images.store'), [
-        //     'logo' => $request->file('logo'),
-        // ]);
-
-        // $response = Http::get(route('images.index'));
-
-        // dd($request);
-        // dd($request->all(), $request->logo, gettype($request->logo), $request->file('logo'));
-//        $response = Http::get(route('images.index'));
-        $this->validate($request, array(
+        $attributes = request()->validate([
             'name' => 'required|max:255',
             'no_of_tables' => 'required|max:255',
+            'logo_url' => 'required|image',
             'village' => 'required|max:255',
             'district' => 'required|max:255',
             'commune' => 'required|max:255',
             'province' => 'required|max:255',
-        ));
-        $user_id = Auth::id();
-        $restaurant = new Restaurant();
-        $restaurant->name = $request->name;
-        $restaurant->user_id = $user_id;
-        do {
-            $restaurant->id = uniqid('dr', true);
-            $id = Restaurant::where('id', $restaurant->id)->first();
-        } while ($id != null);
-        $restaurant->no_of_tables = $request->no_of_tables;
-        $restaurant->village = $request->village;
-        $restaurant->district = $request->district;
-        $restaurant->commune = $request->commune;
-        $restaurant->province = $request->province;
-        $restaurant->save();
+        ]);
+
+        $attributes['user_id'] = Auth::id();
+        $attributes['id'] = uniqid('dr', true);
+        $attributes['logo_url'] = $request->file('logo_url')->store('restaurants/' . $request->name . '/logo');
+        Restaurant::create($attributes);
+
         return redirect()->route('restaurant.index');
     }
 

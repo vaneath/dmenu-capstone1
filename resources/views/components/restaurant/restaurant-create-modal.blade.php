@@ -1,7 +1,7 @@
 <div x-data="{
     open: false,
-    isValid: { name: true, no_of_tables: true, village: true, commune: true, district: true, province: true, logo: true },
-    inputValues: { name: '', no_of_tables: '', village: '', commune: '', district: '', province: '', logo: '' },
+    isValid: { name: true, no_of_tables: true, village: true, commune: true, district: true, province: true, logo_url: true },
+    inputValues: { name: '', no_of_tables: '', village: '', commune: '', district: '', province: '', logo_url: '' },
     submit() {
 
         if (Object.values(this.isValid).every(Boolean)) {
@@ -31,17 +31,17 @@
         this.isValid.province = this.inputValues.province.trim() !== '';
     },
     validateLogo() {
-        console.log(typeof this.inputValues.logo);
-        console.log(this.inputValues.logo);
-        // check extention of this.inputValues.logo if it's jpg, jpeg, png, gif
-        if (this.inputValues.logo.trim() == '') {
-             this.isValid.logo = true;
+        console.log(typeof this.inputValues.logo_url);
+        console.log(this.inputValues.logo_url);
+        // check extention of this.inputValues.logo_url if it's jpg, jpeg, png, gif
+        if (this.inputValues.logo_url.trim() == '') {
+             this.isValid.logo_url = true;
         } else{
-            let ext = this.inputValues.logo.split('.').pop().toLowerCase();
+            let ext = this.inputValues.logo_url.split('.').pop().toLowerCase();
             if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
-                this.isValid.logo = true;
+                this.isValid.logo_url = true;
             } else {
-                this.isValid.logo = false;
+                this.isValid.logo_url = false;
             }
         }
     }
@@ -65,13 +65,13 @@
                             field is required.</p>
                     </div>
                     <div class="flex flex-col mb-4">
-                        <x-form.input-label for="logo">
+                        <x-form.input-label for="logo_url">
                             Logo:
                         </x-form.input-label>
-                        <input type="file" name="logo" placeholder="Choose an image." id="logo" x-model="inputValues.logo" @blur="validateLogo">
-                        <p x-show="!isValid.logo" class="text-red-600 text-sm mt-1" id="logo-required" x-cloak>Invalid type. Supported types: jpeg, jpg, png, gif.</p>
+                        <input type="file" name="logo_url" placeholder="Choose an image." id="logo_url" x-model="inputValues.logo_url" @blur="validateLogo">
+                        <p x-show="!isValid.logo_url" class="text-red-600 text-sm mt-1" id="logo-required" x-cloak>Invalid type. Supported types: jpeg, jpg, png, gif.</p>
                     </div>
-                    <div class="preview">
+                    <div class="preview mb-3">
                         <img id="preview-image">
                       </div>
                     <div class="flex flex-col mb-4">
@@ -138,9 +138,9 @@
 </div>
 
 <script>
-    const input = document.getElementById('logo');
+    const input = document.getElementById('logo_url');
     const previewImage = document.getElementById('preview-image');
-  
+
     input.addEventListener('change', function() {
       const file = input.files[0];
       const objectURL = URL.createObjectURL(file);

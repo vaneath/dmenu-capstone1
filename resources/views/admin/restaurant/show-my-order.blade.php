@@ -6,7 +6,7 @@
     :back="route('restaurant.index')"
     url="https://th.bing.com/th/id/R.93b95738cb630f899bacf7dd835b5ad5?rik=tTYET5ChbtekCw&riu=http%3a%2f%2fyesofcorsa.com%2fwp-content%2fuploads%2f2016%2f11%2f4K-Wallpapers-7.jpg&ehk=T6iESUSfpf9rlqxhPxnOLZKKmedMu0oOGAuICEPY%2fbo%3d&risl=&pid=ImgRaw&r=0"
 >
-<div 
+<div
     x-data="{
         checkoutXDataCartItems: JSON.parse(JSON.stringify(JSON.parse(sessionStorage.getItem('cartItems')))),
         getCheckoutXDataCartItems: function() {
@@ -34,7 +34,7 @@
                 console.log('error: ', error);
                 return null;
             }
-            
+
         },
         cartItemsDetails: null,
         checkoutXDataCartItemsDetails: 'not null',
@@ -71,7 +71,7 @@
             } else {
                 if(checkoutXDataCartItems[itemsUniqueId].quantity > 0){
                     checkoutXDataCartItems[itemsUniqueId].quantity = checkoutXDataCartItems[itemsUniqueId].quantity - 1;
-                } 
+                }
                 this.setCheckoutXDataCartItems(checkoutXDataCartItems);
                 document.getElementById('quantity-' + itemsUniqueId).innerText = checkoutXDataCartItems[itemsUniqueId].quantity / 2;
             }
@@ -154,17 +154,19 @@
         </div>
     </div>
 
-    <div class="w-[20rem] mb-1 fixed mx-auto left-0 right-0 bottom-3 bg-yellow rounded-full px-10 py-2 text-center">
     <form @submit.prevent="checkoutItems" action="{{ route('order.store', $restaurant->id) }}" method="POST" id="order-form">
         @csrf
-        <input type="hidden" name="restaurant" value="{{ $restaurant->id }}"> 
+        <input type="hidden" name="restaurant" value="{{ $restaurant->id }}">
         <input type="hidden" id="cart-items-input" name="cart_items" value="">
-        <button 
+        <button
             class="font-semibold text-lg text-white"
             id="show-my-order"
-            type="submit" id="submit-order">Checkout</button>
+            type="submit" id="submit-order">
+            <div class="w-[20rem] mb-1 fixed mx-auto left-0 right-0 bottom-3 bg-yellow rounded-full px-10 py-2 text-center">
+                    Checkout
+            </div>
+        </button>
     </form>
-    </div>
 </div>
 
 </x-mobile-layout>

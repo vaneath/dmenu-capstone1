@@ -2,17 +2,13 @@
 >
     <body class="mx-auto bg-blue px-7 py-5 mb-8">
     <div class="max-w-[40rem] mx-auto bg-white py-5 px-8 relative">
-        <h1 class="text-2xl font-bold text-center mb-7">Invoice</h1>
-        <div class="flex justify-between">
-            <div class="flex-col mb-7">
-                @empty($restaurant->logo_url)
-                    <img class="w-16 h-16 mx-auto" src="{{ asset('images/restaurant_logo.jfif') }}" alt="">
-                @else
-                    <img class="w-16 h-16 mx-auto" src="{{ asset($restaurant->logo_url) }}" alt="">
-                @endempty
-                <p class="font-bold text-xs text-gray-500">{{ $restaurant->name }}</p>
+        <h1 class="text-2xl font-bold text-center">Invoice</h1>
+        <div class="flex justify-between mt-10">
+            <div class="flex-col justify-center space-y-3 flex-1">
+                <img class="w-24 h-24 mx-auto rounded-lg" src="{{ asset('storage'). '/' . $restaurant->logo_url }}" alt="">
+                <p class="font-bold text-lg text-gray-700 text-center">{{ ucwords($restaurant->name) }}</p>
             </div>
-            <div>
+            <div class="flex-col space-y-2">
                 <h3 class="text-xs font-semibold">Order Id: <span class="font-medium">{{ $order->id }}</span></h3>
                 <p class="font-bold text-xs">
                     Date: <span class="font-medium">{{ $order->created_at->format('d-m-Y h:i a') }}</span>
@@ -108,7 +104,7 @@
         <a href="#"
            class="text-sm px-7 py-2 transition ease-linear duration-300 bg-yellow text-white rounded-xl border-2 border-yellow hover:bg-transparent hover:scale-110 hover:text-yellow"
         >
-            Download this invoice
+            Download Invoice
         </a>
     </div>
     </body>

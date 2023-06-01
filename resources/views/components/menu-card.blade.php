@@ -31,8 +31,8 @@
     @if($item->img_url)
     @auth
     @if(auth()->id() == $restaurant->user_id)
-        <div class="absolute flex space-x-5 bg-white top-3 right-3 px-6 py-4 rounded-lg">
-            <button @click="$dispatch('update-item-form-open', { 
+        <div class="absolute flex space-x-5 z-40 bg-white top-3 right-3 px-6 py-3 rounded-lg">
+            <button @click="$dispatch('update-item-form-open', {
                 id: '{{ $item->id }}',
                 name: '{{ $item->name }}',
                 description: '{{ $item->description }}',
