@@ -67,8 +67,6 @@ class OrderController extends Controller
 
         $cartItems = json_decode($request->cart_items, true);
 
-        // dd($cartItems);
-
         $order = Order::create([
             'restaurant_id' => $restaurant->id,
             'id' => uniqid('do', true)
@@ -103,46 +101,29 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Restaurant $restaurant)
+    public function show($restaurantId, $orderId)
     {
+        $restaurant = Restaurant::find($restaurantId);
+        $order = Order::find($orderId);
+        $orderItems = OrderItem::where('order_id', $order->id)->get();
         $sections = Section::where('restaurant_id', $restaurant->id)->get();
         $sections = $sections->sortBy('sort_number');
-        $activeSectionPage = request()->query('active-section-id');
-        if ($activeSectionPage != null && $sections->contains('id', $activeSectionPage)) {
-            return view('admin.restaurant.checkout', [
-                'restaurant' => $restaurant,
-                'sections' => $sections,
-                'activeSectionPage' => $activeSectionPage,
-            ]);
-        } elseif ($activeSectionPage != null && !$sections->contains('id', $activeSectionPage)) {
-            return view('admin.restaurant.checkout', [
-                'restaurant' => $restaurant,
-                'sections' => $sections,
-                'activeSectionPage' => $sections->first()->id,
-            ]);
-        } else {
-            if ($sections->isEmpty()) {
-                return view('admin.restaurant.checkout', [
-                    'restaurant' => $restaurant,
-                    'sections' => $sections,
-                    'activeSectionPage' => null,
-                ]);
-            } else {
-                return view('admin.restaurant.checkout', [
-                    'restaurant' => $restaurant,
-                    'sections' => $sections,
-                    'activeSectionPage' => $sections->first()->id,
-                ]);
-            }
-        }
+        return view('admin.restaurant.checkout', [
+            'restaurant' => $restaurant,
+            'sections' => $sections,
+            'order' => $order,
+            'orderItems' => $orderItems,
+            'activeSectionPage' => null,
+        ]);
     }
 
-    public function order(Order $order)
+    public function order()
     {
-        //order
-        $orders = Order::where('restaurant_id', $order->id)->get();
-        dd($orders);
-        return view('admin.order.index');
+        $orders = Order::all();
+
+        return view('admin.order.index', [
+            'orders' => $orders,
+        ]);
     }
 
     /**

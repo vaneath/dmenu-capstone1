@@ -6,7 +6,7 @@
     </div>
     <div class="flex gap-5">
         <a href="{{ auth() ? route('dashboard.index') : route('login')  }}"
-           class="text-sm px-7 py-2 transition ease-linear duration-300 bg-yellow text-white rounded-xl border-2 border-yellow hover:bg-transparent hover:scale-110 hover:text-yellow"
+           class="my-auto text-sm px-7 py-2 transition ease-linear duration-300 bg-yellow text-white rounded-xl border-2 border-yellow hover:bg-transparent hover:scale-110 hover:text-yellow"
         >
             {{ auth()->user() ? ucwords(auth()->user()->name) : 'Login' }}
         </a>
@@ -14,7 +14,7 @@
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit"
-                        class="sm:inline-flex text-sm px-7 py-2 transition ease-linear duration-300 bg-yellow text-white rounded-xl border-2 border-yellow hover:bg-transparent hover:scale-110 hover:text-yellow"
+                        class="my-auto sm:inline-flex text-sm px-7 py-2 transition ease-linear duration-300 bg-yellow text-white rounded-xl border-2 border-yellow hover:bg-transparent hover:scale-110 hover:text-yellow"
                 >
                     Logout
                 </button>
