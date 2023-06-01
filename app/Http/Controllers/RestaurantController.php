@@ -20,29 +20,21 @@ class RestaurantController extends Controller
 
     public function store(Request $request)
     {
-
-        $this->validate($request, array(
+        $attributes = request()->validate([
             'name' => 'required|max:255',
             'no_of_tables' => 'required|max:255',
+            'logo_url' => 'required|image',
             'village' => 'required|max:255',
             'district' => 'required|max:255',
             'commune' => 'required|max:255',
             'province' => 'required|max:255',
-        ));
-        $user_id = Auth::id();
-        $restaurant = new Restaurant();
-        $restaurant->name = $request->name;
-        $restaurant->user_id = $user_id;
-        do {
-            $restaurant->id = uniqid('dr', true);
-            $id = Restaurant::where('id', $restaurant->id)->first();
-        } while ($id != null);
-        $restaurant->no_of_tables = $request->no_of_tables;
-        $restaurant->village = $request->village;
-        $restaurant->district = $request->district;
-        $restaurant->commune = $request->commune;
-        $restaurant->province = $request->province;
-        $restaurant->save();
+        ]);
+
+        $attributes['user_id'] = Auth::id();
+        $attributes['id'] = uniqid('dr', true);
+        $attributes['logo_url'] = $request->file('logo_url')->store('restaurants/' . $request->name . '/logo');
+        Restaurant::create($attributes);
+
         return redirect()->route('restaurant.index');
     }
 
@@ -108,12 +100,11 @@ class RestaurantController extends Controller
     }
 
     public function menu($restaurant){
-        
         if(Auth::check()){
             $user = Auth::user();
             $restaurant = $user->restaurants()->where('name', $restaurant)->first();
         }
-        
+
         $sections = Section::where('restaurant_id', $restaurant->id)->get();
         $sections = $sections->sortBy('sort_number');
         $activeSectionPage = request()->query('active-section-id');

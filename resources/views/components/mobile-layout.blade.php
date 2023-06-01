@@ -49,12 +49,15 @@
             <img
                 src="{{ $url }}"
                 alt="restaurant-img"
-                class="bg-cover h-40 w-full"
+                class="bg-cover h-48 w-full"
             >
             <div class="bg-blue absolute top-32 w-full rounded-l-3xl rounded-r-3xl px-5 py-7">
-                <h2 class="mb-3 text-3xl text-white font-bold">
-                    {{ ucwords($restaurant->name) }}
-                </h2>
+                <div class="flex space-x-5 items-end mb-3">
+                    <img class="w-16 h-16 rounded-full" src="{{ asset('storage'). '/' . $restaurant->logo_url }}" alt="">
+                    <h2 class="mb-3 text-3xl text-white font-bold">
+                        {{ ucwords($restaurant->name) }}
+                    </h2>
+                </div>
                 <div class="flex mb-5 items-end text-sm text-gray-300">
                 <span class="material-symbols-outlined">
                     location_on

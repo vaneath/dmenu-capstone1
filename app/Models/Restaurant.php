@@ -13,16 +13,28 @@ class Restaurant extends Model
 
     public $incrementing = false;
 
+    protected $fillable = [
+        'id',
+        'user_id',
+        'name',
+        'no_of_tables',
+        'logo_url',
+        'village',
+        'commune',
+        'district',
+        'province',
+    ];
+
     protected static function booted()
     {
-       
+
     }
 
     public function getRouteKeyName()
     {
         return 'name';
     }
-    
+
     public function sections()
     {
         return $this->hasMany(Section::class);
