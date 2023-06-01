@@ -17,9 +17,12 @@ return new class extends Migration
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->string('item_id', 25);
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
+            
             $table->integer('quantity');
-            $table->double('price');
-            $table->double('sub_total');
+
+            $table->double('discount_amount')->nullable(true);
+            $table->double('tax_deduction')->nullable(true);
+            $table->double('amount');
 
             $table->timestamps();
         });

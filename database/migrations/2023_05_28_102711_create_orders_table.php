@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('restaurant_id');
 
             $table->string('passphrase', 191)->nullable(true);
-            $table->string('email', 191)->nullable(true);
             $table->string('phone', 191)->nullable(true);
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
@@ -30,7 +29,9 @@ return new class extends Migration
             }
             $table->timestamp('order_at')->default(now());
             $table->timestamp('paid_at')->nullable(true);
-            $table->double('tax')->nullable(true);
+            
+            $table->double('total_tax_deduction')->nullable(true);
+            $table->double('total_discount_amount')->nullable(true);
 
             $table->timestamps();
         });

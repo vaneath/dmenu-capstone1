@@ -49,6 +49,8 @@ Route::middleware('auth')->group(function () {
     Route::post('sections', [SectionController::class, 'store'])->name('section.store');
 
     Route::get('dashboard', [AdminDashboardController::class, '__invoke'])->name('dashboard.index');
+
+    Route::delete('items/{item}', [ItemController::class, 'destroy'])->name('item.destroy');
 });
 
 Route::middleware('auth.custom')->group(function (){
@@ -62,8 +64,10 @@ Route::middleware('auth.custom')->group(function (){
     Route::get('/restaurants/{restaurant}/sections/{section}/categories', [CategoryController::class, 'index'])->name('category.index');
     Route::get('/categories/{category}/items', [ItemController::class, 'index'])->name('item.index');
 
-    Route::post('/images', [ImageController::class, 'store'])->name('images.store');
-    Route::get('/images', [ImageController::class, 'index'])->name('images.index');
+    Route::get('/items/{itemIDs}', [ItemController::class, 'list'])->name('item.list');
+
+    Route::post('/image-control', [ImageController::class, 'store'])->name('image-control.store');
+    Route::get('/image-control', [ImageController::class, 'index'])->name('image-control.index');
 });
 
 Route::middleware(['auth', 'auth.superadmin'])->group(function () {

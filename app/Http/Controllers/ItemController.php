@@ -28,7 +28,7 @@ class ItemController extends Controller
         $item->description = $request->description;
         $item->img_url = $request->img_url;
         $item->price = $request->price;
-        $item->discount_price = $request->discount_price;
+        $item->discount = $request->discount;
         $item->weight = $request->weight;
         $item->category_id = $request->category_id;
         do {
@@ -59,6 +59,25 @@ class ItemController extends Controller
 
     public function destroy($id)
     {
-        //
+        $item = Item::find($id);
+        $item->delete();
+        // redirect back
+        return redirect()->back();
+    }
+
+    public function list($itemIDs){
+
+        // get $itemsIDs from request query
+
+        // $itemIDs = request()->query('itemIDs');
+
+        // get type of $itemIDs
+
+        $itemIDs = json_decode($itemIDs);
+
+        // $itemIDs = explode(',', $itemIDs);
+        $items = Item::whereIn('id', $itemIDs)->get();
+
+        return $items;
     }
 }

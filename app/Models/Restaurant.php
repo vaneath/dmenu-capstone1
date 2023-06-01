@@ -37,4 +37,9 @@ class Restaurant extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function taxPolicies()
+    {
+        return $this->hasMany(TaxPolicy::class);
+    }
 }

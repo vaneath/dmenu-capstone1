@@ -21,7 +21,9 @@ class RestaurantController extends Controller
     public function store(Request $request)
     {
         // post to /images namge images.store
-        // $response = Http::get(route('images.index'));
+        $client = new Client();
+//        $response = $client->request('GET', route('image-control.index'));
+        // $response = Http::get(route('image-control.index'));
         // dd($response);
 
         // $client = new Client();
@@ -31,10 +33,14 @@ class RestaurantController extends Controller
         //     ]
         // ]);
 
-//        $response = Http::post(route('images.store'), [
-//            'logo' => $request->file('logo'),
-//        ]);
+        // $response = Http::post(route('images.store'), [
+        //     'logo' => $request->file('logo'),
+        // ]);
 
+        // $response = Http::get(route('images.index'));
+
+        // dd($request);
+        // dd($request->all(), $request->logo, gettype($request->logo), $request->file('logo'));
 //        $response = Http::get(route('images.index'));
         $this->validate($request, array(
             'name' => 'required|max:255',
@@ -123,10 +129,6 @@ class RestaurantController extends Controller
     }
 
     public function menu($restaurant){
-        // dd($restaurant);
-
-        // dd($user);
-        // check if authenticated use auth
         if(Auth::check()){
             $user = Auth::user();
             $restaurant = $user->restaurants()->where('name', $restaurant)->first();

@@ -15,6 +15,29 @@
             }
             return this.checkoutXDataCartItems;
         },
+        getCheckoutXDataCartItemsDetails: function() {
+            let response = 0;
+
+            let checkoutXDataCartItemsKeys = JSON.stringify(Object.keys(this.getCheckoutXDataCartItems()));
+            try{
+                fetch('/items/' + checkoutXDataCartItemsKeys)
+                .then(response => response.text())
+                .then(data => {
+                    console.log('data: ', data);
+                    return data;
+                })
+                .catch(error => {
+                    console.warn('Error fetching HTML:', error);
+                    return null;
+                });
+            } catch(error) {
+                console.log('error: ', error);
+                return null;
+            }
+            
+        },
+        cartItemsDetails: null,
+        checkoutXDataCartItemsDetails: 'not null',
         setCheckoutXDataCartItems: function(checkoutXDataCartItems) {
             checkoutXDataCartItems = JSON.parse(JSON.stringify(checkoutXDataCartItems));
             if (checkoutXDataCartItems == null) {
@@ -23,18 +46,20 @@
             this.checkoutXDataCartItems = checkoutXDataCartItems;
         },
         increaseQuantity: function(itemUniqueID) {
+
+            console.log('checkoutXakjdlkjfa', this.cartItemsDetails);
+
             let checkoutXDataCartItems = this.getCheckoutXDataCartItems();
-            checkoutXDataCartItems[itemUniqueID] = checkoutXDataCartItems[itemUniqueID] + 1 || 1;
+            checkoutXDataCartItems[itemUniqueID].quantity = checkoutXDataCartItems[itemUniqueID].quantity + 1 || 1;
             console.log('increase: ', checkoutXDataCartItems);
             this.setCheckoutXDataCartItems(checkoutXDataCartItems);
-            document.getElementById('quantity-' + itemUniqueID).innerText = checkoutXDataCartItems[itemUniqueID] / 2;
+            document.getElementById('quantity-' + itemUniqueID).innerText = checkoutXDataCartItems[itemUniqueID].quantity / 2;
             this.populateHiddenInput(checkoutXDataCartItems);
         },
         populateHiddenInput: function(checkoutXDataCartItems) {
             let cartItems = JSON.parse(JSON.stringify(checkoutXDataCartItems));
-            //let cartItems = JSON.parse(JSON.stringify(checkoutXDataCartItems));
             for(let [item, quantity] of Object.entries(checkoutXDataCartItems)) {
-                cartItems[item] = checkoutXDataCartItems[item] / 2;
+                cartItems[item] = checkoutXDataCartItems[item].quantity / 2;
             }
             let cartItemsInput = document.getElementById('cart-items-input');
             cartItemsInput.value = JSON.stringify(cartItems);
@@ -44,10 +69,11 @@
             if (checkoutXDataCartItems[itemsUniqueId] <= 0) {
                 return;
             } else {
-                checkoutXDataCartItems[itemsUniqueId] = checkoutXDataCartItems[itemsUniqueId] - 1;
-                console.log('decrease: ', checkoutXDataCartItems);
+                if(checkoutXDataCartItems[itemsUniqueId].quantity > 0){
+                    checkoutXDataCartItems[itemsUniqueId].quantity = checkoutXDataCartItems[itemsUniqueId].quantity - 1;
+                } 
                 this.setCheckoutXDataCartItems(checkoutXDataCartItems);
-                document.getElementById('quantity-' + itemsUniqueId).innerText = checkoutXDataCartItems[itemsUniqueId] / 2;
+                document.getElementById('quantity-' + itemsUniqueId).innerText = checkoutXDataCartItems[itemsUniqueId].quantity / 2;
             }
             this.populateHiddenInput(checkoutXDataCartItems);
         },
@@ -66,24 +92,26 @@
             let checkoutXDataCartItems = this.getCheckoutXDataCartItems();
             let itemList = document.getElementById('item-list');
             let content = ``;
-            console.log('invoked');
-            console.log(typeof checkoutXDataCartItems);
             for(let [item, quantity] of Object.entries(checkoutXDataCartItems)) {
-                console.log('items: ', item);
-                {{-- let quantity = checkoutXDataCartItems[item]; --}}
+                let imgUrl = null;
+                if (this.checkoutXDataCartItems[item].img_url) {
+                    imgUrl = this.checkoutXDataCartItems[item].img_url;
+                } else {
+                    imgUrl = 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg';
+                }
                 content += `
                 <li class='flex py-6' id='item-${item}'>
                     <div class='h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200'>
-                        <img src='https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg' alt='Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.'' class='h-full w-full object-cover object-center'>
+                        <img src='${ imgUrl }' alt='Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.'' class='h-full w-full object-cover object-center'>
                     </div>
 
                     <div class='ml-4 flex flex-1 flex-col'>
                         <div>
                             <div class='flex-col justify-between text-base font-medium text-gray-900'>
                                 <h3 class='text-yellow font-semibold text-lg'>
-                                    ${item}
+                                    ${checkoutXDataCartItems[item].name}
                                 </h3>
-                                <p class='text-sm text-white'>$32.00</p>
+                                <p class='text-sm text-white'>${checkoutXDataCartItems[item].price} $</p>
                             </div>
                         </div>
                         <div class='flex flex-1 items-end justify-between text-sm'>
@@ -92,7 +120,7 @@
                                     -
                                 </div>
                                 <span class='font-bold' id='quantity-${item}'>
-                                    ${quantity / 2}
+                                    ${checkoutXDataCartItems[item].quantity / 2}
                                 </span>
                                 <div class='cursor-pointer text-sm text-yellow font-semibold' @click='increaseQuantity(&quot;${item}&quot;)'>
                                     +
@@ -125,23 +153,18 @@
             </ul>
         </div>
     </div>
-    <a href="{{ route('order.show', $restaurant->name) }}"
-       class="w-[20rem] mb-1 fixed mx-auto left-0 right-0 bottom-3 bg-yellow rounded-full px-10 py-2 text-center"
-    >
-        <div
-            class="font-semibold text-lg text-white"
-            id="show-my-order"
-        >
-            Checkout
-        </div>
-    </a>
 
+    <div class="w-[20rem] mb-1 fixed mx-auto left-0 right-0 bottom-3 bg-yellow rounded-full px-10 py-2 text-center">
     <form @submit.prevent="checkoutItems" action="{{ route('order.store', $restaurant->id) }}" method="POST" id="order-form">
         @csrf
         <input type="hidden" name="restaurant" value="{{ $restaurant->id }}"> 
         <input type="hidden" id="cart-items-input" name="cart_items" value="">
-        <button type="submit" id="submit-order">Checkout V2</button>
+        <button 
+            class="font-semibold text-lg text-white"
+            id="show-my-order"
+            type="submit" id="submit-order">Checkout</button>
     </form>
+    </div>
 </div>
 
 </x-mobile-layout>
