@@ -11,7 +11,7 @@
     activeSectionPage: '{{ $activeSectionPage }}',
     setActiveSectionPage(sectionId) {
         this.activeSectionPage = sectionId;
-        $dispatch('update-active-section-page', { activeSectionPage: sectionId, localCommonDisplay: null });
+        $dispatch('update-active-section-page', { activeSectionPage: sectionId, localCommonDisplay: null , currentRestaurantId: '{{ $restaurant->id }}' });
     },
     toggleModal() {
         this.createSectionFormOpen = !this.createSectionFormOpen;
@@ -23,13 +23,31 @@
             let localCommonDisplay = JSON.parse(localStorage.getItem('commonDisplay'));
             localCommonDisplay = localCommonDisplay.trim();
             let localActiveSectionPage = localStorage.getItem('activeSectionPage');
+            let localRestaurantId = localStorage.getItem('localRestaurantId');
+            let localRefresh = localStorage.getItem('localRefresh');
             if (localActiveSectionPage != 0 || localActiveSectionPage != null || localActiveSectionPage != undefined || localActiveSectionPage != 'null' || localActiveSectionPage != 'undefined') {
-                activeSectionPage = localStorage.getItem('activeSectionPage');
+                if(localRestaurantId == '{{ $restaurant->id }}') {
+                    activeSectionPage = localStorage.getItem('activeSectionPage');
+                }
+            }
+            if ( localRestaurantId != '{{ $restaurant->id }}' ) {
+                localCommonDisplay = null;
+                localStorage.setItem('localCommonDisplay', null);
+            }
+            if ( localRefresh == 'true' ) {
+                localCommonDisplay = null;
+                localStorage.setItem('localCommonDisplay', null);
+                localStorage.setItem('localRefresh', false);
             }
             if(localCommonDisplay == undefined && localCommonDisplay == '' && localCommonDisplay == null && localCommonDisplay == 'null' && localCommonDisplay == 'undefined') {
-                $dispatch('update-active-section-page', { activeSectionPage: activeSectionPage, localCommonDisplay: null });
-            } else {
-                $dispatch('update-active-section-page', { activeSectionPage: activeSectionPage, localCommonDisplay: localCommonDisplay });
+                $dispatch('update-active-section-page', { activeSectionPage: activeSectionPage, localCommonDisplay: null, currentRestaurantId: '{{ $restaurant->id }}' });
+            } else{
+                if(localRestaurantId == '{{ $restaurant->id }}') {
+                    console.log('localRestaurantId is not thes same as the current');
+                    $dispatch('update-active-section-page', { activeSectionPage: activeSectionPage, localCommonDisplay: localCommonDisplay, currentRestaurantId: '{{ $restaurant->id }}' });
+                } else {
+                    $dispatch('update-active-section-page', { activeSectionPage: activeSectionPage, localCommonDisplay: null, currentRestaurantId: '{{ $restaurant->id }}' });
+                }
             }
          }"
          @toggle-modal="toggleModal">

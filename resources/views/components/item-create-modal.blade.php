@@ -5,12 +5,13 @@
     submit() {
       // this.validateName();
       {{-- console.log(event.target.name.value);
-      console.log(this.inputValues.name);
-      if (Object.values(this.isValid).every(Boolean)) { --}}
+      console.log(this.inputValues.name); --}}
+      if (Object.values(this.isValid).every(Boolean)) {
         event.target.submit();
+        localStorage.setItem('localRefresh', 'true');
+        fetchItems('{{ $category->id }}');
         this.createItemFormOpen = false;
-        // fetch post to /restaurants/{{ $restaurant->id }}/menu/{{ $category->id }}/items
-      {{-- } --}}
+      }
     },
     validateName() {
       this.isValid.name = this.inputValues.name.trim() !== '';
