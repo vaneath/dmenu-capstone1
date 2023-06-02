@@ -4,22 +4,22 @@
 <div>
     <ul>
         @auth
-        @if(auth()->id() == $restaurant->user_id)
-        @if ($items->count() == 0)
-            <button class="w-full mb-5 py-2 bg-yellow rounded-2xl text-white font-bold text-lg">
-                +
-            </button>
-        @endif
-        @endif
+            @if(auth()->id() == $restaurant->user_id)
+                @if ($items->count() == 0)
+                    <button class="w-full mb-5 py-2 bg-yellow rounded-2xl text-white font-bold text-lg">
+                        +
+                    </button>
+                @endif
+            @endif
         @endauth
         @if ($items->count() > 0)
             @foreach ($items as $item)
                 @auth
-                @if(auth()->id() == $restaurant->user_id)
-                <button class="w-full mb-5 py-2 bg-yellow rounded-2xl text-white font-bold text-lg">
-                    +
-                </button>
-                @endif
+                    @if(auth()->id() == $restaurant->user_id)
+                    <button class="w-full mb-5 py-2 bg-yellow rounded-2xl tFsext-white font-bold text-lg">
+                        +
+                    </button>
+                    @endif
                 @endauth
                 <div @click="$dispatch('add-to-cart', )">
                     <li class="relative mb-5">
@@ -35,5 +35,5 @@
                 </div>
             @endforeach
         @endif
-    </ul> 
+    </ul>
 </div>

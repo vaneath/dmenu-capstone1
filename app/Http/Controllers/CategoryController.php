@@ -25,25 +25,48 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $request->is_visible = $request->is_visible === 'on';
         $section = Section::find($request->section_id);
-        $maxSortNumber = $section->categories->max('sort_number');
-        $category = new Category();
-        $category->name = $request->name;
-        $category->img_url = $request->img_url;
-        $category->is_visible = $request->is_visible;
-        $category->sort_number = $maxSortNumber + 1;
-        $category->section_id = $request->section_id;
-        do {
-            $category->id = uniqid('dc', true);
-            $id = Category::where('id', $category->id)->first();
-        } while ($id != null);
-        $category->save();
-        return redirect()->route('restaurant.menu', [
-            'restaurant' => $section->restaurant,
-            'sections' => $section->restaurant->sections,
-            'active-section-id' => $section->id,
-        ]);
+
+         $attributes = $request->validate([
+             'name' => 'required',
+             'category_img_url' => 'required|image',
+         ]);
+
+         $attributes['id'] = uniqid('dc', true);
+         $attributes['img_url'] = $request->file('category_img_url')->store('restaurants/' . $section->restaurant->name . '/categories');
+         $attributes['is_visible'] = $request->is_visible === 'on';
+         $attributes['sort_number'] = $section->categories->max('sort_number') + 1;
+         $attributes['section_id'] = $request->section_id;
+
+         Category::create($attributes);
+
+         return redirect()->route('restaurant.menu', [
+             'restaurant' => $section->restaurant,
+             'sections' => $section->restaurant->sections,
+             'active-section-id' => $section->id,
+         ]);
+
+
+
+//        $request->is_visible = $request->is_visible === 'on';
+//        $section = Section::find($request->section_id);
+//        $maxSortNumber = $section->categories->max('sort_number');
+//        $category = new Category();
+//        $category->name = $request->name;
+//        $category->img_url = $request->img_url;
+//        $category->is_visible = $request->is_visible;
+//        $category->sort_number = $maxSortNumber + 1;
+//        $category->section_id = $request->section_id;
+//        do {
+//            $category->id = uniqid('dc', true);
+//            $id = Category::where('id', $category->id)->first();
+//        } while ($id != null);
+//        $category->save();
+//        return redirect()->route('restaurant.menu', [
+//            'restaurant' => $section->restaurant,
+//            'sections' => $section->restaurant->sections,
+//            'active-section-id' => $section->id,
+//        ]);
     }
 
     public function show(Restaurant $restaurant, $category)

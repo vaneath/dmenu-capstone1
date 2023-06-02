@@ -11,6 +11,15 @@ class Category extends Model
 
     public $incrementing = false;
 
+    protected $fillable = [
+        'id',
+        'is_visible',
+        'img_url',
+        'name',
+        'sort_number',
+        'section_id',
+    ];
+
     public function section()
     {
         return $this->belongsTo(Section::class);

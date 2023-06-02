@@ -55,13 +55,13 @@
     @endif
     @endauth
     <img
-        src="{{ $url }}"
+        src="{{ asset('storage') . '/' . $item->img_url }}"
         alt=""
         class="rounded-2xl h-60 md:h-72 w-full bg-contain bg-center mb-5"
     >
     @else
     <img
-        src="{{ $item->img_url }}"
+        src="{{ asset('storage') . '/' . $item->img_url }}"
         alt=""
         class="rounded-2xl h-60 md:h-72 w-full bg-contain bg-center mb-5"
     >

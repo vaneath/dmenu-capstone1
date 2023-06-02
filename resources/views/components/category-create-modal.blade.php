@@ -8,8 +8,8 @@ $currencies = [
 ?>
 
 <div x-data="{ open: false,
-    isValid: { name: true, img_url: true },
-    inputValues: { name: '', img_url: '' },
+    isValid: { name: true, category_img_url: true },
+    inputValues: { name: '', category_img_url: '' },
     submit() {
       this.validateName();
       this.validateImgUrl();
@@ -27,7 +27,7 @@ $currencies = [
       this.isValid.name = this.inputValues.name.trim() !== '';
     },
     validateImgUrl() {
-      this.isValid.img_url = this.inputValues.img_url.trim() !== '';
+      this.isValid.category_img_url = this.inputValues.category_img_url.trim() !== '';
     }
  }"
      @create-category-form-open.window="open = $event.detail.createCategoryFormOpen">
@@ -39,7 +39,7 @@ $currencies = [
                 <div class="bg-white w-full p-6 text-wrap break-words flex flex-col"
                      style="max-height: 80vh; overflow-y: auto">
                     <h2 class="text-2xl font-bold mb-4 text-center">Add Restaurant</h2>
-                    <form @submit.prevent="submit" action="/categories" method="POST" x-data="{  }">
+                    <form @submit.prevent="submit" action="/categories" method="POST" x-data="{  }" enctype="multipart/form-data">
                         @csrf
                         <div class="flex flex-col mb-4">
                             <label class="text-gray-700 mb-2">Category's Name:</label>
@@ -50,9 +50,9 @@ $currencies = [
                         </div>
                         <div class="flex flex-col mb-4">
                             <label class="text-gray-700 mb-2">Image URL:</label>
-                            <x-form.text-input @blur="validateImgUrl" placeholder="https://..." name="img_url"
-                                               x-model="inputValues.img_url"/>
-                            <p x-show="!isValid.img_url" class="text-red-600 text-sm mt-1" id="img-url-required"
+                            <x-form.text-input @blur="validateImgUrl" placeholder="https://..." name="category_img_url"
+                                               x-model="inputValues.category_img_url" type="file"/>
+                            <p x-show="!isValid.category_img_url" class="text-red-600 text-sm mt-1" id="img-url-required"
                                x-cloak>This field is required.</p>
                         </div>
 

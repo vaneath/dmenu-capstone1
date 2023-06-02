@@ -18,10 +18,8 @@ return new class extends Migration
             $table->string('name', 191);
             $table->integer('sort_number');
             $table->string('section_id', 25);
-            $table->timestamps();
-
             $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
-
+            $table->timestamps();
             $table->unique(['name', 'section_id']);
         });
     }
