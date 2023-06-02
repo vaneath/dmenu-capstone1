@@ -1,7 +1,7 @@
 @props(['category', 'restaurant'])
 <div x-data="{ open: false,
-    isValid: { name: true, description: true, img_url: true, price: true, discount_price: false, weight: true },
-    inputValues: { name: '', description: '', img_url: '', price: '', discount_price: '', weight: '', is_available: false },
+    isValid: { name: true, description: true, menu_img_url: true, price: true, discount_price: false, weight: true },
+    inputValues: { name: '', description: '', menu_img_url: '', price: '', discount_price: '', weight: '', is_available: false },
     submit() {
       // this.validateName();
       {{-- console.log(event.target.name.value);
@@ -19,7 +19,7 @@
       this.isValid.description = this.inputValues.description.trim() !== '';
     },
     validateImgUrl() {
-      this.isValid.img_url = this.inputValues.img_url.trim() !== '';
+      this.isValid.menu_img_url = this.inputValues.menu_img_url.trim() !== '';
     },
     validatePrice() {
       this.isValid.price = this.inputValues.price.trim() !== '';
@@ -40,7 +40,7 @@
             <div class="relative max-w-2xl mx-auto">
                 <div class="bg-white w-full p-6 text-wrap break-words flex flex-col" style="max-height: 80vh; overflow-y: auto">
                     <h2 class="text-2xl font-bold mb-4 text-center">Add Item</h2>
-                    <form @submit.prevent="submit" action="/items" method="POST">
+                    <form @submit.prevent="submit" action="/items" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="category_id" value="{{ $category->id }}">
                         <div class="flex flex-col mb-4">
@@ -54,9 +54,9 @@
                             <p x-show="!isValid.description" class="text-red-600 text-sm mt-1" id="name-required" x-cloak>Item's description required.</p>
                         </div>
                         <div class="flex flex-col mb-4">
-                            <x-form.input-label for="img_url">Item Image URL:</x-form.input-label>
-                            <x-form.text-input @blur="validateImgUrl" placeholder="Item's Image URL" name="img_url" x-model="inputValues.img_url" />
-                            <p x-show="!isValid.img_url" class="text-red-600 text-sm mt-1" id="name-required" x-cloak>Item's image URL required.</p>
+                            <x-form.input-label for="menu_img_url">Item Image URL:</x-form.input-label>
+                            <x-form.text-input @blur="validateImgUrl" placeholder="Item's Image URL" name="menu_img_url" x-model="inputValues.menu_img_url" type="file"/>
+                            <p x-show="!isValid.menu_img_url" class="text-red-600 text-sm mt-1" id="name-required" x-cloak>Item's image URL required.</p>
                         </div>
                         <div class="flex flex-col mb-4">
                             <x-form.input-label for="price">Item Price:</x-form.input-label>

@@ -1,16 +1,16 @@
-<div 
-x-data="{ 
-    createItemFormOpen: false, 
+<div
+x-data="{
+    createItemFormOpen: false,
     updateItemFormOpen: false,
     updateItem: null,
-    toggleModal() { 
-        this.createItemFormOpen = !this.createCategoryFormOpen; 
+    toggleModal() {
+        this.createItemFormOpen = !this.createCategoryFormOpen;
     },
-}" 
+}"
 @toggle-modal="toggleModal"
 x-on:update-item-form-open.window="updateItemFormOpen = $event.detail.updateItemFormOpen, updateItem = $event.detail"
 >
-    <h1 class="text-white px-6 py-1">
+    <h1 class="text-white px-6 py-1 text-lg font-bold text-4xl">
         {{ ucwords($category->name) }}
     </h1>
 

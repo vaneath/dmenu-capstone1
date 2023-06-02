@@ -11,6 +11,20 @@ class Item extends Model
 
     public $incrementing = false;
 
+    protected $fillable = [
+        'id',
+        'name',
+        'description',
+        'img_url',
+        'price',
+        'discount',
+        'weight',
+        'is_available',
+        'sort_number',
+        'category_id',
+        'tax_policy_id',
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
