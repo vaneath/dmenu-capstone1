@@ -18,6 +18,7 @@
         localStorage.setItem('commonDisplay', JSON.stringify(commonDisplay));
         console.log('handleCommonDisplay', activeSectionPage);
         localStorage.setItem('activeSectionPage', activeSectionPage);
+        localStorage.setItem('localRestaurantId', '{{ $restaurant->id }}');
     },
     fetchCategories: function(sectionId){
         if (sectionId == 0) {

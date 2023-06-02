@@ -15,6 +15,7 @@
 
       if (Object.values(this.isValid).every(Boolean)) {
         event.target.submit();
+        localStorage.setItem('localRefresh', 'true');
         this.createSectionFormOpen = false;
       }
     },
