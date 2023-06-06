@@ -32,6 +32,7 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
+    //profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -46,6 +47,7 @@ Route::middleware('auth')->group(function () {
     //category
     Route::post('categories', [CategoryController::class, 'store'])->name('category.store');
 
+    //section
     Route::post('sections', [SectionController::class, 'store'])->name('section.store');
 
     Route::get('dashboard', [AdminDashboardController::class, '__invoke'])->name('dashboard.index');
@@ -54,17 +56,20 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth.custom')->group(function (){
-    Route::get('/qr/{restaurant}', [QrCodeController::class, 'index'])->name('qr.redirect');
     Route::get('/restaurants/{restaurant}/menu', [RestaurantController::class, 'menu'])->name('restaurant.menu');
-    Route::get('/restaurants/{restaurant}/show-my-order', [OrderController::class, 'index'])->name('order.index');
-    Route::post('/restaurants/{restaurant}/checkout-v2', [OrderController::class, 'store'])->name('order.store');
-    Route::get('/restaurants/{restaurant}/checkout', [OrderController::class, 'show'])->name('order.show');
-    Route::get('/restaurants/{restaurant}/menu/{category}/items', [CategoryController::class, 'show'])->name('category.show');
-    Route::post('/items', [ItemController::class, 'store'])->name('item.store');
-    Route::get('/restaurants/{restaurant}/sections/{section}/categories', [CategoryController::class, 'index'])->name('category.index');
-    Route::get('/categories/{category}/items', [ItemController::class, 'index'])->name('item.index');
 
+    Route::get('/restaurants/{restaurant}/menu/{category}/items', [CategoryController::class, 'show'])->name('category.show');
+    Route::get('/restaurants/{restaurant}/sections/{section}/categories', [CategoryController::class, 'index'])->name('category.index');
+
+    Route::post('/items', [ItemController::class, 'store'])->name('item.store');
+    Route::get('/categories/{category}/items', [ItemController::class, 'index'])->name('item.index');
     Route::get('/items/{itemIDs}', [ItemController::class, 'list'])->name('item.list');
+
+    Route::get('/restaurants/{restaurant}/show-my-order', [OrderController::class, 'index'])->name('order.index');
+    Route::post('/restaurants/{restaurant}/checkout', [OrderController::class, 'store'])->name('order.store');
+    Route::get('/restaurants/{order}/invoice', [OrderController::class, 'show'])->name('order.show');
+
+    Route::get('/qr/{restaurant}', [QrCodeController::class, 'index'])->name('qr.redirect');
 
     Route::post('/image-control', [ImageController::class, 'store'])->name('image-control.store');
     Route::get('/image-control', [ImageController::class, 'index'])->name('image-control.index');

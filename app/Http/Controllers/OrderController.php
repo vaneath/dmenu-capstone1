@@ -102,16 +102,13 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($restaurantId, $orderId)
+    public function show($orderId)
     {
-        $restaurant = Restaurant::find($restaurantId);
         $order = Order::find($orderId);
+        $restaurant = Restaurant::find($order->restaurant_id);
         $orderItems = OrderItem::where('order_id', $order->id)->get();
-        $sections = Section::where('restaurant_id', $restaurant->id)->get();
-        $sections = $sections->sortBy('sort_number');
         return view('admin.restaurant.checkout', [
             'restaurant' => $restaurant,
-            'sections' => $sections,
             'order' => $order,
             'orderItems' => $orderItems,
             'activeSectionPage' => null,

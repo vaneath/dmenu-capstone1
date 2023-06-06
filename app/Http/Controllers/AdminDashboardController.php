@@ -11,7 +11,7 @@ class AdminDashboardController
 {
     public function __invoke()
     {
-        $restaurants = Restaurant::withoutGlobalScope('user_id')->get();
+        $restaurants = Restaurant::get('user_id');
         $users = User::all();
         $orders = Order::all()->sortByDesc('created_at');
         $total = OrderItem::all()->sum('amount');
