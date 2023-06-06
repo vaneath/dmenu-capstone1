@@ -31,6 +31,7 @@ class RestaurantController extends Controller
         ]);
 
         $attributes['user_id'] = Auth::id();
+        $attributes['qr_code_url'] = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&choe=UTF-8&chl=' . $_SERVER['HTTP_REFERER'] . '/' . $request->name . '/menu';
         $attributes['id'] = uniqid('dr', true);
         $attributes['logo_url'] = $request->file('logo_url')->store('restaurants/' . $request->name . '/logo');
         Restaurant::create($attributes);

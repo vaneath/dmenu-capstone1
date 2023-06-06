@@ -23,6 +23,7 @@ class Restaurant extends Model
         'commune',
         'district',
         'province',
+        'qr_code_url',
     ];
 
     protected static function booted()

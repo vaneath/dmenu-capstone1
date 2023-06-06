@@ -26,6 +26,8 @@ class ItemController extends Controller
         $section = Section::find($category->section_id);
         $restaurant = Restaurant::find($section->restaurant_id);
 
+//        dd($request->all());
+
         $attributes = $request->validate([
             'name' => 'required',
             'description' => 'required',
