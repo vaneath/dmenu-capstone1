@@ -24,7 +24,7 @@
                     </tr>
                     </thead>
 
-                    @foreach($orders->sortByDesc('created_at') as $order)
+                    @foreach($orders as $order)
                         <tbody class="bg-white">
                         <tr>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -49,7 +49,7 @@
                                 @endphp
                                 @foreach($order->orderItems as $item)
                                     @php
-                                        $total += $item->sub_total;
+                                        $total += $item->amount;
                                     @endphp
                                 @endforeach
                                 {{ $total }}

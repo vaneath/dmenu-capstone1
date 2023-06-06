@@ -25,7 +25,7 @@
             <x-restaurant.restaurant-card :restaurant="$restaurant" />
         @endforeach
 
-        <x-qr-code />
+        <x-qr-code :restaurant="$restaurant" />
     </div>
 
 @endsection

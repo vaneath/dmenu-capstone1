@@ -1,6 +1,6 @@
 @props(['category', 'restaurant'])
 <div x-data="{ open: false,
-    isValid: { name: true, description: true, menu_img_url: true, price: true, discount_price: false, weight: true },
+    isValid: { name: true, description: true, menu_img_url: true, price: true, discount_price: true, weight: true },
     inputValues: { name: '', description: '', menu_img_url: '', price: '', discount_price: '', weight: '', is_available: false },
     submit() {
       // this.validateName();
@@ -26,8 +26,7 @@
       this.isValid.price = this.inputValues.price.trim() !== '';
     },
     validateDiscountPrice() {
-      {{-- this.isValid.discount_price = this.inputValues.old_price.trim() !== ''; --}}
-      this.isValid.discount_price = false;
+       this.isValid.discount_price = this.inputValues.discount_price.trim() !== '';
     },
     validateWeight() {
       this.isValid.weight = this.inputValues.weight.trim() !== '';
