@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
+            <div class="w-full mt-6 sm:mt-0 px-6 sm:w-1/2 xl:w-1/3">
                 <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
                     <div class="p-3 rounded-full bg-indigo-600 bg-opacity-75">
                         <svg class="h-8 w-8 text-white" viewBox="0 0 28 30" fill="none"
@@ -136,7 +136,7 @@
                                     $total += $item->amount;
                                 @endphp
                             @endforeach
-                            {{ $total }}
+                            {{ $total }} $
                         </td>
 
                         <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">

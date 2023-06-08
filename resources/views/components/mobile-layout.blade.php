@@ -57,9 +57,9 @@
                     <a href="{{ $back }}">
                         <div
                             class="top-5 left-5 z-30 absolute w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white">
-            <span class="material-symbols-outlined absolute left-[35%] top-[25%]">
-                arrow_back_ios
-            </span>
+                            <span class="material-symbols-outlined absolute left-[35%] top-[25%]">
+                                arrow_back_ios
+                            </span>
                         </div>
                     </a>
                 @endif

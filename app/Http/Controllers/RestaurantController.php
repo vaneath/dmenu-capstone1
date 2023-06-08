@@ -101,14 +101,18 @@ class RestaurantController extends Controller
     }
 
     public function menu($restaurant){
-        if(Auth::check()){
+
+        if (\auth()->user()?->role == 'superadmin') {
+            $restaurant = Restaurant::find($restaurant);
+        }
+        if(\auth()->user()?->role == 'user'){
             $user = Auth::user();
             $restaurant = $user->restaurants()->where('name', $restaurant)->first();
         }
 
-        $sections = Section::where('restaurant_id', $restaurant->id)->get();
-        $sections = $sections->sortBy('sort_number');
+        $sections = Section::where('restaurant_id', $restaurant)->get()->sortBy('sort_number');
         $activeSectionPage = request()->query('active-section-id');
+
         if ($activeSectionPage != null && $sections->contains('id', $activeSectionPage)) {
             return view('admin.category.index', [
                 'restaurant' => $restaurant,

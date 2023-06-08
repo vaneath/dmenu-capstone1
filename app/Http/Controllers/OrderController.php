@@ -69,7 +69,8 @@ class OrderController extends Controller
 
         $order = Order::create([
             'restaurant_id' => $restaurant->id,
-            'id' => uniqid('do', true)
+            'user_id' => auth()->user()->id,
+            'id' => uniqid('do', true),
         ]);
 
         $orderItems = [];
@@ -117,7 +118,7 @@ class OrderController extends Controller
 
     public function order()
     {
-        $orders = Order::all()->sortByDesc('created_at');
+        $orders = Order::where('user_id', auth()->user()->id)->get()->sortByDesc('created_at');
 
         return view('admin.order.index', [
             'orders' => $orders,

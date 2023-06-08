@@ -16,9 +16,9 @@
                 <div class="flex justify-evenly">
                     <x-primary-button>Close</x-primary-button>
                     <a
-                        download="{{ $restaurant->name }}-qr-code.png"
+                        download="{{ $restaurant?->name }}-qr-code.png"
                         class="inline-flex items-center px-4 py-2 bg-yellow border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
-                        href="{{ $restaurant->qr_code_url }}"
+                        href="{{ $restaurant?->qr_code_url }}"
                     >
                         Download</a>
                 </div>
