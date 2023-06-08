@@ -34,10 +34,20 @@ class SuperAdminController extends Controller
 
     public function restaurants()
     {
-        $restaurants = Restaurant::withoutGlobalScope('user_id')->get();
+        $restaurants = Restaurant::all();
+        //count total income of each restaurant
+        foreach ($restaurants as $restaurant) {
+            $total = 0;
+            foreach ($restaurant->orders as $order) {
+                foreach ($order->orderItems as $orderItem) {
+                    $total += $orderItem->amount;
+                }
+            }
+        }
 
         return view('superadmin.restaurants', [
             'restaurants' => $restaurants,
+            'total' => $total ?? 0,
         ]);
     }
 

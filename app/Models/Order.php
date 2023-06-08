@@ -13,11 +13,16 @@ class Order extends Model
 
     public $incrementing = false;
 
-    protected $fillable = ['restaurant_id', 'id', 'table_no', 'is_paid', 'status', 'paid_at', 'tax'];
+    protected $fillable = ['user_id', 'restaurant_id', 'id', 'table_no', 'is_paid', 'status', 'paid_at', 'tax'];
 
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function orderItems()

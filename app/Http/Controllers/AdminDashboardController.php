@@ -11,10 +11,16 @@ class AdminDashboardController
 {
     public function __invoke()
     {
-        $restaurants = Restaurant::get('user_id');
+        $total = 0;
+
+        $restaurants = Restaurant::where('user_id', auth()->user()->id)->get();
         $users = User::all();
-        $orders = Order::all()->sortByDesc('created_at');
-        $total = OrderItem::all()->sum('amount');
+        $orders = Order::where('user_id', auth()->user()->id)->get()->sortByDesc('created_at');
+        foreach ($orders as $order) {
+            foreach ($order->orderItems as $orderItem) {
+                $total += $orderItem->amount;
+            }
+        }
 
         return view('admin.dashboard', [
             'restaurants' => $restaurants,

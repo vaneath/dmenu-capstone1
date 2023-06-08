@@ -1,15 +1,29 @@
 <x-head
 >
+    @auth
+        @if(auth()->id() == $restaurant->user_id)
+            <a href="{{ auth()->id() == $restaurant->user_id ? route('restaurant.index') : route('restaurant.menu', $restaurant->name) }}">
+                <div
+                    class="top-5 left-5 z-30 fixed w-14 h-14 rounded-full bg-yellow font-bold text-2xl text-white">
+                    <span class="material-symbols-outlined absolute left-[35%] top-[25%]">
+                        arrow_back_ios
+                    </span>
+                </div>
+            </a>
+        @endif
+    @endauth
     <body class="mx-auto bg-blue px-7 py-5 mb-8">
     <div class="max-w-[40rem] mx-auto bg-white py-5 px-8 relative">
         <h1 class="text-2xl font-bold text-center">Invoice</h1>
-        <div class="flex justify-between mt-10">
+        <div class="flex justify-between mt-10 gap-5">
             <div class="flex-col justify-center space-y-3 flex-1">
-                <img class="w-24 h-24 mx-auto rounded-lg" src="{{ asset('storage'). '/' . $restaurant->logo_url }}" alt="">
+                <div class="w-24 h-24 mx-auto">
+                    <img class="mx-auto rounded-lg" src="{{ asset('storage'). '/' . $restaurant->logo_url }}" alt="">
+                </div>
                 <p class="font-bold text-lg text-gray-700 text-center">{{ ucwords($restaurant->name) }}</p>
             </div>
             <div class="flex-col space-y-2">
-                <h3 class="text-xs font-semibold">Order Id: <span class="font-medium">{{ $order->id }}</span></h3>
+                <h3 class="text-xs font-semibold leading-relaxed">Order Id: <span class="font-medium">{{ $order->id }}</span></h3>
                 <p class="font-bold text-xs">
                     Date: <span class="font-medium">{{ $order->created_at->format('d-m-Y h:i a') }}</span>
                 </p>
@@ -23,18 +37,9 @@
                 <th>#</th>
                 <th class="pl-3">Name</th>
                 <th class="absolute left-[50%]">Qty</th>
-                <th class="absolute left-[70%]">UP</th>
-                <th class="absolute left-[85%]">Amount</th>
+                <th class="absolute left-[70%]">Per</th>
+                <th class="absolute left-[85%]">Price</th>
             </tr>
-            {{-- @for($i = 0; $i < 2; $i++)
-                <tr class="flex">
-                    <td>1.</td>
-                    <td class="pl-3">Hamburger is the best</td>
-                    <td class="absolute left-[50%]">33</td>
-                    <td class="absolute left-[70%]">$3</td>
-                    <td class="absolute left-[85%]">$99</td>
-                </tr>
-            @endfor --}}
             @foreach($orderItems as $orderItem)
                 <tr class="flex">
                     <td>{{ $loop->iteration }}.</td>
@@ -46,7 +51,17 @@
             @endforeach
         </table>
         <div class="flex justify-evenly items-center mt-12">
-            <img class="w-32 h-32" src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&choe=UTF-8&chl={{ $order->id }}" alt="">
+            <div class="px-5">
+                <div class="flex-col items-center justify-center rounded-lg">
+                    <p class="py-2 text-white text-sm text-center bg-red-600 rounded-t-lg">KHQR</p>
+                    <div class="border-2 border-red-600 rounded-b-lg">
+                        <div class="divide-y divide-dashed">
+                            <p class="mt-2 rounded-tr-[100px] text-center text-gray-500">{{ ucwords(auth()->user()->name) }}</p>
+                            <img class="mt-1 w-32 h-32 rounded-b-lg" src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&choe=UTF-8&chl={{ $order->id }}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="flex gap-5">
                 <div class="flex-col">
                     <h3>Subtotal: </h3>
