@@ -13,7 +13,17 @@ class ReviewController extends Controller
     public function index()
     {
         // list reviews
-        
+        $user_id = request()->query('user_id');
+        $reviews = Review::where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
+
+        $reviews->load('restaurant');
+        $reviews->load('order');
+
+        return response()->json([
+            'user_id' => $user_id,
+            'reviews' => $reviews,
+            'restaurants' => Restaurant::where('user_id', $user_id)->get(),
+        ]);
     }
 
     /**

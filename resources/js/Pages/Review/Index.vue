@@ -3,6 +3,7 @@
     import { useForm } from '@inertiajs/inertia-vue3';
     import { useReviewStore } from '@/Stores/ReviewStore.js';
     import { Link } from '@inertiajs/inertia-vue3';
+import MobileLayout from '@/Layouts/MobileLayout.vue';
 
     // define props
     const props = defineProps({

@@ -81,9 +81,16 @@ class ReviewController extends Controller
 
     // manage reviews
     public function manage(){
-        $reviews = Review::all();
+        $user = auth()->user();
+        $reviews = Review::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+
+        $reviews->load('restaurant');
+        $reviews->load('order');
+
         return Inertia::render('Review/Manage', [
+            'user_id' => $user->id,
             'reviews' => $reviews,
+            'restaurants' => Restaurant::where('user_id', $user->id)->get(),
         ]);
     }
 }
