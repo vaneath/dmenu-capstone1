@@ -71,7 +71,7 @@
                 </div>
 
                 <div class="mx-5">
-                    <h4 class="text-2xl font-semibold text-gray-700" v-text="'$' + props.statistics.avg_invoice_total.toFixed(2)"></h4>
+                    <h4 class="text-2xl font-semibold text-gray-700" v-text="props.statistics.avg_invoice_total ? '$' + props.statistics.avg_invoice_total.toFixed(2) : '$0'"></h4>
                     <div class="text-gray-500">Average Invoice Total</div>
                 </div>
             </div>

@@ -5,7 +5,6 @@
 /public/hot
 /public/storage
 /storage/*.key
-!/storage/app/default
 /vendor
 .env
 .env.backup
