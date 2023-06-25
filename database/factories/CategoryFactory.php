@@ -20,7 +20,7 @@ class CategoryFactory extends Factory
     {
         return [
             'name' => $this->faker->word(),
-            'bg_img_url' => $this->faker->imageUrl(),
+            'bg_img_url' => 'default/category.jpg',
             'is_available' => $this->faker->boolean(),
             'restaurant_id' => 1,
         ];

@@ -19,8 +19,8 @@ console.log(props.restaurant_bg);
                 <img class="bg-cover h-60 w-full text-white"
                     :src="`/storage/${restaurant_bg}`"
                     alt="">
-                <img class="bg-cover absolute bottom-[20%] left-[5%] w-20 h-20 rounded-full"
-                     :src="restaurant_logo !== null ? `/storage/${restaurant_logo}` : 'https://imgv3.fotor.com/images/blog-richtext-image/Burger-Logo.png'" alt="">
+                <img class="bg-cover bg-white absolute bottom-[20%] left-[5%] w-20 h-20 rounded-full"
+                     :src="`/storage/${restaurant_logo}`" alt="">
             </div>
             <div class="relative top-[-30px] overflow-hidden w-full bg-white rounded-xl">
                 <div class="mt-5 px-6">

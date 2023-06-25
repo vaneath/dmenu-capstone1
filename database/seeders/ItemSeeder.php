@@ -19,7 +19,7 @@ class ItemSeeder extends Seeder
             'name' => 'Burger',
             'description' => 'A delicious burger',
             'price' => 10.00,
-            'img_url' => 'https://via.placeholder.com/640x480.png/005544?text=expedita',
+            'img_url' => 'default/item.jpg',
             'category_id' => 1,
         ]);
     }

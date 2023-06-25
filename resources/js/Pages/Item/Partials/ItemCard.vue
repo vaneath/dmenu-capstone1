@@ -20,7 +20,7 @@ const props = defineProps({
 </script>
 <template>
     <div class="w-full mx-auto max-w-sm mb-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 relative">
-        <div 
+        <div
             v-if="props.can"
             class="absolute top-0 right-0 flex space-x-4 items-center px-6 py-2 bg-gray-900 rounded-lg z-10 mt-3 mr-3 aspect-w-2 aspect-h-1"
             @click.stop>
@@ -37,7 +37,7 @@ const props = defineProps({
                     @click="addToCartStore.items.find(item => item.id === props.item.id) ? addToCartStore.removeFromCart(props.item) : addToCartStore.addToCart(props.item)"
                     v-text="addToCartStore.items.find(item => item.id === props.item.id) ? 'Remove Item' : 'Add to cart'"
                     :class="addToCartStore.items.find(item => item.id === props.item.id) ? 'bg-red-500' : 'bg-yellow'"
-                    class="text-white bg-yellow hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    class="text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     ></button>
             </div>
         </div>
