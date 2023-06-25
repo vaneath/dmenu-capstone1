@@ -124,7 +124,7 @@ onUnmounted(() => {
                             <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
                         </div>
                     </td>
-                    <th scope="row" v-text="order.created_at" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" v-text="order.order_at" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     </th>
                     <td v-text="order.restaurant.name" class="px-6 py-4">
                     </td>
