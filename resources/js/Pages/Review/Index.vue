@@ -30,7 +30,7 @@
 
     let reviewStore = useReviewStore();
 
-    // submit the form
+    // Submit the form
     function submit() {
         let form = useForm({
             review: reviewStore.getReview(),
@@ -38,6 +38,7 @@
         form.post('/restaurants/' + props.restaurant_id + '/orders/' + props.order_id + '/reviews', {
             onFinish: () => {
                 console.log('Review created successfully!');
+                history.back();
             },
         });
     }

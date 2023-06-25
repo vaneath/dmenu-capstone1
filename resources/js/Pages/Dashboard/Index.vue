@@ -41,7 +41,7 @@ const fetchStatistics = async () => {
 };
 
 // start polling every 1 seconds using setInterval
-const pollInterval = setInterval(fetchStatistics, 1000);
+const pollInterval = setInterval(fetchStatistics, 2000);
 
 fetchStatistics();
 
