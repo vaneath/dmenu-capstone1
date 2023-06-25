@@ -48,6 +48,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
 
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+
+    // reviews
+    Route::get('/reviews', [ReviewController::class, 'manage'])->name('reviews.manage');
 });
 
     //restaurants.show

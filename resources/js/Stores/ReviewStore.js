@@ -21,6 +21,16 @@ export let useReviewStore = defineStore('review', {
         },
         getReview() {
             return this.review;
+        },
+        addItemsToReview(item_id, order_id) {
+            this.itemReviews.push(
+                {
+                    item_id: item_id,
+                    order_id: order_id,
+                    item_rating: 0,
+                    comment: null,
+                }
+            );
         }
     }
 });

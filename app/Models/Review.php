@@ -17,6 +17,7 @@ class Review extends Model
         'order_id',
         'overall_rating',
         'expires_at',
+        'comment',
     ];
 
     public function order()
