@@ -31,6 +31,12 @@ import SideBarLink from '@/Components/SideBarLink.vue';
                         name="Orders"
                     />
                     <SideBarLink
+                        :active="route().current('reviews.manage')"
+                        :href="route('reviews.manage')"
+                        icon="fa-star"
+                        name="Reviews"
+                    />
+                    <SideBarLink
                         :active="route().current('profile.edit')"
                         :href="route('profile.edit')"
                         icon="fa-users"

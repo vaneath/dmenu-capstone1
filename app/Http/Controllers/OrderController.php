@@ -18,12 +18,17 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('user_id', auth()->user()?->id)->get();
+        // get orders in the most recent order to oldest order, belong to a user
+        $restaurant_id = request()->query('restaurant_id');
+        $orders = Order::where('user_id', auth()->user()?->id)->orderBy('order_at', 'desc')->get();
+
         $orders->load('restaurant');
         $orders->load('orderItems');
 
         return Inertia::render('Order/Index',[
             'orders' => $orders,
+            'user_id' => auth()->user()?->id,
+            'restaurants' => Restaurant::where('user_id', auth()->user()?->id)->get(),
         ]);
     }
 

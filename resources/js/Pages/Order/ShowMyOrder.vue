@@ -19,11 +19,16 @@ const props = defineProps({
 let form = useForm({
     table_no: '',
     restaurant_id: props.restaurant.id,
-    items: addToCartStore.listCartItems(),
-    total: addToCartStore.getTotal(),
+    items: null,
+    total: null,
 });
 
 async function checkout() {
+
+    // add data to form
+    form.items = addToCartStore.listCartItems();
+    form.total = addToCartStore.getTotal();
+
     form.post(route('orders.store', {restaurant: 1}), {
         onSuccess: () => {
             addToCartStore.clearCart();
