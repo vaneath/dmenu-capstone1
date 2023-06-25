@@ -29,6 +29,7 @@ class ReviewController extends Controller
             return Inertia::render('Review/Unavailable', [
                 'error' => $error,
                 'go_back_uri' => route('orders.show', ['order' => $order->id]),
+                'restaurant_id' => $restaurant->id,
             ]);
         }
 
@@ -72,10 +73,17 @@ class ReviewController extends Controller
         $attributes['user_id'] = auth()->user()->id;
         $attributes['restaurant_id'] = $request->restaurant;
         $attributes['order_id'] = $request->order;
-        $attributes['review_expires_at'] = Carbon::now()->addDays(7);
 
         $review = Review::create($attributes);
 
         return redirect()->route('orders.show', ['order' => $request->order]);
+    }
+
+    // manage reviews
+    public function manage(){
+        $reviews = Review::all();
+        return Inertia::render('Review/Manage', [
+            'reviews' => $reviews,
+        ]);
     }
 }

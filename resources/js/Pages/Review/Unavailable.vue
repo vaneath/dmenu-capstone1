@@ -11,6 +11,10 @@
             type: String,
             required: true,
         },
+        restaurant_id: {
+            type: String,
+            required: true,
+        },
     });
 </script>
 
@@ -18,7 +22,7 @@
     <div
         class="flex flex-col items-center justify-center h-screen bg-gray-100 dark:bg-gray-900"
     >
-        <div class="flex flex-col items-center justify-center">
+        <div class="flex flex-col items-center justify-center text-center">
             <div class="flex flex-col items-center justify-center">
                 <h2 class="mt-4 text-3xl font-extrabold text-gray-900 dark:text-gray-100" v-text="props.error.message">
                 </h2>
@@ -36,6 +40,9 @@
             <div class="mt-6 space-x-4">
                 <Link :href="props.go_back_uri" class="px-4 py-2 font-semibold text-white bg-green-500 rounded-lg">
                     Go back
+                </Link>
+                <Link :href="'/restaurants/' + props.restaurant_id" class="px-4 py-2 font-semibold text-white bg-orange-500 rounded-lg">
+                    Order More
                 </Link>
             </div>
         </div>
