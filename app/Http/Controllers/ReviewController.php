@@ -62,15 +62,15 @@ class ReviewController extends Controller
         $order = Order::find($request->order);
 
         if($order->review()->exists()){
-            return 'Order already reviewed. <a href="' . route('orders.show', ['order' => $order->id]) . '">Go back to order</a>';
+            return redirect()->route('orders.show', ['order' => $order->id]);
         } elseif ($order->review_expires_at < Carbon::now()) {
-            return 'Order not yet eligible for review. <a href="' . route('orders.show', ['order' => $order->id]) . '">Go back to order</a>';
+            return redirect()->route('orders.show', ['order' => $order->id]);
         }
 
         $attributes = $request->review;
 
         $attributes['id'] = Str::random(10);
-        $attributes['user_id'] = auth()->user()->id;
+        $attributes['user_id'] = $order->user_id;
         $attributes['restaurant_id'] = $request->restaurant;
         $attributes['order_id'] = $request->order;
 
@@ -81,9 +81,16 @@ class ReviewController extends Controller
 
     // manage reviews
     public function manage(){
-        $reviews = Review::all();
+        $user = auth()->user();
+        $reviews = Review::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+
+        $reviews->load('restaurant');
+        $reviews->load('order');
+
         return Inertia::render('Review/Manage', [
+            'user_id' => $user->id,
             'reviews' => $reviews,
+            'restaurants' => Restaurant::where('user_id', $user->id)->get(),
         ]);
     }
 }

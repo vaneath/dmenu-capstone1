@@ -27,7 +27,7 @@ const fetchOrders = async () => {
 }
 
 // polling to /api/orders?order_id=props.orders[0].id
-const pollInterval = setInterval(fetchOrders, 1000);
+const pollInterval = setInterval(fetchOrders, 2000);
 
 fetchOrders();
 

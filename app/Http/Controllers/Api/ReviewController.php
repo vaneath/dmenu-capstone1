@@ -3,6 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Review;
+use App\Models\Restaurant;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Item;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -13,7 +19,17 @@ class ReviewController extends Controller
     public function index()
     {
         // list reviews
-        
+        $user_id = request()->query('user_id');
+        $reviews = Review::where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
+
+        $reviews->load('restaurant');
+        $reviews->load('order');
+
+        return response()->json([
+            'user_id' => $user_id,
+            'reviews' => $reviews,
+            'restaurants' => Restaurant::where('user_id', $user_id)->get(),
+        ]);
     }
 
     /**
