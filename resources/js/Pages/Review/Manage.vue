@@ -24,7 +24,7 @@ let selected_restaurant = ref(null);
 // polling 1 second
 const fetchReviews = async () => {
     try {
-        const response = await axios.get('/api/reviews' + props.user_id);
+        const response = await axios.get('/api/reviews?user_id=' + props.user_id);
         reviews.value = response.data.reviews;
     } catch (error) {
         console.error(error);
@@ -32,7 +32,7 @@ const fetchReviews = async () => {
 }
 
 // start polling every 1 seconds using setInterval
-const pollInterval = setInterval(fetchReviews, 1000);
+const pollInterval = setInterval(fetchReviews, 2000);
 
 fetchReviews();
 

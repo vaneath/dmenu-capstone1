@@ -3,7 +3,6 @@
     import { useForm } from '@inertiajs/inertia-vue3';
     import { useReviewStore } from '@/Stores/ReviewStore.js';
     import { Link } from '@inertiajs/inertia-vue3';
-import MobileLayout from '@/Layouts/MobileLayout.vue';
 
     // define props
     const props = defineProps({
@@ -31,7 +30,7 @@ import MobileLayout from '@/Layouts/MobileLayout.vue';
 
     let reviewStore = useReviewStore();
 
-    // submit the form
+    // Submit the form
     function submit() {
         let form = useForm({
             review: reviewStore.getReview(),
@@ -39,6 +38,7 @@ import MobileLayout from '@/Layouts/MobileLayout.vue';
         form.post('/restaurants/' + props.restaurant_id + '/orders/' + props.order_id + '/reviews', {
             onFinish: () => {
                 console.log('Review created successfully!');
+                history.back();
             },
         });
     }
