@@ -1,15 +1,44 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import {Link, router} from '@inertiajs/vue3';
-import {capitalize, watch} from "vue";
+import { Link, router} from '@inertiajs/vue3';
+import { capitalize, watch, onUnmounted, onMounted } from 'vue';
+import { ref } from 'vue';
+import axios from 'axios';
 
 const props = defineProps({
     orders: Array,
+    user_id: String,
+    restaurants: Array,
 });
 
-watch(props.orders.length, () =>{
-    router.get(route('orders.index'));
-}, {deep: true});
+let orders = ref(props.orders);
+let selected_restaurant = ref(null);
+
+// function to polling to /api/orders?order_id=props.orders[0].id
+const fetchOrders = async () => {
+    try {
+        let route = "/api/orders?user_id=" + props.user_id;
+        const response = await axios.get(route);
+        orders.value = response.data.orders;
+        console.log(route);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// polling to /api/orders?order_id=props.orders[0].id
+const pollInterval = setInterval(fetchOrders, 1000);
+
+fetchOrders();
+
+// stop polling when the component is unmounted
+onUnmounted(() => {
+    clearInterval(pollInterval);
+});
+
+// watch(props.orders.length, () =>{
+//     router.get(route('orders.index'));
+// }, {deep: true});
 
 </script>
 
@@ -18,6 +47,8 @@ watch(props.orders.length, () =>{
 
     <AuthenticatedLayout>
 
+        <p v-text="selected_restaurant"></p>
+
         <div class="relative overflow-x-auto sm:rounded-lg">
             <div>
                 <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio" class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" type="button">
@@ -25,6 +56,19 @@ watch(props.orders.length, () =>{
                     Last 30 days
                     <svg class="w-3 h-3 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
+
+                <!-- filter by restaurant -->
+                <div>
+                    <select id="filter-by-restaurant" v-model="selected_restaurant" class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" type="button">
+                        <!-- place holder text All -->
+                        <option value="" selected>All</option>
+                        <template v-for="restaurant in props.restaurants">
+                        <option v-text="restaurant.name" :value="restaurant.id"></option>
+                        </template>
+                    </select>
+                </div>
+
+
                 <!-- Dropdown menu -->
                 <div id="dropdownRadio" class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(522.5px, 3847.5px, 0px);">
                     <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioButton">
@@ -72,8 +116,8 @@ watch(props.orders.length, () =>{
                     </th>
                 </tr>
                 </thead>
-                <tbody v-for="order in props.orders">
-                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tbody v-for="order in orders">
+                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"  v-if="order.restaurant_id === selected_restaurant || selected_restaurant === null || selected_restaurant === ''">
                     <td class="w-4 p-4">
                         <div class="flex items-center">
                             <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">

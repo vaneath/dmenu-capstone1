@@ -30,4 +30,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('orders/{order}/qr-pay', [OrderController::class, 'qrPay'])->name('orders.qr-pay')->name('orders.qr-pay');
     // reviews
     Route::resource('reviews', ReviewController::class);
+    // orders name api.orders.index
+    Route::get('orders', [OrderController::class, 'index'])->name('api.orders.index');
 // });
