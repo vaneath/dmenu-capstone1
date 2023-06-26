@@ -40,7 +40,7 @@
         form.post('/restaurants/' + props.restaurant_id + '/orders/' + props.order_id + '/reviews', {
             onFinish: () => {
                 console.log('Review created successfully!');
-                history.back();
+                // history.back();
             },
         });
     }
