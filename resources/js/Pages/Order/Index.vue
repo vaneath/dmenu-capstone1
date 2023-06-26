@@ -46,8 +46,10 @@ onUnmounted(() => {
     <Head title="Orders" />
 
     <AuthenticatedLayout>
+
         <div class="relative overflow-x-auto sm:rounded-lg">
             <div>
+
                 <!-- filter by restaurant -->
                 <div>
                     <select id="filter-by-restaurant" v-model="selected_restaurant" class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" type="button">
