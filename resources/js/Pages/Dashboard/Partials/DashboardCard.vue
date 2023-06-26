@@ -81,7 +81,7 @@
     <h2 class="text-lg font-bold mt-5">By Restaurant</h2>
     <div class="flex flex-wrap mt-5 gap-5">
         <template v-for="(total, name) in props.statistics.avg_invoice_total_by_restaurant" :key="name">
-            <div class="flex px-6 py-4 w-52 gap-3 bg-white rounded-md">
+            <div class="flex px-6 py-4 w-72 gap-3 bg-white rounded-md">
                 <img class="w-20 h-20"
                      :src="`https://api.multiavatar.com/${name}.png?apiKey=HyN9v0JeFp2imV`"
                      alt="">

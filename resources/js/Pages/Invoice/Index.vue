@@ -1,7 +1,8 @@
 <script setup>
-import { defineProps, ref, onMounted, onUnmounted } from 'vue';
+import { defineProps, ref, onMounted, onUnmounted, watch } from 'vue';
 import axios from 'axios';
 import {useTableStore} from "@/Stores/TableStore.js";
+import Swal from 'sweetalert2';
 
 const props = defineProps({
     order: {
@@ -30,11 +31,24 @@ const pollInterval = setInterval(fetchPaymentStatus, 2000);
 
 fetchPaymentStatus();
 
+watch(payment_status, () => {
+    if (payment_status.value === 'paid') {
+        Swal.fire({
+            icon: 'success',
+            color: '#fff',
+            title: 'Payment received!',
+            confirmButtonText: 'Cool',
+            confirmButtonColor: '#E4A11B',
+            timer: 3000,
+            background: '#1E2836',
+        });
+    }
+});
+
 // stop polling when the component is unmounted
 onUnmounted(() => {
     clearInterval(pollInterval);
 });
-
 
 </script>
 
@@ -112,7 +126,7 @@ onUnmounted(() => {
                     <div class="mt-5">
                         <div class="flex justify-center items-end gap-x-2">
                             <span class="block text-xs uppercase text-gray-500">Payment status:</span>
-                            <span :class="props.order.payment_status === 'paid' ? 'text-green-500' : 'text-orange-200'" class="block text-sm uppercase" v-text="payment_status"></span>
+                            <span :class="payment_status === 'paid' ? 'text-green-500' : 'text-orange-200'" class="block text-sm uppercase" v-text="payment_status"></span>
                         </div>
                         <img class="mt-3 w-32 h-32 mx-auto" :src="props.order.invoice_qr" alt="">
                     </div>

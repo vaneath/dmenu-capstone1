@@ -52,11 +52,7 @@ class RestaurantController extends Controller
             'district' => 'required',
         ]);
 
-        if($attributes['name'] == 'Nham'){
-            $attributes['id'] = 'FOJjxZ1QaZ';
-        } else{
-            $attributes['id'] = Str::random(10);
-        }
+        $attributes['id'] = Str::random(10);
         $attributes['user_id'] = Auth::user()->id;
         $attributes['qr_code_url'] = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&choe=UTF-8&chl=' . $_SERVER['HTTP_ORIGIN'] . '/restaurants/' . $attributes['id'];
         $attributes['bg_img_url'] = $request->file('bg_img_url')->store('restaurants/' . $request->name . '/background');
