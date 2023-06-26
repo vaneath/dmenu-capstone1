@@ -28,13 +28,15 @@
         },
     });
 
+    let form = useForm({
+        review: null,
+    });
+
     let reviewStore = useReviewStore();
 
     // Submit the form
     function submit() {
-        let form = useForm({
-            review: reviewStore.getReview(),
-        });
+        form.review = reviewStore.getReview();
         form.post('/restaurants/' + props.restaurant_id + '/orders/' + props.order_id + '/reviews', {
             onFinish: () => {
                 console.log('Review created successfully!');
@@ -45,8 +47,6 @@
 </script>
 
 <template>
-  <p v-text="reviewStore"></p>
-
   <div class="container mx-auto px-4 py-4 dark-mode:text-white">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">Leave A Review</h2>
     <form @submit.prevent="submit" class="space-y-4">
