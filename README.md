@@ -35,18 +35,24 @@ Go into .env and edit your **DB_USERNAME** and **DB_PASSWORD**
 composer install
 npm install
 ```
-### STEP 4: Migrate database
+
+### STEP 4: Link to Public Storage
+```s
+php artisan storage:link
+```
+
+### STEP 5: Migrate database
 ```s
 php artisan migrate
 php artisan db:seed
 ```
 
-### STEP 5: Generate app key
+### STEP 6: Generate app key
 ```s
 php artisan key:generate
 ```
 
-### STEP 6: Run DEMNU!!!
+### STEP 7: Run DEMNU!!!
 
 You have to open 2 terminals:
 
